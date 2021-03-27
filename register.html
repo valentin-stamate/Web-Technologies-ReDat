@@ -5,9 +5,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
+    <link rel="stylesheet" href="style/style/global.css">
+    <link rel="stylesheet" href="style/layout/logo.css">
+    <link rel="stylesheet" href="style/layout/authentification.css" >
 </head>
-<body class="root_layout">
-    
+<body>
+    <div class="root-layout">
+
+        <div class="left-side">
+            <div id="logo"></div>
+        </div>
+
+        <div class="right-side">
+
+            <div class="auth-info">Already have an account, <a href="#">LogIn</a> instead.</div>
+
+           <div class="auth-component">
+               <div class="auth-title">Create account</div>
+
+               <br>
+
+               <form class="register-inputs">
+
+                   <div class="input-component">
+                        <label for="register-username-field" class="input-label">Username</label>
+                        <input type="text" name="register-username" id="register-username-field" class="input-field" minlength="8" required>
+                   </div>
+
+                   <div class="input-component">
+                       <label for="register-email-field" class="input-label">Email</label>
+                       <input type="email" name="register-email" id="register-email-field" class="input-field" minlength="10" required>
+                   </div>
+
+                   <div class="register-password">
+                       <div class="input-component">
+                           <label for="register-password-field" class="input-label">Password</label>
+                           <input type="password" name="register-email" id="register-password-field" class="input-field" minlength="8" required>
+                       </div>
+
+                       <div class="input-component">
+                           <label for="register-repassword-field" class="input-label">Conform</label>
+                           <input type="password" name="register-email" id="register-repassword-field" class="input-field" minlength="8" required>
+                       </div>
+                   </div>
+
+                   <br>
+
+                   <button type="submit" class="button-primary">Create Account</button>
+
+               </form>
+
+           </div>
+
+        </div>
+
+    </div>
 </body>
 </html>

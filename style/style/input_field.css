@@ -1,0 +1,26 @@
+.input-component {
+    margin-top: 1rem;
+}
+
+.input-label {
+    font-size: 1rem;
+    color: #646464;
+}
+
+.input-field {
+    width: 100%;
+    box-sizing:border-box;
+    padding: 24px 20px;
+    font-size: 1rem;
+    color: #646464;
+    border-radius: 8px;
+    font-weight: bold;
+    margin: 8px 0;
+    height: 2rem;
+    display: inline-block;
+    border: 1px solid #ccc;
+}
+
+.input-field:focus {
+    outline: none;
+}

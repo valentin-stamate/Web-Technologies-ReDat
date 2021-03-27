@@ -1,0 +1,21 @@
+.button-primary {
+    background-color: #FF4500;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1rem;
+    margin: 8px 4px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: transform ease-in-out 0.3s;
+}
+
+.button-primary:hover {
+    transform: scale(1.05, 1.05);
+}
+
+.button-primary:focus {
+    outline: none;
+}
