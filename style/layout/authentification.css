@@ -9,7 +9,7 @@ body {
 .root-layout {
   position: relative;
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 4fr 3fr;
   box-sizing:border-box;
   height: 100vh;
 }
@@ -18,8 +18,8 @@ body {
   grid-column: 1 / 2;
   grid-row: 1;
   padding: 2rem;
-  background: url("https://svgsilh.com/svg/2120014-ff5722.svg") no-repeat;
-  background-size:100% 100%;
+  background: url("https://cdn.dribbble.com/users/1803663/screenshots/14762933/media/d22e6a9bb1e4ec8963842cff3907e8be.jpg") no-repeat;
+  background-size:auto 100%;
 }
 
 .right-side {
