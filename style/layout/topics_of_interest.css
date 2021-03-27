@@ -1,0 +1,71 @@
+@import "../style/input_field.css";
+@import "../layout/logo.css";
+#upper-bar {
+    display: grid;
+}
+
+#user-profile {
+    text-align: right;
+    align-self: center;
+}
+
+.user-preferences {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 16px 0 16px 0;
+}
+
+#middle-bar {
+    display: grid;
+    justify-content: center;
+
+}
+
+#middle-bar > div {
+    max-width: 500px;
+}
+
+#search-bar {
+    width: 500px;
+    border-radius: 5px;
+    height: 40px;
+    font-size: 18px;
+    padding-left: 8px;
+}
+
+div > h1 {
+    text-align: center;
+    font-size: 60px;
+}
+
+.user-preferences > div {
+    background: #F36F21;
+    border: black;
+    flex: 1 1 auto;
+    margin: 8px;
+    text-align: justify-all;
+    max-width: fit-content;
+    padding: 8px;
+    border-radius: 25px;
+    font-size: 18px;
+}
+
+#start-exploring {
+    height: fit-content;
+    width: fit-content;
+    justify-self: center;
+    font-size: 30px;
+}
+
+.user-preferences > div > button {
+    border-radius: 55px;
+    margin-bottom: 2px;
+    background: #cf5c08;
+    border: none;
+    justify-self: center;
+    outline: none;
+}
+
+.user-preferences > div > button:active {
+    background: #00000020;
+}
