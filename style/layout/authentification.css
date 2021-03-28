@@ -39,6 +39,7 @@ body {
   grid-row: 2 / 3;
   grid-column: 1;
   width: 560px;
+  height: fit-content;
   padding: 2rem;
   justify-self: center;
   background-color: var(--post-background);

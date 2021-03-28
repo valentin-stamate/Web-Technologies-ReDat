@@ -1,5 +1,6 @@
+
 .button-primary {
-    background-color: #FF4500;
+    background-color: var(--color-primary);
     border: none;
     color: white;
     padding: 15px 32px;
@@ -8,12 +9,12 @@
     font-size: 1rem;
     margin: 8px 4px;
     cursor: pointer;
-    border-radius: 6px;
-    transition: transform ease-in-out 0.3s;
+    border-radius: var(--button-margin-radius);
+    transition: background-color ease-in-out 0.3s;
 }
 
 .button-primary:hover {
-    transform: scale(1.05, 1.05);
+    background-color: var(--color-primary-selected);
 }
 
 .button-primary:focus {
