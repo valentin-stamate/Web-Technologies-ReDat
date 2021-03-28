@@ -1,5 +1,6 @@
 @import "../style/input_field.css";
 @import "../style/button.css";
+@import "../style/theme.css";
 
 body {
   padding: 0;
@@ -9,7 +10,7 @@ body {
 .root-layout {
   position: relative;
   display: grid;
-  grid-template-columns: 4fr 3fr;
+  grid-template-columns: 1fr 1fr;
   box-sizing:border-box;
   height: 100vh;
 }
@@ -40,7 +41,8 @@ body {
   width: 560px;
   padding: 2rem;
   justify-self: center;
-  background-color: white;
+  background-color: var(--post-background);
+  border-radius: var(--post-border-radius);
 }
 
 .register-inputs {

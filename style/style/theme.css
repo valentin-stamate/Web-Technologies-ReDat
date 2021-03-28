@@ -1,0 +1,21 @@
+:root {
+    --post-border-radius: 8px;
+}
+
+.theme-light {
+    --background-color: #fff;
+    --font-color: #3e3e3e;
+    --post-background: #ffffff;
+
+    --input-field-label-color: #646464;
+    --input-field-background-color: #ffffff;
+}
+
+.theme-dark {
+    --background-color: #030303;
+    --font-color: #D2D5D7;
+    --post-background: #1A1A1B;
+    --input-field-label-color: #b7b7b7;
+    --input-field-background-color: #232324;
+}
+
