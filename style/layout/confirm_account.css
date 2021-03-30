@@ -1,0 +1,47 @@
+@import "../style/input_field.css";
+@import "../layout/logo.css";
+@import "../style/button.css";
+@import "../style/global.css";
+@import "../style/theme.css";
+
+body {
+    padding: 0;
+    margin: 0;
+    background: url("https://cdn.dribbble.com/users/1803663/screenshots/14762933/media/d22e6a9bb1e4ec8963842cff3907e8be.jpg") no-repeat fixed;
+    box-sizing: border-box;
+    height: 100vh;
+    background-size: 100vw 100vh;
+}
+
+#upper-bar {
+    display: grid;
+    position: relative;
+    grid-template-columns: 1fr 1fr;
+    box-sizing: border-box;
+}
+
+#logo {
+    padding: 2rem;
+}
+
+#middle-bar {
+    display: grid;
+    justify-content: center;
+
+}
+
+.component {
+    background-color: var(--post-background);
+    border-radius: var(--post-border-radius);
+    width: 560px;
+    padding: 2rem;
+}
+
+div > h1 {
+    text-align: center;
+    font-size: 60px;
+}
+
+div > p {
+    text-align: left;
+}
