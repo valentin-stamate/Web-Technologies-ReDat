@@ -1,6 +1,4 @@
 @import "../style/input_field.css";
-@import "../style/button.css";
-@import "../style/theme.css";
 
 body {
   padding: 0;
@@ -48,10 +46,6 @@ body {
 
 .authentification-inputs {
   padding: 1.5rem;
-}
-
-.auth-title {
-  font-size: 1.5rem;
 }
 
 .register-password {

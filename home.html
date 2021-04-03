@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>Home</title>
+    <link rel="stylesheet" href="style/style/global.css">
+    <link rel="stylesheet" href="style/layout/logo.css">
+    <link rel="stylesheet" href="style/layout/home.css" >
+    <link rel="stylesheet" href="style/layout/top_bar.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="root-layout">
+        <div class="top-bar-component">
+            <!-- TODO when integrating the backend make top-bar as a separate template -->
+            <!-- TOP-BAR Template -->
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <img id="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
+
+                    <div><b>Home</b></div>
+
+                    <div><b>Settings</b></div>
+                </div>
+
+                <div class="top-bar-right">
+                    <b>Logout</b>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="information-component">
+            <div class="information-component-content">Lorem ipsum dolor sit amet</div>
+        </div>
+
+        <div class="subreddits-component">
+            <div class="subreddits-wrapper">
+                <div class="subreddits-wrapper-top">
+                    <div class="title-1"><b>Top Subreddits</b></div>
+                    <div>
+                        <button class="icon-button-primary"><span class="material-icons">add</span></button>
+                    </div>
+                </div>
+
+                <div class="subreddits-wrapper-list">
+                    <!-- Subreddit Template -->
+                    <div class="subreddits-container">
+                        <div class="subreddits-container-top">
+                            <div class="subreddits-container-name"><b>/Subreddit Name</b></div>
+
+                            <div class="subreddits-container-categories">
+                                <button class="chip">Category A</button>
+
+                                <button class="chip">Category B</button>
+
+                                <button class="chip">Category C</button>
+                            </div>
+
+                            <div class="subreddits-container-notification">
+                                <span class="material-icons flex-right">notifications_active</span>
+                                <div>Users: 432</div>
+                            </div>
+                        </div>
+
+
+                        <div class="subreddits-container-statistics">
+
+                        </div>
+                        <div class="subreddits-container-bottom">
+                            <button class="chip">Topic A</button>
+                            <button class="chip">Topic B</button>
+                            <button class="chip">Topic C</button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/toggle_theme.js"></script>
+</body>
+</html>

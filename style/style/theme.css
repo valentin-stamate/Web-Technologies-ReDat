@@ -2,6 +2,7 @@
     color-scheme: light dark;
     --post-border-radius: 8px;
     --button-margin-radius: 6px;
+    --topbar-height: 256px;
 }
 
 .theme-light {
@@ -10,7 +11,12 @@
 
     --background-color: #fff;
     --font-color: #3e3e3e;
-    --post-background: #ffffff;
+    --post-background: #e7e7e7;
+
+    --topbar-font-color: #0a0a0a;
+
+    /* TODO improve color organization */
+    --statistics-background-color: #ffffff;
 
     --input-field: 1px solid #d0d0d0;
     --input-field-selected: 1px solid #bfbfbf;
@@ -26,6 +32,10 @@
     --background-color: #030303;
     --font-color: #D2D5D7;
     --post-background: #1a1a1b;
+
+    --topbar-font-color: #323232;
+
+    --statistics-background-color: #090909;
 
     --input-field: 1px solid #515151;
     --input-field-selected: 1px solid #3e3e3e;

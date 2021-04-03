@@ -1,9 +1,13 @@
 @import "theme.css";
+@import "button.css";
+@import "font.css";
 
 body {
     font-family: 'Roboto', sans-serif;
     background-color: var(--background-color);
     color: var(--font-color);
+    padding: 0;
+    margin: 0;
 }
 
 a {
