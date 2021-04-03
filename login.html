@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>Login</title>
+    <link rel="stylesheet" href="style/style/global.css">
+    <link rel="stylesheet" href="style/layout/logo.css">
+    <link rel="stylesheet" href="style/layout/authentification.css" >
+</head>
+<body>
+    <div class="root-layout">
+
+        <div class="left-side">
+            <img id="logo" src="resources/logo.svg" alt="logo">
+        </div>
+
+        <div class="right-side">
+
+            <div class="auth-info">Don't have an account, <a href="register.html">Register</a> instead.</div>
+
+           <div class="auth-component">
+               <div class="auth-title">Login</div>
+
+               <br>
+
+               <form class="authentification-inputs">
+
+                   <div class="input-component">
+                        <label for="register-username-field" class="input-label">Username or Email</label>
+                        <input type="text" name="register-username" id="register-username-field" class="input-field" minlength="8" required>
+                   </div>
+
+                   <div class="input-component">
+                       <label for="register-password-field" class="input-label">Password</label>
+                       <input type="password" name="register-email" id="register-password-field" class="input-field" minlength="8" required>
+                   </div>
+
+                   <br>
+
+                   <button type="submit" class="button-primary">Login</button>
+
+               </form>
+
+           </div>
+
+        </div>
+
+    </div>
+
+    <script src="js/toggle_theme.js"></script>
+
+</body>
+</html>
