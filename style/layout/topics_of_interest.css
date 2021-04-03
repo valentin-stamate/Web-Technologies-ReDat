@@ -1,12 +1,32 @@
 @import "../style/input_field.css";
 @import "../layout/logo.css";
-#upper-bar {
-    display: grid;
+@import "../style/button.css";
+@import "../style/global.css";
+@import "../style/theme.css";
+
+body {
+    padding: 0;
+    margin: 0;
+    background: url("https://cdn.dribbble.com/users/1803663/screenshots/14762933/media/d22e6a9bb1e4ec8963842cff3907e8be.jpg") no-repeat fixed;
+    background-size: 100vw 100vh;
+    box-sizing: border-box;
+    height: 100vh;
 }
 
-#user-profile {
-    text-align: right;
-    align-self: center;
+#upper-bar {
+    display: grid;
+    position: relative;
+    grid-template-columns: 1fr 1fr;
+    box-sizing: border-box;
+}
+
+#logo {
+    padding: 2rem;
+}
+
+.user-info {
+    justify-self: right;
+    padding: 2rem;
 }
 
 .user-preferences {
@@ -19,6 +39,13 @@
     display: grid;
     justify-content: center;
 
+}
+
+.preferences-component {
+    background-color: var(--post-background);
+    border-radius: var(--post-border-radius);
+    width: 560px;
+    padding: 2rem;
 }
 
 #middle-bar > div {
@@ -39,7 +66,7 @@ div > h1 {
 }
 
 .user-preferences > div {
-    background: #F36F21;
+    background: #FF4A00;
     border: black;
     flex: 1 1 auto;
     margin: 8px;
@@ -50,22 +77,27 @@ div > h1 {
     font-size: 18px;
 }
 
-#start-exploring {
-    height: fit-content;
-    width: fit-content;
-    justify-self: center;
-    font-size: 30px;
+.right-side {
+    text-align: right;
+    display: grid;
+    grid-template-rows: 72px 1fr;
+    grid-column: 2 / 3;
+    grid-row: 1;
+    padding: 2rem;
 }
 
 .user-preferences > div > button {
+    background: #e04201;
+    border: none;
+    color: white;
+    text-align: center;
+    display: inline-block;
     border-radius: 55px;
     margin-bottom: 2px;
-    background: #cf5c08;
-    border: none;
     justify-self: center;
     outline: none;
 }
 
 .user-preferences > div > button:active {
-    background: #00000020;
+    background: #00000040;
 }
