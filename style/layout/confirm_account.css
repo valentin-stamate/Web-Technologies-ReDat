@@ -24,24 +24,40 @@ body {
     padding: 2rem;
 }
 
+.component > div {
+    display: grid;
+    justify-content: center;
+}
+
+.input-field {
+    text-align: center;
+    width: auto;
+}
+
 #middle-bar {
     display: grid;
     justify-content: center;
-
 }
 
 .component {
     background-color: var(--post-background);
     border-radius: var(--post-border-radius);
-    width: 560px;
+    justify-items: center;
+    width: 500px;
     padding: 2rem;
 }
 
 div > h1 {
     text-align: center;
-    font-size: 60px;
+    width: auto;
 }
 
 div > p {
     text-align: left;
+}
+
+@media (max-width: 600px) {
+    .component {
+        width: 70vw;
+    }
 }

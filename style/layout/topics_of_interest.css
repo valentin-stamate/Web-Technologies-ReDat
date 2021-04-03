@@ -38,18 +38,18 @@ body {
 #middle-bar {
     display: grid;
     justify-content: center;
-
 }
 
 .preferences-component {
     background-color: var(--post-background);
     border-radius: var(--post-border-radius);
-    width: 560px;
+    justify-self: center;
+    width: 500px;
     padding: 2rem;
 }
 
-#middle-bar > div {
-    max-width: 500px;
+h1 {
+    text-align: center;
 }
 
 #search-bar {
@@ -60,17 +60,12 @@ body {
     padding-left: 8px;
 }
 
-div > h1 {
-    text-align: center;
-    font-size: 60px;
-}
-
 .user-preferences > div {
     background: #FF4A00;
     border: black;
     flex: 1 1 auto;
     margin: 8px;
-    text-align: justify-all;
+    text-align: center;
     max-width: fit-content;
     padding: 8px;
     border-radius: 25px;
@@ -100,4 +95,10 @@ div > h1 {
 
 .user-preferences > div > button:active {
     background: #00000040;
+}
+
+@media (max-width: 600px) {
+    .preferences-component {
+        width: 70vw;
+    }
 }
