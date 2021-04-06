@@ -72,15 +72,6 @@ h1 {
     font-size: 18px;
 }
 
-.right-side {
-    text-align: right;
-    display: grid;
-    grid-template-rows: 72px 1fr;
-    grid-column: 2 / 3;
-    grid-row: 1;
-    padding: 2rem;
-}
-
 .user-preferences > div > button {
     background: #e04201;
     border: none;
