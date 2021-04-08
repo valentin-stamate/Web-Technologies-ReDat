@@ -8,17 +8,26 @@
     <link rel="stylesheet" href=style/layout/user_profile.css>
 </head>
 <body>
-<div id="upper-bar">
+<header id="upper-bar">
     <div id="logo"><img src="resources/logo.svg" alt="Logo"></div>
     <div class="user-info">Hi there, <a href="#">username</a>!</div>
-</div>
+</header>
 <div id="middle-bar">
-    <div class="profile-component">
-        <img id="default-user" src="resources/user.jpg" alt="default user">
-        <p>username</p>
-        <p>adress@email.com</p>
+    <div class="user-profile">
+        <div class="options">
+            <label id="general">General</label>
+            <label id="topics">Topics</label>
+            <label id="appearance">Appearance</label>
+
+        </div>
+        <div id="profile-component">
+            <img id="default-user" src="resources/user.jpg" alt="default user">
+            <p>username</p>
+            <p>adress@email.com</p>
+        </div>
     </div>
 </div>
 <script src="js/toggle_theme.js"></script>
+<script src="js/settings_options.js"></script>
 </body>
 </html>
