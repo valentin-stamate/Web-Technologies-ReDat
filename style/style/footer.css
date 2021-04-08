@@ -1,0 +1,13 @@
+.footer {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 300px;
+    background: var(--post-background);
+}
+
+.dev {
+    grid-column: 1;
+    box-sizing: border-box;
+    padding: 2rem;
+}

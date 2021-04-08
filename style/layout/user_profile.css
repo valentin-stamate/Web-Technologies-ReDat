@@ -5,10 +5,7 @@
 @import "../style/theme.css";
 @import "../style/settings_option.css";
 @import "../style/font.css";
-
-.logo {
-    padding: 2rem;
-}
+@import "../style/footer.css";
 
 body {
     padding: 0;
@@ -26,9 +23,13 @@ body {
     box-sizing: border-box;
 }
 
+.logo {
+    padding: 2rem;
+}
+
 .options {
-    position: absolute;
-    display: grid;
+    display: flex;
+    flex-flow: column;
     row-gap: 10px;
     grid-column: 1;
 }
@@ -43,6 +44,7 @@ body {
 
 .user-profile {
     display: grid;
+    grid-template-columns:  1fr 2fr;
     column-gap: 1rem;
     background-color: var(--post-background);
     border-radius: var(--post-border-radius);
@@ -51,9 +53,6 @@ body {
     padding: 2rem;
 }
 
-#logo {
-    padding: 2rem;
-}
 
 .user-info {
     justify-self: right;
@@ -66,20 +65,75 @@ body {
     min-height: 400px;
 }
 
-#default-user {
-    height: 180px;
+#user-picture {
+    height: 150px;
     border-radius: 10%;
+    justify-self: center;
 }
 
 #profile-component {
     grid-column: 2;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#appearance-option, #topics-option, #general-option {
+    display: none;
+}
+
+.user-preferences {
     display: flex;
-    flex-flow: column;
+    flex-wrap: wrap;
+    padding: 16px 0 16px 0;
+}
+
+.user-preferences > div {
+    background: #FF4A00;
+    border: black;
+    flex: 1 1 auto;
+    margin: 8px;
+    text-align: center;
+    max-width: fit-content;
+    padding: 8px;
+    border-radius: 25px;
+    font-size: 12px;
+}
+
+.user-preferences > div > button {
+    background: #e04201;
+    border: none;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    border-radius: 55px;
+    margin-bottom: 2px;
     justify-self: center;
+    outline: none;
+}
+
+.user-preferences > div > button:active {
+    background: #00000040;
 }
 
 @media (max-width: 600px) {
     .user-profile {
         width: 70vw;
+        grid-template-columns: 0;
+        grid-template-rows: 1fr 2fr;
+        row-gap: 10px;
     }
+
+    .options {
+        row-gap: 10px;
+        grid-row: 1;
+        column-gap: 0;
+    }
+
+    #profile-component {
+        row-gap: 10px;
+        grid-row: 2;
+        column-gap: 0;
+        justify-content: center;
+    }
+
 }

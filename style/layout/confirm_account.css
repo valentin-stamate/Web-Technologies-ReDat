@@ -20,13 +20,13 @@ body {
     box-sizing: border-box;
 }
 
-#logo {
-    padding: 2rem;
-}
-
 .component > div {
     display: grid;
     justify-content: center;
+}
+
+.logo {
+    padding: 2rem;
 }
 
 .input-field {
