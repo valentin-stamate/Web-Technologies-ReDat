@@ -18,6 +18,11 @@ function general() {
 function appearance() {
     setCurrentMenu("appearance-option");
     currentSettingMenu.innerHTML = document.getElementById("appearance-option").innerHTML;
+
+    toggleThemeButton = document.getElementById("btn-toggle-theme");
+    toggleThemeButton.addEventListener('click', function () {
+        toggleTheme();
+    });
 }
 
 function topics() {

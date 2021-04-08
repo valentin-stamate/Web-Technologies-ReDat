@@ -5,7 +5,7 @@
     text-align: center;
     display: inline-block;
     margin: 8px 4px;
-    padding: 6px;
+    padding: 12px;
     cursor: pointer;
     border-radius: var(--button-margin-radius);
     transition: background-color ease-in-out 0.3s;
@@ -16,6 +16,9 @@
 }
 
 /* Small Button */
+.button-small {
+    padding: 6px;
+}
 
 /* Large Button */
 .button-large {

@@ -3,10 +3,23 @@ function setTheme(themeName) {
     document.documentElement.className = themeName + " colors";
 }
 
-const toggleThemeButton = document.getElementById("btn-toggle-theme");
-toggleThemeButton.addEventListener('click', function () {
-    toggleTheme();
-});
+function checkTheme() {
+    if (localStorage.getItem('theme') === 'theme-dark') {
+        setTheme('theme-dark');
+    } else {
+        setTheme('theme-light');
+    }
+}
+
+checkTheme();
+
+let toggleThemeButton = document.getElementById("btn-toggle-theme");
+
+if (toggleThemeButton !== null) {
+    toggleThemeButton.addEventListener('click', function () {
+        toggleTheme();
+    });
+}
 
 function toggleTheme() {
     if (localStorage.getItem('theme') === 'theme-dark'){
@@ -16,10 +29,3 @@ function toggleTheme() {
     }
 }
 
-(function () {
-    if (localStorage.getItem('theme') === 'theme-dark') {
-        setTheme('theme-dark');
-    } else {
-        setTheme('theme-light');
-    }
-})();
