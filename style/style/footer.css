@@ -1,15 +1,22 @@
 .footer {
+    grid-column: 1/auto;
     margin-top: 4rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    height: 300px;
+    max-height: 200px;
     background: var(--post-background);
     text-align: center;
 }
 
+.footer > h2 {
+    grid-column: 3;
+}
+
 .dev {
-    grid-column: 1/2;
+    grid-column: 3;
     display: inline-grid;
+    column-gap: 20px;
+    row-gap: 20px;
     grid-template-columns: 1fr 1fr;
     box-sizing: border-box;
     padding: 2rem;
@@ -19,12 +26,28 @@
     grid-column: 1;
     grid-row: 1;
     box-sizing: border-box;
-    padding: 2rem;
 }
 
 .dev-two {
     grid-column: 2;
     grid-row: 1;
     box-sizing: border-box;
-    padding: 2rem;
+}
+
+.dev-one-info, .dev-one-info {
+    grid-row: 2;
+    grid-column: 1;
+}
+
+.dev-one-info {
+    grid-column: 2;
+}
+.git{
+    height: 20px;
+}
+@media (max-width: 600px) {
+    .dev-one, .dev-two, .dev-one-info, .dev-two-info {
+        font-size: 11px;
+    }
+
 }

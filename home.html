@@ -10,91 +10,105 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-    <div class="root-layout">
-        <div class="top-bar-component">
-            <!-- TODO when integrating the backend make top-bar as a separate template -->
-            <!-- TOP-BAR Template -->
-            <div class="top-bar">
-                <!-- Normal TopBar -->
-                <div class="top-bar-navigation">
-                    <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
-                    <div><a href="home.html"><b>Home</b></a></div>
-                    <div><a href="user_profile.html"><b>Settings</b></a></div>
-                    <div><b>About</b></div>
-                    <div class="flex-right"></div>
-                    <a href="login.html"><b style="margin-right: 32px">Logout</b></a>
-                </div>
-
-                <!-- Collapsed TopBar -->
-                <div class="top-bar-collapse">
-                    <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
-                    <div class="flex-right"></div>
-                    <span id="top-bar-collapse-icon" class="material-icons" style="color: var(--font-color)">menu</span>
-                </div>
-
-                <div id="top-bar-collapse-content" class="top-bar-collapse-content">
-                    <div><b>Home</b></div>
-                    <div><b>Settings</b></div>
-                    <div><b>About</b></div>
-                    <div><b>Logout</b></div>
-                    <div></div>
-                </div>
+<div class="root-layout">
+    <div class="top-bar-component">
+        <!-- TODO when integrating the backend make top-bar as a separate template -->
+        <!-- TOP-BAR Template -->
+        <div class="top-bar">
+            <!-- Normal TopBar -->
+            <div class="top-bar-navigation">
+                <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
+                <div><a href="home.html"><b>Home</b></a></div>
+                <div><a href="user_profile.html"><b>Settings</b></a></div>
+                <div><b>About</b></div>
+                <div class="flex-right"></div>
+                <a href="login.html"><b style="margin-right: 32px">Logout</b></a>
             </div>
 
-        </div>
+            <!-- Collapsed TopBar -->
+            <div class="top-bar-collapse">
+                <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
+                <div class="flex-right"></div>
+                <span id="top-bar-collapse-icon" class="material-icons" style="color: var(--font-color)">menu</span>
+            </div>
 
-        <div class="information-component">
-            <div class="information-component-content">Lorem ipsum dolor sit amet</div>
-        </div>
-
-        <div class="subreddits-component">
-            <div class="subreddits-wrapper">
-                <div class="subreddits-wrapper-top">
-                    <div class="title-1"><b>Top Subreddits</b></div>
-                    <div>
-                        <button class="icon-button primary"><span class="material-icons">add</span></button>
-                    </div>
-                </div>
-
-                <div class="subreddits-wrapper-list">
-                    <!-- Subreddit Template -->
-                    <div class="subreddits-container">
-                        <div class="subreddits-container-top">
-                            <div class="subreddits-container-name"><b>/Subreddit Name</b></div>
-
-                            <div class="subreddits-container-categories">
-                                <button class="chip">Category A</button>
-
-                                <button class="chip">Category B</button>
-
-                                <button class="chip">Category C</button>
-                            </div>
-
-                            <div class="subreddits-container-notification">
-                                <span class="material-icons flex-right">notifications_active</span>
-                                <div>Users: 432</div>
-                            </div>
-                        </div>
-
-
-                        <div class="subreddits-container-statistics">
-
-                        </div>
-                        <div class="subreddits-container-bottom">
-                            <button class="chip">Topic A</button>
-                            <button class="chip">Topic B</button>
-                            <button class="chip">Topic C</button>
-                        </div>
-                    </div>
-
-
-                </div>
-
+            <div id="top-bar-collapse-content" class="top-bar-collapse-content">
+                <div><b>Home</b></div>
+                <div><b>Settings</b></div>
+                <div><b>About</b></div>
+                <div><b>Logout</b></div>
+                <div></div>
             </div>
         </div>
+
     </div>
 
-    <script src="js/toggle_theme.js"></script>
-    <script src="js/top_bar_collapse.js"></script>
+    <div class="information-component">
+        <div class="information-component-content">Lorem ipsum dolor sit amet</div>
+    </div>
+
+    <div class="subreddits-component">
+        <div class="subreddits-wrapper">
+            <div class="subreddits-wrapper-top">
+                <div class="title-1"><b>Top Subreddits</b></div>
+                <div>
+                    <button class="icon-button primary"><span class="material-icons">add</span></button>
+                </div>
+            </div>
+
+            <div class="subreddits-wrapper-list">
+                <!-- Subreddit Template -->
+                <div class="subreddits-container">
+                    <div class="subreddits-container-top">
+                        <div class="subreddits-container-name"><b>/Subreddit Name</b></div>
+
+                        <div class="subreddits-container-categories">
+                            <button class="chip">Category A</button>
+
+                            <button class="chip">Category B</button>
+
+                            <button class="chip">Category C</button>
+                        </div>
+
+                        <div class="subreddits-container-notification">
+                            <span class="material-icons flex-right">notifications_active</span>
+                            <div>Users: 432</div>
+                        </div>
+                    </div>
+
+
+                    <div class="subreddits-container-statistics">
+
+                    </div>
+                    <div class="subreddits-container-bottom">
+                        <button class="chip">Topic A</button>
+                        <button class="chip">Topic B</button>
+                        <button class="chip">Topic C</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="footer">
+        <h2>Developers</h2>
+        <div class="dev">
+            <a class="dev-one" href="https://www.facebook.com/stamatevalentin125">Stamate Valentin</a>
+            <a class="dev-two" href="https://www.facebook.com/laurentiu.mihai.112">Mihai Laurentiu</a>
+            <a class="dev-one-info" href="https://github.com/StamateValentin">
+                <img class="git" src="resources/github.svg" alt="git logo">Github</a>
+            <a class="dev-two-info" href="https://github.com/LaurentiuMihai112">
+                <img class="git" src="resources/github.svg" alt="git logo">Github</a>
+        </div>
+    </div>
+</footer>
+
+
+<script src="js/toggle_theme.js"></script>
+<script src="js/top_bar_collapse.js"></script>
 </body>
 </html>
