@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="theme-dark">
+<html lang="en" class="theme-light">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,16 +18,28 @@
             <!-- TODO when integrating the backend make top-bar as a separate template -->
             <!-- TOP-BAR Template -->
             <div class="top-bar">
-                <div class="top-bar-left">
-                    <img id="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
-
+                <div class="top-bar-navigation">
+                    <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
                     <div><b>Home</b></div>
-
                     <div><b>Settings</b></div>
+                    <div><b>About</b></div>
+                    <div class="flex-right"></div>
+                    <a href="login.html"><b style="margin-right: 32px">Logout</b></a>
                 </div>
 
-                <div class="top-bar-right">
-                    <b>Logout</b>
+<!--                     Top Bar Collapsed-->
+                <div class="top-bar-collapse">
+                    <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
+                    <div class="flex-right"></div>
+                    <span id="top-bar-collapse-icon" class="material-icons">menu</span>
+                </div>
+
+                <div id="top-bar-collapse-content" class="top-bar-collapse-content">
+                    <div><b>Home</b></div>
+                    <div><b>Settings</b></div>
+                    <div><b>About</b></div>
+                    <div><b>Logout</b></div>
+                    <div></div>
                 </div>
             </div>
 
@@ -85,5 +97,8 @@
     </div>
 
     <script src="js/toggle_theme.js"></script>
+
+    <script src="js/top_bar_collapse.js"></script>
+
 </body>
 </html>

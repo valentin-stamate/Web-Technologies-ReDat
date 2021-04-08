@@ -44,7 +44,7 @@ body {
   border-radius: var(--post-border-radius);
 }
 
-.authentification-inputs {
+.authentication-inputs {
   padding: 1.5rem;
 }
 
@@ -64,6 +64,11 @@ body {
   }
 
   .auth-component {
-    width: 80%;
+    width: 90%;
+  }
+
+  .register-password {
+    display: flex;
+    flex-direction: column;
   }
 }
