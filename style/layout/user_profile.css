@@ -10,10 +10,13 @@
 body {
     padding: 0;
     margin: 0;
-    background: url("https://cdn.dribbble.com/users/1803663/screenshots/14762933/media/d22e6a9bb1e4ec8963842cff3907e8be.jpg") no-repeat fixed;
     background-size: 100vw 100vh;
     box-sizing: border-box;
     height: 100vh;
+}
+
+.root-layout {
+    min-height: calc(100vh - 225px);
 }
 
 #upper-bar {

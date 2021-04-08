@@ -1,9 +1,8 @@
 .footer {
     grid-column: 1/auto;
-    margin-top: 4rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    max-height: 200px;
+    height: 225px;
     background: var(--post-background);
     text-align: center;
 }
