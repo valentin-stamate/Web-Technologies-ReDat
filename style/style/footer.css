@@ -1,13 +1,30 @@
 .footer {
     margin-top: 4rem;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     height: 300px;
     background: var(--post-background);
+    text-align: center;
 }
 
 .dev {
+    grid-column: 1/2;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    box-sizing: border-box;
+    padding: 2rem;
+}
+
+.dev-one {
     grid-column: 1;
+    grid-row: 1;
+    box-sizing: border-box;
+    padding: 2rem;
+}
+
+.dev-two {
+    grid-column: 2;
+    grid-row: 1;
     box-sizing: border-box;
     padding: 2rem;
 }
