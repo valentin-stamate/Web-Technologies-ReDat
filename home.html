@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" class="theme-light">
+<html lang="en" class="colors theme-dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
     <title>Home</title>
-    <link rel="stylesheet" href="style/style/global.css">
-    <link rel="stylesheet" href="style/layout/logo.css">
-    <link rel="stylesheet" href="style/layout/home.css" >
-    <link rel="stylesheet" href="style/layout/top_bar.css">
+    <link rel="stylesheet" href="style/layout/home.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -18,20 +15,22 @@
             <!-- TODO when integrating the backend make top-bar as a separate template -->
             <!-- TOP-BAR Template -->
             <div class="top-bar">
+                <!-- Normal TopBar -->
                 <div class="top-bar-navigation">
                     <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
                     <div><b>Home</b></div>
                     <div><b>Settings</b></div>
                     <div><b>About</b></div>
                     <div class="flex-right"></div>
+                    <button id="btn-toggle-theme" class="button primary">Toggle Theme</button>
                     <a href="login.html"><b style="margin-right: 32px">Logout</b></a>
                 </div>
 
-<!--                     Top Bar Collapsed-->
+                <!-- Collapsed TopBar -->
                 <div class="top-bar-collapse">
                     <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
                     <div class="flex-right"></div>
-                    <span id="top-bar-collapse-icon" class="material-icons">menu</span>
+                    <span id="top-bar-collapse-icon" class="material-icons" style="color: var(--font-color)">menu</span>
                 </div>
 
                 <div id="top-bar-collapse-content" class="top-bar-collapse-content">
@@ -54,7 +53,7 @@
                 <div class="subreddits-wrapper-top">
                     <div class="title-1"><b>Top Subreddits</b></div>
                     <div>
-                        <button class="icon-button-primary"><span class="material-icons">add</span></button>
+                        <button class="icon-button primary"><span class="material-icons">add</span></button>
                     </div>
                 </div>
 
@@ -97,8 +96,6 @@
     </div>
 
     <script src="js/toggle_theme.js"></script>
-
     <script src="js/top_bar_collapse.js"></script>
-
 </body>
 </html>

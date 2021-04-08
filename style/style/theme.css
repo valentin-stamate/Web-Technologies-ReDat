@@ -5,42 +5,68 @@
     --topbar-height: 256px;
 }
 
+.colors {
+    --dark: #070707;
+    --dark-00-dp: #121212;
+    --dark-01-dp: #1E1E1E;
+    --dark-02-dp: #232323;
+    --dark-03-dp: #252525;
+    --dark-04-dp: #272727;
+    --dark-06-dp: #2C2C2C;
+    --dark-08-dp: #2E2E2E;
+    --dark-12-dp: #333333;
+    --dark-16-dp: #363636;
+    --dark-24-dp: #383838;
+}
+
 .theme-light {
-    --color-primary: #ff4a00;
+    --color-primary: #FF4500;
     --color-primary-selected: #dd4001;
 
+    /* Layout */
     --background-color: #fff;
-    --font-color: #3e3e3e;
     --post-background: #e7e7e7;
+    --statistics-background-color: #ffffff;
+    --header-color: #242424;
+    --top-bar-color: #ffffff;
 
+    /* Font */
+
+    --font-color: #3e3e3e;
     --topbar-font-color: #0a0a0a;
 
-    /* TODO improve color organization */
-    --statistics-background-color: #ffffff;
-
+    /* Input Field */
     --input-field: 1px solid #d0d0d0;
     --input-field-selected: 1px solid #bfbfbf;
     --input-field-label-color: #646464;
     --input-field-background-color: #ffffff;
     --input-field-background-color-selected: #f3f3f3;
+
+    /* COLORS */
 }
 
 .theme-dark {
-    --color-primary: #ff4a00;
+    --color-primary: #FF4500;
     --color-primary-selected: #dd4001;
 
-    --background-color: #030303;
-    --font-color: #D2D5D7;
-    --post-background: #1a1a1b;
+    /* Layout */
+    --background-color: var(--dark-00-dp);
+    --post-background: var(--dark-04-dp);
+    --statistics-background-color: var(--dark-00-dp);
+    --header-color: var(--dark);
+    --top-bar-color: var(--dark-01-dp);
+    --subbreddits-details: var(--dark-01-dp);
 
+    /* Font */
+    --font-color: #D2D5D7;
     --topbar-font-color: #323232;
 
-    --statistics-background-color: #090909;
-
+    /* Input Field */
     --input-field: 1px solid #515151;
     --input-field-selected: 1px solid #3e3e3e;
     --input-field-label-color: #b7b7b7;
     --input-field-background-color: #232324;
     --input-field-background-color-selected: #1f1e1e;
+
 }
 

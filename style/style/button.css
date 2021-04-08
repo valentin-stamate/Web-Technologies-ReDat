@@ -1,45 +1,39 @@
-
-.button-primary {
-    background-color: var(--color-primary);
+/* Attributes that a button have */
+.button, .icon-button{
     border: none;
     color: white;
+    text-align: center;
+    display: inline-block;
+    margin: 8px 4px;
+    padding: 6px;
+    cursor: pointer;
+    border-radius: var(--button-margin-radius);
+    transition: background-color ease-in-out 0.3s;
+}
+
+.button:focus, .icon-button:focus {
+    outline: none;
+}
+
+/* Small Button */
+
+/* Large Button */
+.button-large {
     padding: 15px 32px;
-    text-align: center;
-    display: inline-block;
     font-size: 1rem;
-    margin: 8px 4px;
-    cursor: pointer;
-    border-radius: var(--button-margin-radius);
-    transition: background-color ease-in-out 0.3s;
 }
 
-.button-primary:hover {
-    background-color: var(--color-primary-selected);
+/* Icon Button */
+.icon-button {
+    padding: 5px 4px;
+    font-size: 0.5rem;
 }
 
-.button-primary:focus {
-    outline: none;
-}
-
-
-.icon-button-primary {
+/* Button Types */
+.primary {
     background-color: var(--color-primary);
-    border: none;
-    color: white;
-    padding: 15px 15px;
-    text-align: center;
-    display: inline-block;
-    font-size: 1rem;
-    margin: 8px 4px;
-    cursor: pointer;
-    border-radius: var(--button-margin-radius);
-    transition: background-color ease-in-out 0.3s;
 }
 
-.icon-button-primary:hover {
+.primary:hover {
     background-color: var(--color-primary-selected);
-}
-
-.icon-button-primary:focus {
-    outline: none;
 }

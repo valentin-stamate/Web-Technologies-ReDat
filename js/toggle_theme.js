@@ -1,6 +1,6 @@
 function setTheme(themeName) {
     localStorage.setItem('theme', themeName);
-    document.documentElement.className = themeName;
+    document.documentElement.className = themeName + " colors";
 }
 
 const toggleThemeButton = document.getElementById("btn-toggle-theme");
