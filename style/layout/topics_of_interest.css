@@ -3,6 +3,11 @@
 @import "../style/button.css";
 @import "../style/global.css";
 @import "../style/theme.css";
+@import "../style/footer.css";
+
+.logo {
+    padding: 2rem;
+}
 
 body {
     padding: 0;
@@ -18,10 +23,6 @@ body {
     position: relative;
     grid-template-columns: 1fr 1fr;
     box-sizing: border-box;
-}
-
-#logo {
-    padding: 2rem;
 }
 
 .user-info {
