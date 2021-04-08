@@ -3,6 +3,8 @@
 @import "../style/button.css";
 @import "../style/global.css";
 @import "../style/theme.css";
+@import "../style/settings_option.css";
+@import "../style/font.css";
 
 body {
     padding: 0;
@@ -20,6 +22,31 @@ body {
     box-sizing: border-box;
 }
 
+.options {
+    position: absolute;
+    display: grid;
+    row-gap: 10px;
+    grid-column: 1;
+}
+
+#appearance, #general, #topics {
+    height: 18px;
+    position: relative;
+    padding: 4px;
+    border: solid;
+    border-color: var(--post-background);
+}
+
+.user-profile {
+    display: grid;
+    column-gap: 1rem;
+    background-color: var(--post-background);
+    border-radius: var(--post-border-radius);
+    justify-self: center;
+    width: 500px;
+    padding: 2rem;
+}
+
 #logo {
     padding: 2rem;
 }
@@ -32,6 +59,7 @@ body {
 #middle-bar {
     display: grid;
     justify-content: center;
+    min-height: 400px;
 }
 
 #default-user {
@@ -39,16 +67,15 @@ body {
     border-radius: 10%;
 }
 
-.profile-component {
-    background-color: var(--post-background);
-    border-radius: var(--post-border-radius);
+#profile-component {
+    grid-column: 2;
+    display: flex;
+    flex-flow: column;
     justify-self: center;
-    width: 500px;
-    padding: 2rem;
 }
 
 @media (max-width: 600px) {
-    .profile-component {
+    .user-profile {
         width: 70vw;
     }
 }

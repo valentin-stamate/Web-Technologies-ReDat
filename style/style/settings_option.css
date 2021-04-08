@@ -1,0 +1,14 @@
+#appearance:hover {
+    border-left-color: var(--color-primary);
+    font-size: 17px;
+}
+
+#general:hover {
+    border-left-color: var(--color-primary);
+    font-size: 17px;
+}
+
+#topics:hover {
+    border-left-color: var(--color-primary);
+    font-size: 17px;
+}
