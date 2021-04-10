@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
@@ -8,7 +7,7 @@
   <link rel="stylesheet" href="style/scholarly.min.css">
   <script src="js/scholarly.min.js"></script>
 </head>
-<body prefix="schema: http://schema.org">
+<body>
 <header>
   <div class="banner">
     <img src="assets/scholarly-html.svg" width="227" height="50" alt="Scholarly HTML logo">
@@ -16,23 +15,7 @@
   </div>
   <h1>Scholarly HTML</h1>
 </header>
-<!--
-  XXX
-  - check refs
-  - the math example has too much maths
-  - bring back some of the old style
-  - make semantics, validation, processing sub-sections of each structural element
-  - have a section before that for general constructs
-    - explain why use RDFa
-    - explain our patterns: RDFa, roles
-  - figure captions need to get set throughout
-  - dedication? see doc-dedication
-  - syntactic constraints (prefix)
-  - needs more sthenurines
-  - examples of everything
-  - some notes on using Semantic CSS
-  - needs more RDFa in the spec itself
--->
+
 <div role="contentinfo">
   <dl>
     <dt>Authors</dt>
@@ -169,7 +152,7 @@
       indicating a numbered section in the article. If the sections require headings that exceed
       <code>h6</code>, <code>aria-level</code> must be included to indicate depth.
     </p>
-    <figure typeof="schema:SoftwareSourceCode" role="doc-example" id="arialevelexample">
+    <figure typeof="schema:SoftwareSourceCode" id="arialevelexample">
           <pre><code>
     &lt;section>
       &lt;h6>Granular Details about Zoology&lt;/h6>
@@ -202,14 +185,14 @@
       The
       <a href="https://www.w3.org/TR/html51/semantics.html#the-blockquote-element"><code>blockquote</code></a>,
       <a href="https://www.w3.org/TR/html51/semantics.html#the-ul-element"><code>ul</code></a>,
-      <a href="https://www.w3.org/TR/html51/semantics.html#the-ol-element"<code>ol</code></a>,
+      <a href="https://www.w3.org/TR/html51/semantics.html#the-ol-element"><code>ol</code></a>,
       and
       <a href="https://www.w3.org/TR/html51/semantics.html#the-dl-element"><code>dl</code></a>
       elements can be used as they typically would and require no special treatment.
     </p>
     <p>
       The
-      <a href="https://www.w3.org/TR/html51/semantics.html#the-dl-element"<code>aside</code></a>
+      <a href="https://www.w3.org/TR/html51/semantics.html#the-dl-element"><code>aside</code></a>
       hunk element is used to capture portions of content that stand apart from the main flow of
       content. These can be separated from the article without having impact on the reader’s
       understanding of the article. A common use is text boxes in print. If the
@@ -271,7 +254,7 @@
       Equations can be displayed inline or as blocks within a paragaph.
     </p>
     <figure typeof="schema:SoftwareSourceCode" resource="#mathblock-example"
-            id="mathblock-example" role="doc-example">
+            id="mathblock-example">
           <pre><code>
 &lt;p>
   If we should weep when clowns put on their show,
@@ -699,7 +682,7 @@
       with its <a>schema:actionStatus</a> set to <code>CompletedActionStatus</code>, and a
       <a>schema:endTime</a> being the access date. In JSON-LD it would look like this:
     </p>
-    <figure typeof="schema:SoftwareSourceCode" resource="#read-action-example" id="read-action-example">
+    <figure typeof="schema:SoftwareSourceCode" resource="#read-action-example" id="read-action-example_1">
           <pre><code>
 {
   "@type":        "ReadAction",
@@ -1191,8 +1174,7 @@
       This can be enhanced with information such as the award name and Role information. Here is
       a detailed example:
     </p>
-    <figure typeof="schema:SoftwareSourceCode" resource="#funding-example" id="funding-example"
-            role="doc-example">
+    <figure typeof="schema:SoftwareSourceCode" resource="#funding-example" id="funding-example">
           <pre><code>
 XXX this example has issues
 &lt;section id="funding" typeof="sa:Funding">
