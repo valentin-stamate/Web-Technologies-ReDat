@@ -7,13 +7,41 @@
     <meta name="color-scheme" content="dark light">
     <title>My profile</title>
     <link rel="stylesheet" href=style/layout/user_profile.css>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 <div class="root-layout">
-    <header id="upper-bar">
-        <div class="logo"><img src="resources/logo.svg" alt="Logo"></div>
-        <div class="user-info">Hi there, <a href="#">username</a>!</div>
-    </header>
+    <div class="top-bar-component">
+        <!-- TODO when integrating the backend make top-bar as a separate template -->
+        <!-- TOP-BAR Template -->
+        <div class="top-bar">
+            <!-- Normal TopBar -->
+            <div class="top-bar-navigation">
+                <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
+                <div><a href="home.html"><b>Home</b></a></div>
+                <div><a href="user_profile.html"><b>Settings</b></a></div>
+                <div><b>About</b></div>
+                <div class="flex-right"></div>
+                <a href="login.html"><b style="margin-right: 32px">Logout</b></a>
+            </div>
+
+            <!-- Collapsed TopBar -->
+            <div class="top-bar-collapse">
+                <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
+                <div class="flex-right"></div>
+                <span id="top-bar-collapse-icon" class="material-icons" style="color: var(--font-color)">menu</span>
+            </div>
+
+            <div id="top-bar-collapse-content" class="top-bar-collapse-content">
+                <div><b>Home</b></div>
+                <div><b>Settings</b></div>
+                <div><b>About</b></div>
+                <div><b>Logout</b></div>
+                <div></div>
+            </div>
+        </div>
+
+    </div>
     <div id="middle-bar">
         <div class="user-profile">
             <div class="options">
@@ -85,5 +113,6 @@
 </footer>
 <script src="js/toggle_theme.js"></script>
 <script src="js/settings_options.js"></script>
+<script src="js/top_bar_collapse.js"></script>
 </body>
 </html>
