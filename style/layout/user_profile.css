@@ -16,6 +16,8 @@ body {
 }
 
 .root-layout {
+
+
     min-height: calc(100vh - 225px);
 }
 
