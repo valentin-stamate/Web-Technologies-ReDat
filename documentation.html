@@ -42,8 +42,8 @@
         <h3>Scop</h3>
         <p>
             Aplicatia Web ReDat, detaliata in acest document, creeaza un spatiu pentru utilizator in care
-            acesta poate grupa,vedea si gestiona topicele favorite, oferite de Reddit printr-un API public.
-            Astfel utilizatorul poate aceesa mai rapid si mai comod subiectele sale de interes.
+            acesta poate grupa,vedea si gestiona topicele (subreddit-urile) favorite, oferite de Reddit printr-un
+            API public. Astfel utilizatorul poate aceesa mai rapid si mai comod subiectele sale de interes.
         </p>
     </section>
 
@@ -59,7 +59,7 @@
     <section id="scope">
         <h3>Viziune</h3>
         <p>
-            Aplicatia doreste sa usureze efortul depus de utilizator pentru a accesa topicele favorite,
+            Aplicatia doreste sa usureze efortul depus de utilizator pentru a accesa subreddit-urile favorite,
             prin gruparea acestora dupa preferintele stabilite de utilizator si prin usoara genstionare a
             acestor preferinte.
         </p>
@@ -68,12 +68,12 @@
 
 <!-- 2. Description -->
 <section id="description" role="doc-introduction">
-    <h2>Introducere</h2>
+    <h2>Descriere</h2>
     <section id="perspective">
         <h3>Perspectiva</h3>
         <p>
             Aplicatia vine ca o extensie pentru site-ul Reddit, oferind utilizatorului o viziune mai larga
-            asupra celor mai populare topicuri.
+            asupra celor mai populare topice.
         </p>
     </section>
 
@@ -81,14 +81,14 @@
         <h3>Functiile Produsului</h3>
         <p>
             Mai jos sunt functionalitatile pe care aplicatia ReDat le ofera.
-            <ul>
-                <li>Crearea unui cont si inregistrarea unui utilizator</li>
-                <li>Modificarea datelor asociate utilizatorului</li>
-                <li>Alegerea topicurilor preferate</li>
-                <li>Schimbarea temei site-ului</li>
-                <li>Notificari in timp real asupra modificarilor unui subreddit</li>
-                <li>Visualizarea celor mai populare subreddituri si statistici asociate lor</li>
-            </ul>
+        <ul>
+            <li>Crearea unui cont si inregistrarea unui utilizator</li>
+            <li>Modificarea datelor asociate utilizatorului</li>
+            <li>Alegerea topicelor preferate</li>
+            <li>Schimbarea temei site-ului</li>
+            <li>Notificari in timp real asupra modificarilor unui subreddit</li>
+            <li>Visualizarea celor mai populare subreddituri si statistici asociate lor</li>
+        </ul>
         </p>
     </section>
     <section id="operating-environment">
@@ -105,7 +105,8 @@
             inclusiv in aplicatie, putand-o face nefunctionala.
         </p>
         <p>
-            Un alt lucru il reprezita datele oferite. Acestea pot oferi infomatii insuficiente pentru atragerea utilizatorilor.
+            Un alt lucru il reprezinta datele oferite. Acestea pot oferi informatii insuficiente pentru atragerea
+            utilizatorilor.
         </p>
     </section>
 </section>
@@ -132,12 +133,12 @@
         <h3>Interfete software</h3>
         <p>
             Aplicatia este in stansa legatura cu API-ul public oferit de Reddit. La fiecare request
-            vor fi atasate topicurile si se va face o selectie bazata pe cele mai populare subreddituri dupa
+            vor fi atasate topicele si se va face o selectie bazata pe cele mai populare subreddituri dupa
             anumite criterii(nr utilizatori, reactii, etc).
         </p>
         <p>
             Baza de date folosita va fi PostgreSQL deoarece se poate integra usor cu limbajul de programare pentru
-            partea de backend. Un alt motiv il consta suportul gratuit pe platforma Heroku, locul unde va fi hostat
+            partea de backend. Un alt motiv fiind suportul gratuit pe platforma Heroku, locul unde va fi hostat
             backend-ul aplicatiei.
         </p>
         <p>
@@ -145,23 +146,24 @@
             Aceasta este foarte usor de folsoit si este gratuita oferind posibiliatea adaugarii unui domeniu custom.
         </p>
         <p>
-            Frontend-ul va fi scris in HTML5, CSS3 si Javascript fara a folosi alte librarii. Pentru o experianta mai buna
-            aplicatia va folosi fontul Roboto oferit de Google Fonts impreuna cu packetul de iconite.
+            Frontend-ul va fi scris in HTML5, CSS3 si Javascript fara a folosi alte librarii. Pentru o experianta mai
+            buna aplicatia va folosi fontul Roboto oferit de Google Fonts impreuna cu packetul de iconite.
         </p>
         <p>
-            Pentru backend se va folosi Python impreuna cu libratia Gunicorn pentru a usura prelarea informatiilor dintr-un
-            request http. Arhitectura folosita va fi MVC.
+            Pentru backend se va folosi Python impreuna cu libratia Gunicorn pentru a usura prelarea informatiilor
+            dintr-un request http. Arhitectura folosita va fi MVC.
         </p>
     </section>
 
     <section id="communication interfaces">
         <h3>Interfete de comunicare</h3>
         <p>
-            Pentru functionalitatea activarii contului prin mail, aplicatia va folosi protocolul SMTP cu un mail deja existent(gmail).
+            Pentru functionalitatea activarii contului prin mail, aplicatia va folosi protocolul SMTP cu un mail deja
+            existent(gmail).
         </p>
         <p>
-            Partea de backend va functiona ca si un REST API iar partea de frontent va face requesturi catre acesta. Formatul de primire/transmitere
-            al requesturilor va fi in format JSON.
+            Partea de backend va functiona ca si un REST API, iar partea de frontend va face requesturi catre acesta.
+            Formatul de primire/transmitere al requesturilor va fi JSON.
         </p>
     </section>
 
@@ -195,18 +197,20 @@
     <section id="top-subbreddits">
         <h3>Visualizarea celor mai populare subbreddit-uri</h3>
         <p>
-            Bazat pe topicurile alese de utilizator fie la crearea contului, fie in setari, utlizatorul va putea vedea
-            in pagina home cele mai populare subreddit-uri sub forma unei liste. Fiecare element al listei va contine informatii
-            referitare la subreddit iar utilizatorul va putea schimba intre mai multe tipuri de statistici. Un alt feture important este
-            notificarea in timp real atunci cand subredditul respectiv sufere schimbari(comentariu nou, etc).
+            Bazat pe topicele alese de utilizator, fie la crearea contului, fie in setari, utlizatorul va putea vedea
+            in pagina home cele mai populare subreddit-uri sub forma unei liste. Fiecare element al listei va contine
+            informatii referitare la subreddit iar utilizatorul va putea schimba intre mai multe tipuri de statistici.
+            Un alt feature important este notificarea in timp real atunci cand subredditul respectiv sufera
+            schimbari (comentariu nou, etc).
         </p>
     </section>
 
     <section id="user-settings">
         <h3>Setarile Utilizatorului</h3>
         <p>
-            Utilizatorul va putea accesa setari asociate contului. Astfel el va putea schimba parola, modifica mailul si alte informatii referitoare
-            la contul personal. Tot in pagina de setari va putea modifica topicurile preferate si va putea schimba intre tema dark si light.
+            Utilizatorul va putea accesa setari asociate contului sau. Astfel el va putea schimba parola, modifica
+            mailul si alte informatii referitoare la contul personal. Tot in pagina de setari va putea modifica
+            topicele preferate si va putea schimba intre tema dark si light.
         </p>
     </section>
 
