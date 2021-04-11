@@ -22,9 +22,7 @@ body {
 }
 
 .root-layout {
-
-
-    min-height: calc(100vh - 225px);
+    min-height: calc(100vh - var(--footer-height));
     display: grid;
     grid-template-rows: var(--topbar-height) 1fr;
     box-sizing: border-box;
