@@ -40,7 +40,7 @@ body {
 }
 
 .component {
-    background-color: var(--post-background);
+    background-color: var(--layout-background);
     border-radius: var(--post-border-radius);
     justify-items: center;
     width: 500px;

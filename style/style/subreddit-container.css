@@ -7,7 +7,7 @@
     row-gap: 1rem;
     padding: 1rem;
     border-radius: var(--post-border-radius);
-    background-color: var(--post-background);
+    background-color: var(--layout-background);
 }
 
 .subreddits-container-top {

@@ -42,7 +42,7 @@ body {
 }
 
 .preferences-component {
-    background-color: var(--post-background);
+    background-color: var(--layout-background);
     border-radius: var(--post-border-radius);
     justify-self: center;
     width: 500px;

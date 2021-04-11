@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     height: 225px;
-    background: var(--post-background);
+    background: var(--layout-background);
     text-align: center;
 }
 

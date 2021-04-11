@@ -40,7 +40,7 @@ body {
   height: fit-content;
   padding: 2rem;
   justify-self: center;
-  background-color: var(--post-background);
+  background-color: var(--layout-background);
   border-radius: var(--post-border-radius);
 }
 

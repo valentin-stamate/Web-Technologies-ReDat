@@ -49,14 +49,14 @@ body {
     position: relative;
     padding: 4px;
     border: solid;
-    border-color: var(--post-background);
+    border-color: var(--layout-background);
 }
 
 .user-profile {
     display: grid;
     grid-template-columns:  1fr 2fr;
     column-gap: 1rem;
-    background-color: var(--post-background);
+    background-color: var(--layout-background);
     border-radius: var(--post-border-radius);
     justify-self: center;
     width: 500px;
