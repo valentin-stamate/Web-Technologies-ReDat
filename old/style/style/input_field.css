@@ -1,0 +1,32 @@
+@import "theme.css";
+
+.input-component {
+    margin-top: 1rem;
+}
+
+.input-label {
+    font-size: 1rem;
+    color: var(--input-field-label-color);
+}
+
+.input-field {
+    width: 100%;
+    box-sizing:border-box;
+    padding: 24px 20px;
+    font-size: 1rem;
+    color: var(--input-field-label-color);
+    border-radius: 6px;
+    font-weight: bold;
+    margin: 8px 0;
+    height: 2rem;
+    display: inline-block;
+    border: var(--input-field);
+    background-color: var(--input-field-background-color);
+    transition: all 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border: var(--input-field-selected);
+    background-color: var(--input-field-background-color-selected);
+}

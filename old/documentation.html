@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <link rel="icon" href="assets/favico.svg"/>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="style/layout/documentation.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="root-layout">
+    <div class="top-bar-component">
+        <!-- TODO when integrating the backend make top-bar as a separate template -->
+        <!-- TOP-BAR Template -->
+        <div class="top-bar">
+            <!-- Normal TopBar -->
+            <div class="top-bar-navigation">
+                <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
+                <div><a href="index.html"><b>Home</b></a></div>
+                <div><a href="user_profile.html"><b>Settings</b></a></div>
+                <div><a href="documentation.html"><b>Documentation</b></a></div>
+                <div class="flex-right"></div>
+                <a href="login.html"><b style="margin-right: 32px">Logout</b></a>
+            </div>
+
+            <!-- Collapsed TopBar -->
+            <div class="top-bar-collapse">
+                <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
+                <div class="flex-right"></div>
+                <span id="top-bar-collapse-icon" class="material-icons" style="color: var(--font-color)">menu</span>
+            </div>
+
+            <div id="top-bar-collapse-content" class="top-bar-collapse-content">
+                <div><a href="index.html"><b>Home</b></a></div>
+                <div><a href="user_profile.html"><b>Settings</b></a></div>
+                <div><a href="documentation.html"><b>Documentation</b></a></div>
+                <div><a href="login.html"><b style="margin-right: 32px">Logout</b></a></div>
+                <div></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="page-body">
+        <div class="documentation-component">
+
+
+            <h1>ReDat Raport</h1>
+
+            <div role="contentinfo">
+                <dl>
+                    <dt>Authors</dt>
+                    <dd>
+                        <a href="https://github.com/LaurentiuMihai112">Mihai Cristian-Laurentiu</a>,
+                        <a href="https://github.com/StamateValentin">Stamate Valentin</a>
+                    </dd>
+                </dl>
+                <p>
+                    Documentul in format Scholarly HTML se poate gasi <a href="doc.html" target="_blank">aici</a>
+                </p>
+                <p>
+                    Acest site este disponibil la <a href="https://redat.valentinstamate.com/" target="_blank">aceasta</a> adresa.
+                </p>
+            </div>
+
+            <ul>
+                <!-- Abstract -->
+                <li>
+                    <h2>Abstract</h2>
+                    <p>
+                        Acest document cuprinde aspectele tehnice si interactiunea cu utilizatorul, ale proiectului ReDat,
+                        realizat in coloborare de
+                        <a href="https://github.com/LaurentiuMihai112" target="_blank">Mihai Cristian-Laurentiu</a> si
+                        <a href="https://github.com/StamateValentin" target="_blank">Stamate Valentin</a> pentru Tehnologii Web (2021).
+                    </p>
+                </li>
+
+                <!-- Introduction -->
+                <li>
+                    <h2>Introducere</h2>
+                    <ul>
+
+                        <li>
+                            <h3>Scop</h3>
+                            <p>
+                                Aplicatia Web ReDat, detaliata in acest document, creeaza un spatiu pentru utilizator in care
+                                acesta poate grupa,vedea si gestiona topicele (subreddit-urile) favorite, oferite de Reddit printr-un
+                                API public. Astfel utilizatorul poate aceesa mai rapid si mai comod subiectele sale de interes.
+                            </p>
+                        </li>
+
+                        <li>
+                            <h3>Public ținta</h3>
+                            <p>
+                                In continuare vom prezenta o descriere generala a aplicatiei, urmand ca apoi sa fie detaliata
+                                interactiunea utlizatorului cu aceasta. Acest document se adreseaza in principal utilizatorului obisnuit,
+                                si vizeaza in special principalele functionalitati ale aplicatiei si modul de interactiune cu utlizatorul,
+                                pentru a facilita utilizarea aplicatiei.
+                            </p>
+                        </li>
+
+                        <li>
+                            <h3>Viziune</h3>
+                            <p>
+                                Aplicatia doreste sa usureze efortul depus de utilizator pentru a accesa subreddit-urile favorite,
+                                prin gruparea acestora dupa preferintele stabilite de utilizator si prin usoara genstionare a
+                                acestor preferinte.
+                            </p>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <!-- Description -->
+                <li>
+                    <h2>Descriere</h2>
+                    <ul>
+                        <li>
+                            <h3>Perspectiva</h3>
+                            <p>
+                                Aplicatia vine ca o extensie pentru site-ul Reddit, oferind utilizatorului o viziune mai larga
+                                asupra celor mai populare topice.
+                            </p>
+                        </li>
+
+                        <li>
+                            <h3>Functiile Produsului</h3>
+                            <p>
+                                Mai jos sunt functionalitatile pe care aplicatia ReDat le ofera.
+                            <ul>
+                                <li>Crearea unui cont si inregistrarea unui utilizator</li>
+                                <li>Modificarea datelor asociate utilizatorului</li>
+                                <li>Alegerea topicelor preferate</li>
+                                <li>Schimbarea temei site-ului</li>
+                                <li>Notificari in timp real asupra modificarilor unui subreddit</li>
+                                <li>Visualizarea celor mai populare subreddituri si statistici asociate lor</li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <h3>Mediul de operare</h3>
+                            <p>
+                                Fiind o aplicatie web, ea va rula pe orice browser modern. Astfel aplcatia va putea rula
+                                pe toate sistemele de operare ce suporta un browser cum ar fi: Android, IOS, Windows, Linux, etc.
+                            </p>
+                        </li>
+
+                        <li>
+                            <h3>Constrangeri</h3>
+                            <p>
+                                Deoarece aplicatia depinde in mod direct de API-ul oferit de Reddit, orice modificare se va propaga
+                                inclusiv in aplicatie, putand-o face nefunctionala.
+                            </p>
+                            <p>
+                                Un alt lucru il reprezinta datele oferite. Acestea pot oferi informatii insuficiente pentru atragerea
+                                utilizatorilor.
+                            </p>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--3.External Interface Requirements-->
+                <li>
+                    <h2>Interfete externe</h2>
+                    <ul>
+                        <li>
+                            <h3>Interfata pentru utlizator</h3>
+                            <p>
+                                Aplicatia ofera o interfata moderna, placuta din punct de vedere vizual pentru a imbunatati
+                                experienta utilizatorului. ReDat poate fi folosita atat pe ecrane mari cat si pe browserul
+                                telefonului al carui ecran este de dimensiuni mai reduse, oferind in continuare o experienta
+                                placuta utilizatorului datorita design-ului responsive.
+                            </p>
+                            <p>
+                                De asemenea utilizatorul are posibilitatea sa modifice tema de culori pestabilita a aplicatiei,
+                                putand opta pentru o tema intunecata. Acest lucru este posibil prin pagina "User profile" din
+                                aplicatie, care ofera diferite optiuni de configurare.
+                            </p>
+                        </li>
+
+                        <li>
+                            <h3>Interfete software</h3>
+                            <p>
+                                Aplicatia este in stansa legatura cu API-ul public oferit de Reddit. La fiecare request
+                                vor fi atasate topicele si se va face o selectie bazata pe cele mai populare subreddituri dupa
+                                anumite criterii(nr utilizatori, reactii, etc).
+                            </p>
+                            <p>
+                                Baza de date folosita va fi PostgreSQL deoarece se poate integra usor cu limbajul de programare pentru
+                                partea de backend. Un alt motiv fiind suportul gratuit pe platforma Heroku, locul unde va fi hostat
+                                backend-ul aplicatiei.
+                            </p>
+                            <p>
+                                Pentru hostarea partii de frontend se va folosi platforma oferita de Google si anume Firebase.
+                                Aceasta este foarte usor de folsoit si este gratuita oferind posibiliatea adaugarii unui domeniu custom.
+                            </p>
+                            <p>
+                                Frontend-ul va fi scris in HTML5, CSS3 si Javascript fara a folosi alte librarii. Pentru o experianta mai
+                                buna aplicatia va folosi fontul Roboto oferit de Google Fonts impreuna cu packetul de iconite.
+                            </p>
+                            <p>
+                                Pentru backend se va folosi Python impreuna cu libratia Gunicorn pentru a usura prelarea informatiilor
+                                dintr-un request http. Arhitectura folosita va fi MVC.
+                            </p>
+                        </li>
+
+                        <li>
+                            <h3>Interfete de comunicare</h3>
+                            <p>
+                                Pentru functionalitatea activarii contului prin mail, aplicatia va folosi protocolul SMTP cu un mail deja
+                                existent(gmail).
+                            </p>
+                            <p>
+                                Partea de backend va functiona ca si un REST API, iar partea de frontend va face requesturi catre acesta.
+                                Formatul de primire/transmitere al requesturilor va fi JSON.
+                            </p>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--4.System Features-->
+                <li>
+                    <h2>Functionalitati</h2>
+                    <ul>
+                        <li>
+                            <h3>Autentificarea</h3>
+                            <p>
+                                Autentificarea utilizatorului se realizeaza in pagina dedicata acestei operatii si presupune
+                                completarea campurilor necesare (nume de utilizator sau email, parola) urmand ca apoi utlizatorul
+                                sa apese pe butonul "login" si, in cazul in care datele sunt corecte, acesta sa fie redirectionat
+                                pe pagina principala (Home). Desigur, autentificarea necesita exista unui cont de utilizator.
+                                <img class="image" alt="login" src="resources/login.png">
+                            </p>
+                        </li>
+
+                        <li>
+                            <h3>Inregistrarea</h3>
+                            <p>
+                                Aceasta operatie presupune creare unui nou cont de utlizator. Utilizatorul completeaza
+                                campurile necesare (nume de utlizator, email, parola, confirmare parola), apasa pe butonul
+                                "register" si, in cazul in care informatiile sunt valide ( nume de utlizator este nou,
+                                email respecta formatul standard, parola corespunde), utilizatorul este redirectionat pe pagina
+                                de confirmare a adresei de email, dupa confirmare, un nou cont de utilizator fiind creat.
+                                <img class="image" alt="register" src="resources/register.png">
+                            </p>
+                        </li>
+
+                        <li>
+                            <h3>Visualizarea celor mai populare subbreddit-uri</h3>
+                            <p>
+                                Bazat pe topicele alese de utilizator, fie la crearea contului, fie in setari, utlizatorul va putea vedea
+                                in pagina home cele mai populare subreddit-uri sub forma unei liste. Fiecare element al listei va contine
+                                informatii referitare la subreddit iar utilizatorul va putea schimba intre mai multe tipuri de statistici.
+                                Un alt feature important este notificarea in timp real atunci cand subredditul respectiv sufera
+                                schimbari (comentariu nou, etc).
+                            </p>
+                        </li>
+
+                        <li>
+                            <h3>Setarile Utilizatorului</h3>
+                            <p>
+                                Utilizatorul va putea accesa setari asociate contului sau. Astfel el va putea schimba parola, modifica
+                                mailul si alte informatii referitoare la contul personal. Tot in pagina de setari va putea modifica
+                                topicele preferate si va putea schimba intre tema dark si light.
+                            </p>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--5.UI/UX-->
+                <li>
+                    <h2>Functionalitati</h2>
+                    <p>
+                        Interfata aplicatitei este simpla si in acelasi timp moderna deoarece contine concepte curente cum ar fi:
+                        colturi rotunjite, folosirea fontului Roboto, comutarea intre temele light si dark, etc, elemente menite sa atraga utilizatorul.
+                    </p>
+                    <p>
+                        Pentru create layout-ului fiecare pagina s-a structurat folosind grid si flex deoarece se poate construi foarte usor interfete dar
+                        si alinierea elementelor interne. Pentru tema light s-au folosit diferite nuante progresive de gri, iar pentru tema dark in mod
+                        similar pentru a standardiza culorile si o mai buna mentenanta.
+                    </p>
+                    <p>
+                        Foile de still css au fost modularizate pentru scalabilitate, fiecare fisier css reprezinta un singur obiect/layout, astfel
+                        o modificare(de exemplu la un buton) se face intr-un fisier iar modificarile se propaga oriunde este folosit acel fisier.
+                        De asemenea, pentru a avea un singur loc in care sunt puse dimensiuni/culori au fost create variabile css.
+                    </p>
+                    <p>
+                        Aplicatia este responsive astfel ea poate fi disponibila si pe telefoanele mobile. Pentru a face acest lucru, atunci
+                        cand layout-ul ajunge la o latime minima, el se restructureaza pastrand astfel latimea paginii cu cea a ecranului.
+                    </p>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+
+</div>
+
+<footer class="footer">
+    <div class="footer-about">
+
+        <div></div>
+
+        <div>
+            <h3 class="dev-title">Developers</h3>
+            <div class="dev-content">
+                <div>
+                    <b>Stamate Valentin</b>
+                    <div>
+                        <a class="fab fa-github" href="https://github.com/StamateValentin" target="_blank"></a>
+                        <a class="fab fa-linkedin-in" href="https://www.linkedin.com/in/valentin-stamate/" target="_blank"></a>
+                        <a class="fab fa-facebook" href="https://www.facebook.com/stamatevalentin125/" target="_blank"></a>
+                    </div>
+                </div>
+
+                <div>
+                    <b>Mihai Laurentiu</b>
+                    <div>
+                        <a class="fab fa-github" href="https://github.com/LaurentiuMihai112" target="_blank"></a>
+                        <a class="fab fa-facebook" href="https://www.facebook.com/laurentiu.mihai.112" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-short-info">
+        <b>© 2021 Copyright: ReDat</b>
+    </div>
+
+</footer>
+
+
+<script src="js/toggle_theme.js"></script>
+<script src="js/top_bar_collapse.js"></script>
+<script src="https://kit.fontawesome.com/921ba4621c.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

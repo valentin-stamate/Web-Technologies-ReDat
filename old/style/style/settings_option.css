@@ -1,0 +1,14 @@
+#appearance:hover {
+    border-left-color: var(--color-primary);
+    color: #646464;
+}
+
+#general:hover {
+    border-left-color: var(--color-primary);
+    color: #646464;
+}
+
+#topics:hover {
+    border-left-color: var(--color-primary);
+    color: #646464;
+}
