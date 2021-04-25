@@ -40,6 +40,6 @@ def app(environ, start_response):
     return iter([data])
 
 # pipenv shell
-# gunicorn server.py:app --reload
+# gunicorn server:app --reload
 
 # the main documentation source: https://youtu.be/fe9t9DGPBuE
