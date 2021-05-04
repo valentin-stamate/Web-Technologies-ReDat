@@ -2,4 +2,4 @@
 .firebase
 venv
 __pycache__
-.lock
+*.lock

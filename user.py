@@ -2,16 +2,16 @@ from password_encryption import PasswordEncryption
 
 
 class User:
-    def __init__(self, username):
+    def __init__(self, username, date):
         self.username = username
-        self.salt = 0
-        self.key = 0
+        self.password = ''
+        self.salt = ''
+        self.creation_date_and_time = date
 
+    def __str__(self):
+        return 'username = {self.username}\n' \
+               'password = {self.password}\n' \
+               'salt = {self.salt}\n' \
+               'creation date = {self.creation_date_and_time}\n' \
+            .format(self=self)
 
-user1 = User('Brent')
-user2 = User('John')
-PasswordEncryption.encrypt_password(user1, 'mypass')
-# Should by false
-print(PasswordEncryption.verify_password(user1, 'notmypass'))
-# Should by true
-print(PasswordEncryption.verify_password(user1, 'mypass'))
