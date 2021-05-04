@@ -1,4 +1,5 @@
 import requests
+import pandas
 
 CLIENT_ID = 'B1hmLU6wbT6SdQ'
 SECRET_KEY = 'lZh7FRhuCZSTkPOIqHIvp-fkrHqKew'
@@ -20,8 +21,6 @@ headers = {'User-Agent': 'ReDatAPI v0.0.1'}
 res = requests.post('https://www.reddit.com/api/v1/access_token',
                     auth=auth, data=data, headers=headers)
 
-print(res)
-print(res.json())
 # convert response to JSON and pull access_token value
 TOKEN = res.json()['access_token']
 
@@ -31,7 +30,18 @@ headers['Authorization'] = f"bearer {TOKEN}"
 # while the token is valid (~2 hours) we just add headers=headers to our requests
 requests.get('https://oauth.reddit.com/api/v1/me', headers=headers)
 
-res = requests.get('https://oauth.reddit.com/r/games/hot', headers=headers)
+res = requests.get('https://oauth.reddit.com/r/games/hot', headers=headers, params={'limit': '100'})
+
+data_frame = pandas.DataFrame()
 
 for post in res.json()['data']['children']:
-    print(post['data']['title'])
+    data_frame = data_frame.append({
+        'subreddit': post['data']['subreddit'],
+        'title': post['data']['title'],
+        'selftext': post['data']['selftext'],
+        'author': post['data']['author'],
+        'score': post['data']['score']
+    }, ignore_index=True)
+
+# print(post['data'].keys()) #items that can be obtained
+print(data_frame)
