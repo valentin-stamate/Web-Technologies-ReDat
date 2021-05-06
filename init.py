@@ -11,6 +11,7 @@ execute_sql('''CREATE TABLE IF NOT EXISTS users (
     date_created TIMESTAMP NOT NULL,
     PRIMARY KEY (id)
 )''')
+print("Table users created successfully")
 
 user = User(username='ValentinSt', firstname='Valentin', lastname='Stamate', email='stamtevalentin125@gmail.com', password='123456789')
 user.save()
@@ -18,7 +19,10 @@ user.save()
 user = User(username='Lorenzo', firstname='Iphone', lastname='Laurentiu', email='iphonelaurentiu@gmail.com', password='123456789')
 user.save()
 
-print("Table users created successfully")
+user.username = "kjdaskdsa"
+
+user.update()
+
 
 
 
