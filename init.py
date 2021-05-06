@@ -1,12 +1,5 @@
 from database.connection.connection import execute_sql
-import datetime
-import time
-
-
-def current_timestamp():
-    ts = time.time()
-    return datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-
+from database.models.user_model import User
 
 execute_sql('''CREATE TABLE IF NOT EXISTS users (
     id SERIAL,
@@ -18,11 +11,14 @@ execute_sql('''CREATE TABLE IF NOT EXISTS users (
     date_created TIMESTAMP NOT NULL,
     PRIMARY KEY (id)
 )''')
+
+user = User(username='ValentinSt', firstname='Valentin', lastname='Stamate', email='stamtevalentin125@gmail.com', password='123456789')
+user.save()
+
+user = User(username='Lorenzo', firstname='Iphone', lastname='Laurentiu', email='iphonelaurentiu@gmail.com', password='123456789')
+user.save()
+
 print("Table users created successfully")
 
-execute_sql(f"""INSERT INTO 
-    users(username, firstname, lastname, email, password, date_created) 
-    VALUES ('ValentinSt', 'Valentin', 'Stamate', 'stamatevalentin125@gmail.com', '12345678', '{current_timestamp()}')"""
-)
 
 

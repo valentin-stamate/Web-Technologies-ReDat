@@ -1,17 +1,13 @@
 import hashlib
-import os
 
 
 class PasswordEncryption:
 
     @staticmethod
-    def encrypt_password(user, password):
-        salt = os.urandom(32)  # A random salt for this user
-        user.salt = salt
-        key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), user.salt, 100000)
-        user.password = key
+    def encrypt_password(password, date_created):
+        # salt = os.urandom(32)  # A random salt for this user
+        salt = abs(hash(date_created)).to_bytes(16, 'big')
 
-    @staticmethod
-    def verify_password(user, password):
-        new_key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), user.salt, 100000)
-        return user.password == new_key
+        encoded_password = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
+
+        return str(encoded_password)[2:len(encoded_password) - 2]
