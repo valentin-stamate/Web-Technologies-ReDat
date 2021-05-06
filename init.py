@@ -19,9 +19,11 @@ user.save()
 user = User(username='Lorenzo', firstname='Iphone', lastname='Laurentiu', email='iphonelaurentiu@gmail.com', password='123456789')
 user.save()
 
-user.username = "kjdaskdsa"
-
-user.update()
+user = User(username='ValentinSt', password='123456789')
+if user.login():
+    print(user)
+else :
+    print("Login failed")
 
 
 

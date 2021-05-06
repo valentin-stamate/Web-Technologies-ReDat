@@ -4,7 +4,7 @@ from database.util.util import current_timestamp
 
 
 class User:
-    def __init__(self, username, firstname, lastname, email, password='', user_id=0, date_created=''):
+    def __init__(self, username, firstname='', lastname='', email='', password='', user_id=0, date_created=''):
         self.user_id = user_id
         self.username = username
         self.firstname = firstname
@@ -46,12 +46,33 @@ class User:
         try:
             row = execute_sql(f"SELECT * FROM users WHERE {key} = {value}")[0]
             return User(user_id=row[0], username=row[1], firstname=row[2], lastname=row[3],
-                        email=row[4], date_created=row[6])
+                        email=row[4], password=row[5], date_created=row[6])
         except IndexError:
             print(f"User with key:{key} and value:{value} not found")
             return None
 
+    # AUTHENTICATION
+    def login(self):
+
+        db_user = User.get_by_username(self.username)
+
+        if db_user is None:
+            return False
+
+        if db_user.password == PasswordEncryption.encrypt_password(self.password, db_user.date_created):
+            self.user_id = db_user.user_id
+            self.username = db_user.username
+            self.firstname = db_user.firstname
+            self.lastname = db_user.lastname
+            self.email = db_user.email
+            self.password = ''
+            self.date_created = db_user.date_created
+            return True
+
+        return False
+
     # GETTERS
+
     @staticmethod
     def get_by_username(username):
         return User.__get_user_by_key("username", f"'{username}'")
@@ -59,7 +80,6 @@ class User:
     @staticmethod
     def get_by_id(user_id):
         return User.__get_user_by_key("id", f"{user_id}")
-
 
     def get_user_id(self):
         self.user_id = User.__get_user_by_key('username', f"'{self.username}'").user_id
