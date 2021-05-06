@@ -7,6 +7,12 @@ def execute_sql(sql):
 
     cursor.execute(sql)
 
+    rows = []
+    try:
+        rows = cursor.fetchall()
+    except:
+        rows = []
+
     connection.commit()
     connection.close()
-    return
+    return rows

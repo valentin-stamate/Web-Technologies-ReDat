@@ -7,7 +7,7 @@ class PasswordEncryption:
     @staticmethod
     def encrypt_password(user, password):
         salt = os.urandom(32)  # A new salt for this user
-        user.salt = salt;
+        user.salt = salt
         key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
         user.key = key
 

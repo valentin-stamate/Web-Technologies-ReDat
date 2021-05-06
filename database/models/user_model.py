@@ -1,4 +1,4 @@
-from password_encryption import PasswordEncryption
+from database.util.password_encryption import PasswordEncryption
 
 
 class User:
