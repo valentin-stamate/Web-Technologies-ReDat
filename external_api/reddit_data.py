@@ -7,7 +7,7 @@ SECRET_KEY = 'lZh7FRhuCZSTkPOIqHIvp-fkrHqKew'
 # note that CLIENT_ID refers to 'personal use script' and SECRET_TOKEN to 'token'
 auth = requests.auth.HTTPBasicAuth(CLIENT_ID, SECRET_KEY)
 
-with open('pw.txt', 'r') as f:
+with open('../pw.txt', 'r') as f:
     passwd = f.read()
 # here we pass our login method (password), username, and password
 data = {'grant_type': 'password',
