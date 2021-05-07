@@ -1,10 +1,13 @@
+import re
+
 from database.connection.connection import execute_sql
 from database.util.password_encryption import PasswordEncryption
 from database.util.util import current_timestamp
 
 
 class User:
-    def __init__(self, username, firstname='', lastname='', email='', password='', user_id=0, date_created=''):
+    def __init__(self, username, firstname='DummyUser', lastname='DummyUser', email='dummyuser@gmail.com',
+                 password='123456789', user_id=0, date_created=''):
         self.user_id = user_id
         self.username = username
         self.firstname = firstname
@@ -37,7 +40,8 @@ class User:
             print("User should be saved or logged first")
             return False
 
-        execute_sql(f"UPDATE users SET username = '{self.username}', firstname = '{self.firstname}', lastname = '{self.lastname}', password = '{self.password}' WHERE id = {self.user_id}")
+        execute_sql(
+            f"UPDATE users SET username = '{self.username}', firstname = '{self.firstname}', lastname = '{self.lastname}', password = '{self.password}' WHERE id = {self.user_id}")
 
         return True
 
@@ -71,8 +75,28 @@ class User:
 
         return False
 
-    # GETTERS
+    # VALIDATION
+    def is_valid(self):
+        if len(self.username) < 3:
+            return False
 
+        if len(self.firstname) < 8:
+            return False
+
+        if len(self.lastname) < 8:
+            return False
+
+        email_regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
+
+        if not re.search(email_regex, self.email):
+            return False
+
+        if len(self.password) < 8:
+            return False
+
+        return True
+
+    # GETTERS
     @staticmethod
     def get_by_username(username):
         return User.__get_user_by_key("username", f"'{username}'")

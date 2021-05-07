@@ -25,6 +25,9 @@ if user.login():
 else :
     print("Login failed")
 
+user = User(username='Lex', password='123456789')
+print(user.is_valid())
+
 
 
 
