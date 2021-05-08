@@ -3,6 +3,8 @@ def render_template(template_name='', context={}):
     template_name = f"templates/{template_name}"
     html_string = ""
 
+    print(context)
+
     with open(template_name, 'r') as f:
         html_string = f.read()
         html_string = html_string.format(**context)
@@ -19,3 +21,4 @@ def render_file(file_name):
         file_string = f.read()
 
     return file_string
+

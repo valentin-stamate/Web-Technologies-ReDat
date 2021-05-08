@@ -1,4 +1,4 @@
 import os
 
 # os.system("pipenv shell")
-os.system("gunicorn server:app --reload")
+os.system("gunicorn controller:app --reload")

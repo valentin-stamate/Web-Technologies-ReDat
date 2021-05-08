@@ -6,43 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
     <title>My profile</title>
-    <link rel="icon" href="../static/assets/favico.svg"/>
-    <link rel="stylesheet" href=../static/style/layout/user_profile.css>
+    <link rel="icon" href="static/assets/favico.svg"/>
+    <link rel="stylesheet" href=static/style/layout/user_profile.css>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 <div class="root-layout">
-    <div class="top-bar-component">
-        <!-- TODO when integrating the backend make top-bar as a separate template -->
-        <!-- TOP-BAR Template -->
-        <div class="top-bar">
-            <!-- Normal TopBar -->
-            <div class="top-bar-navigation">
-                <img class="logo" src="../static/resources/logo.svg" alt="logo" style="margin-left: -2px">
-                <div><a href="index.html"><b>Home</b></a></div>
-                <div><a href="user_profile.html"><b>Settings</b></a></div>
-                <div><a href="documentation.html"><b>Documentation</b></a></div>
-                <div class="flex-right"></div>
-                <a href="login.html"><b style="margin-right: 32px">Logout</b></a>
-            </div>
 
-            <!-- Collapsed TopBar -->
-            <div class="top-bar-collapse">
-                <img class="logo" src="../static/resources/logo.svg" alt="logo" style="margin-left: -2px">
-                <div class="flex-right"></div>
-                <span id="top-bar-collapse-icon" class="material-icons" style="color: var(--font-color)">menu</span>
-            </div>
+    {top_bar}
 
-            <div id="top-bar-collapse-content" class="top-bar-collapse-content">
-                <div><a href="index.html"><b>Home</b></a></div>
-                <div><a href="user_profile.html"><b>Settings</b></a></div>
-                <div><a href="documentation.html"><b>Documentation</b></a></div>
-                <div><a href="login.html"><b style="margin-right: 32px">Logout</b></a></div>
-                <div></div>
-            </div>
-        </div>
-
-    </div>
     <div id="middle-bar">
         <div class="user-profile">
             <div class="options">
@@ -54,7 +26,7 @@
                 <div id="current-settings-menu">
                 </div>
                 <div id="general-option">
-                    <img id="user-picture" src="../static/resources/user.jpg" alt="default user">
+                    <img id="user-picture" src="static/resources/user.jpg" alt="default user">
                     <p>username</p>
                     <p>adress@email.com</p>
                 </div>
@@ -99,44 +71,11 @@
     </div>
 </div>
 
-<footer class="footer">
-    <div class="footer-about">
+{footer}
 
-        <div></div>
-
-        <div>
-            <h3 class="dev-title">Developers</h3>
-            <div class="dev-content">
-                <div>
-                    <b>Stamate Valentin</b>
-                    <div>
-                        <a class="fab fa-github" href="https://github.com/StamateValentin" target="_blank"></a>
-                        <a class="fab fa-linkedin-in" href="https://www.linkedin.com/in/valentin-stamate/" target="_blank"></a>
-                        <a class="fab fa-facebook" href="https://www.facebook.com/stamatevalentin125/" target="_blank"></a>
-                    </div>
-                </div>
-
-                <div>
-                    <b>Mihai Laurentiu</b>
-                    <div>
-                        <a class="fab fa-github" href="https://github.com/LaurentiuMihai112" target="_blank"></a>
-                        <a class="fab fa-facebook" href="https://www.facebook.com/laurentiu.mihai.112" target="_blank"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="footer-short-info">
-        <b>© 2021 Copyright: ReDat</b>
-    </div>
-
-</footer>
-
-<script src="../static/js/toggle_theme.js"></script>
-<script src="../static/js/settings_options.js"></script>
-<script src="../static/js/top_bar_collapse.js"></script>
+<script src="static/js/toggle_theme.js"></script>
+<script src="static/js/settings_options.js"></script>
+<script src="static/js/top_bar_collapse.js"></script>
 <script src="https://kit.fontawesome.com/921ba4621c.js" crossorigin="anonymous"></script>
 </body>
 </html>
