@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
-    <link rel="icon" href="assets/favico.svg"/>
-    <title>Home</title>
-    <link rel="stylesheet" href="style/layout/index.css">
+    <title>My profile</title>
+    <link rel="icon" href="../static/assets/favico.svg"/>
+    <link rel="stylesheet" href=../static/style/layout/user_profile.css>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -18,7 +18,7 @@
         <div class="top-bar">
             <!-- Normal TopBar -->
             <div class="top-bar-navigation">
-                <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
+                <img class="logo" src="../static/resources/logo.svg" alt="logo" style="margin-left: -2px">
                 <div><a href="index.html"><b>Home</b></a></div>
                 <div><a href="user_profile.html"><b>Settings</b></a></div>
                 <div><a href="documentation.html"><b>Documentation</b></a></div>
@@ -28,7 +28,7 @@
 
             <!-- Collapsed TopBar -->
             <div class="top-bar-collapse">
-                <img class="logo" src="resources/logo.svg" alt="logo" style="margin-left: -2px">
+                <img class="logo" src="../static/resources/logo.svg" alt="logo" style="margin-left: -2px">
                 <div class="flex-right"></div>
                 <span id="top-bar-collapse-icon" class="material-icons" style="color: var(--font-color)">menu</span>
             </div>
@@ -43,54 +43,58 @@
         </div>
 
     </div>
-
-    <div class="information-component">
-        <div class="information-component-content">Lorem ipsum dolor sit amet</div>
-    </div>
-
-    <div class="subreddits-component">
-        <div class="subreddits-wrapper">
-            <div class="subreddits-wrapper-top">
-                <div class="title-1"><b>Top Subreddits</b></div>
-                <div>
-                    <button class="icon-button primary"><span class="material-icons">add</span></button>
-                </div>
+    <div id="middle-bar">
+        <div class="user-profile">
+            <div class="options">
+                <label id="general">General</label>
+                <label id="topics">Topics</label>
+                <label id="appearance">Appearance</label>
             </div>
-
-            <div class="subreddits-wrapper-list">
-                <!-- Subreddit Template -->
-                <div class="subreddits-container">
-                    <div class="subreddits-container-top">
-                        <div class="subreddits-container-name"><b>/Subreddit Name</b></div>
-
-                        <div class="subreddits-container-categories">
-                            <button class="chip">Category A</button>
-
-                            <button class="chip">Category B</button>
-
-                            <button class="chip">Category C</button>
+            <div id="profile-component">
+                <div id="current-settings-menu">
+                </div>
+                <div id="general-option">
+                    <img id="user-picture" src="../static/resources/user.jpg" alt="default user">
+                    <p>username</p>
+                    <p>adress@email.com</p>
+                </div>
+                <div id="appearance-option">
+                    <button id="btn-toggle-theme" class="button primary">Toggle Theme</button>
+                </div>
+                <div id="topics-option">
+                    <div class="user-preferences">
+                        <div>
+                            <button>x</button>
+                            Anime
                         </div>
-
-                        <div class="subreddits-container-notification">
-                            <span class="material-icons flex-right">notifications_active</span>
-                            <div>Users: 432</div>
+                        <div>
+                            <button>x</button>
+                            Funny
                         </div>
-                    </div>
-
-
-                    <div class="subreddits-container-statistics">
-
-                    </div>
-                    <div class="subreddits-container-bottom">
-                        <button class="chip">Topic A</button>
-                        <button class="chip">Topic B</button>
-                        <button class="chip">Topic C</button>
+                        <div>
+                            <button>x</button>
+                            Genshin Impact
+                        </div>
+                        <div>
+                            <button>x</button>
+                            IT
+                        </div>
+                        <div>
+                            <button>x</button>
+                            Movies
+                        </div>
+                        <div>
+                            <button>x</button>
+                            Music
+                        </div>
+                        <div>
+                            <button>x</button>
+                            War
+                        </div>
                     </div>
                 </div>
 
-
             </div>
-
         </div>
     </div>
 </div>
@@ -130,9 +134,9 @@
 
 </footer>
 
-
-<script src="js/toggle_theme.js"></script>
-<script src="js/top_bar_collapse.js"></script>
+<script src="../static/js/toggle_theme.js"></script>
+<script src="../static/js/settings_options.js"></script>
+<script src="../static/js/top_bar_collapse.js"></script>
 <script src="https://kit.fontawesome.com/921ba4621c.js" crossorigin="anonymous"></script>
 </body>
 </html>

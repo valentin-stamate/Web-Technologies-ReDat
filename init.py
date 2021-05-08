@@ -1,9 +1,9 @@
 import pandas
 
-from database.connection.connection import execute_sql
-from database.models.user_model import User
-from external_api.reddit_data import get_hot_posts, get_trending_subreddits
-from external_api.reddit_post import Post
+from server.database.connection.connection import execute_sql
+from server.database.models.user_model import User
+from server.external_api.reddit_data import get_hot_posts, get_trending_subreddits
+from server.external_api.reddit_post import Post
 
 execute_sql('''CREATE TABLE IF NOT EXISTS users (
     id SERIAL,

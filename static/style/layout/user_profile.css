@@ -1,12 +1,12 @@
 @import "../style/input_field.css";
-@import "../layout/logo.css";
+@import "logo.css";
 @import "../style/button.css";
 @import "../style/global.css";
 @import "../style/theme.css";
 @import "../style/settings_option.css";
 @import "../style/font.css";
 @import "../style/footer.css";
-@import "../layout/top_bar.css";
+@import "top_bar.css";
 @import "../style/position.css";
 
 body {

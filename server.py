@@ -1,40 +1,7 @@
 import os
-
-content_type = {'.html': 'text/html',
-                '.css': 'text/css'
-                }
-
-
-# TEMPLATE RENDERING WITH CONTEXT
-def render_template(template_name='index.html', context={}):
-    template_name = f"templates/{template_name}"
-    html_string = ""
-
-    with open(template_name, 'r') as f:
-        html_string = f.read()
-        html_string = html_string.format(**context)
-
-    return html_string
-
-
-# RENDERING FILES SUCH AS IMAGES, CSS, ETC
-def render_file(file_name):
-    file_name = file_name[1:len(file_name)]
-    file_string = ""
-
-    with open(file_name, 'r') as f:
-        file_string = f.read()
-
-    return file_string
-
-
-# CONTROLLERS
-def home(environ):
-    return render_template(template_name='index.html', context={"data": "ana are mere"})
-
-
-def page_not_found(environ):
-    return render_template(template_name='404.html')
+from request.content_type import *
+from request.controllers import home, page_not_found
+from request.renderer import render_file
 
 
 # CONTROLLER HANDLER

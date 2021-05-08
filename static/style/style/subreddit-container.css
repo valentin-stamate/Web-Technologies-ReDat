@@ -1,4 +1,4 @@
-@import "../style/chip.css";
+@import "chip.css";
 
 .subreddits-container {
     display: grid;

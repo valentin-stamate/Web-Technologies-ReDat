@@ -1,8 +1,8 @@
 @import "../style/subreddit-container.css";
 @import "../style/position.css";
 @import "../style/global.css";
-@import "../layout/logo.css";
-@import "../layout/top_bar.css";
+@import "logo.css";
+@import "top_bar.css";
 @import "../style/footer.css";
 
 .root-layout {

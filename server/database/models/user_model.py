@@ -1,8 +1,8 @@
 import re
 
-from database.connection.connection import execute_sql
-from database.util.password_encryption import PasswordEncryption
-from database.util.util import current_timestamp
+from server.database.connection.connection import execute_sql
+from server.database.util.password_encryption import PasswordEncryption
+from server.database.util.util import current_timestamp
 
 
 class User:

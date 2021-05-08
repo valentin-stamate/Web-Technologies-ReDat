@@ -1,5 +1,5 @@
 @import "../style/input_field.css";
-@import "../layout/logo.css";
+@import "logo.css";
 @import "../style/button.css";
 @import "../style/global.css";
 @import "../style/theme.css";
