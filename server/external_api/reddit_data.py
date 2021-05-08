@@ -5,7 +5,7 @@ from secret_var.secrets import *
 
 
 # note that CLIENT_ID refers to 'personal use script' and SECRET_TOKEN to 'token'
-def get_hot_posts(topic, limit):
+def get_hot_posts(topic, limit=25):
     auth = requests.auth.HTTPBasicAuth(CLIENT_ID, SECRET_KEY)
 
     # here we pass our login method (password), username, and password
@@ -33,15 +33,15 @@ def get_hot_posts(topic, limit):
                        params={'limit': '{limit}'.format(limit=limit)})
 
     data_frame = pandas.DataFrame()
-    posts = [] * 100
+    posts = [] * limit
+
     for post in res.json()['data']['children']:
         posts.append(post)
-
     # print(post['data'].keys())  # items that can be obtained
     return posts
 
 
-def get_trending_subreddits(limit):
+def get_trending_subreddits(limit=25):
     auth = requests.auth.HTTPBasicAuth(CLIENT_ID, SECRET_KEY)
 
     # here we pass our login method (password), username, and password
@@ -67,7 +67,7 @@ def get_trending_subreddits(limit):
 
     res = requests.get('https://oauth.reddit.com/r/trending_subreddits', headers=headers,
                        params={'limit': '{limit}'.format(limit=limit)})
-    posts = [] * 100
+    posts = [] * limit
     for post in res.json()['data']['children']:
         posts.append(post)
     return posts
