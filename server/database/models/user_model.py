@@ -1,20 +1,20 @@
 import re
 
 from server.database.connection.connection import execute_sql
-from server.database.util.password_encryption import PasswordEncryption
-from server.database.util.util import current_timestamp
+from util.password_encryption import PasswordEncryption
+from util.util import current_timestamp
 
 
 class User:
     def __init__(self, username, firstname='DummyUser', lastname='DummyUser', email='dummyuser@gmail.com',
-                 password='123456789', user_id=0, date_created=''):
+                 password='123456789', user_id=0, date_created=current_timestamp()):
         self.user_id = user_id
         self.username = username
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
         self.password = password
-        self.date_created = current_timestamp()
+        self.date_created = date_created
 
     # CRUD OPERATIONS
     def save(self):
@@ -24,7 +24,9 @@ class User:
         try:
             execute_sql(f"""INSERT INTO 
                 users(username, firstname, lastname, email, password, date_created) 
-                VALUES ('{self.username}', '{self.firstname}', '{self.lastname}', '{self.email}', '{encrypted_password}', '{self.date_created}')""")
+                VALUES 
+                ('{self.username}', '{self.firstname}', '{self.lastname}', '{self.email}', 
+                '{encrypted_password}', '{self.date_created}')""")
 
             print(f"User {self.username} saved")
         except Exception as e:
@@ -45,7 +47,7 @@ class User:
         return {'status': True, 'message': 'User updated successfully'}
 
     # AUTHENTICATION
-    def login(self):
+    def login(self) -> dict:
 
         db_user = User.get_by_username(self.username)['object']
 
@@ -62,7 +64,7 @@ class User:
             self.date_created = db_user.date_created
             return {'status': True, 'message': 'Login success'}
 
-        return {'status': True, 'message': 'Login failed'}
+        return {'status': False, 'message': 'Incorrect password'}
 
     # VALIDATION
     def is_valid(self):

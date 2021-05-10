@@ -1,23 +1,21 @@
 # TEMPLATE RENDERING WITH CONTEXT
 def render_template(template_name='', context={}):
-    template_name = f"templates/{template_name}"
-    html_string = ""
+    template_path = f"/templates/{template_name}"
 
-    print(context)
-
-    with open(template_name, 'r') as f:
-        html_string = f.read()
-        html_string = html_string.format(**context)
+    html_string = render_file(template_path)
+    html_string = html_string.format(**context)
 
     return html_string
 
 
 # RENDERING FILES SUCH AS IMAGES, CSS, ETC
-def render_file(file_name):
-    file_name = file_name[1:len(file_name)]
+def render_file(file_path):
+    print(f"Requested file {file_path}")
+
+    file_path = file_path[1:len(file_path)]
     file_string = ""
 
-    with open(file_name, 'r') as f:
+    with open(file_path, 'r') as f:
         file_string = f.read()
 
     return file_string
