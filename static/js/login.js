@@ -1,6 +1,7 @@
 import {getFormData} from "./util/util.js";
 import {LOGIN_ENDPOINT} from "./endpoints.js";
 import {sendRequest} from "./request/request_handler.js";
+import {setCookie, USER_AUTH_COOKIE} from "./util/cookie.js";
 
 const loginForm = document.getElementById('login-form');
 
@@ -16,7 +17,12 @@ function onLogin(e) {
     const request = sendRequest(LOGIN_ENDPOINT, "POST", payload);
     request.onreadystatechange = (e) => {
         if (request.readyState === XMLHttpRequest.DONE) {
-            console.log(JSON.parse(request.responseText));
+            const status = request.status;
+
+            if (status === 200) {
+                setCookie(USER_AUTH_COOKIE, JSON.parse(request.responseText).userAuth);
+            }
+            /* TODO else, display the errors */
         }
     }
 }
