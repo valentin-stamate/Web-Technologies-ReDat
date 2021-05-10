@@ -50,5 +50,3 @@ def app(environ, start_response):
 
 # pipenv shell
 # gunicorn server:app --reload
-
-# the main documentation source: https://youtu.be/fe9t9DGPBuE
