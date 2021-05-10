@@ -27,16 +27,16 @@
 
                <br>
 
-               <form class="authentication-inputs">
+               <form class="authentication-inputs" id="login-form">
 
                    <div class="input-component">
-                        <label for="register-username-field" class="input-label">Username or Email</label>
-                        <input type="text" name="register-username" id="register-username-field" class="input-field" minlength="8" required>
+                        <label for="username" class="input-label">Username or Email</label>
+                        <input type="text" name="username" id="username" class="input-field" minlength="8" required>
                    </div>
 
                    <div class="input-component">
-                       <label for="register-password-field" class="input-label">Password</label>
-                       <input type="password" name="register-email" id="register-password-field" class="input-field" minlength="8" required>
+                       <label for="password" class="input-label">Password</label>
+                       <input type="password" name="password" id="password" class="input-field" minlength="8" required>
                    </div>
 
                    <br>
@@ -52,6 +52,7 @@
     </div>
 
     <script src="static/js/util/toggle_theme.js"></script>
+    <script type="module" src="static/js/login.js"></script>
 
 </body>
 </html>
