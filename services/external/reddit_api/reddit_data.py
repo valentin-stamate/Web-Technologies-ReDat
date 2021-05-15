@@ -1,7 +1,7 @@
 import pandas
 import requests
 
-from secret_var.secrets import *
+from services.external.reddit_api.secrets import REDDIT_USERNAME, REDDIT_PASSWORD, CLIENT_ID, SECRET_KEY
 
 
 # note that CLIENT_ID refers to 'personal use script' and SECRET_TOKEN to 'token'
@@ -13,7 +13,7 @@ def get_hot_posts(topic, limit=25):
             'username': REDDIT_USERNAME,
             'password': REDDIT_PASSWORD}
 
-    # setup our header info, which gives reddit a brief description of our app
+    # setup our header info, which gives reddit_api a brief description of our app
     headers = {'User-Agent': 'ReDatAPI v0.0.1'}
 
     # send our request for an OAuth token
@@ -49,7 +49,7 @@ def get_trending_subreddits(limit=25):
             'username': REDDIT_USERNAME,
             'password': REDDIT_PASSWORD}
 
-    # setup our header info, which gives reddit a brief description of our app
+    # setup our header info, which gives reddit_api a brief description of our app
     headers = {'User-Agent': 'ReDatAPI v0.0.1'}
 
     # send our request for an OAuth token

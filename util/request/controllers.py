@@ -1,8 +1,8 @@
-from authentication.instance.user_data import UserData
-from authentication.jwt_util import jwt_encode
-from request.renderer import render_template
-from request.response_data import HttpStatus, ContentType
-from server.database.models.user_model import User
+from services.authentication.instance.user_data import UserData
+from services.authentication.jwt_util import jwt_encode
+from util.request.renderer import render_template
+from util.request.response_data import HttpStatus, ContentType
+from services.server.database.models.user_model import User
 from util.util import read_body, json_to_dict, dict_to_json
 
 

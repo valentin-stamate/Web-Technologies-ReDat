@@ -1,4 +1,4 @@
-from request.response_data import ContentType
+from util.request.response_data import ContentType
 
 content_type = {'.html': ContentType.HTML,
                 '.css': ContentType.CSS,

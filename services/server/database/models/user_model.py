@@ -1,6 +1,6 @@
 import re
 
-from server.database.connection.connection import execute_sql
+from services.server.database.connection.connection import execute_sql
 from util.password_encryption import PasswordEncryption
 from util.util import current_timestamp
 

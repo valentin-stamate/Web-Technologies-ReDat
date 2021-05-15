@@ -1,14 +1,12 @@
-import datetime
 import os
-from request.content_type import *
-from request.controllers import home_renderer, page_not_found_renderer, login_renderer, register_renderer, \
+from util.request.content_type import *
+from util.request.controllers import home_renderer, page_not_found_renderer, login_renderer, register_renderer, \
     topics_renderer, confirm_account_renderer, user_profile_renderer, documentation_renderer, doc_renderer, \
     get_user_auth
-from request.renderer import render_file
+from util.request.renderer import render_file
 
 
 # CONTROLLER HANDLER
-from util.util import get_cookie
 
 
 def app(environ, start_response):

@@ -5,3 +5,4 @@ __pycache__
 *.lock
 .vscode/
 /secret_var/
+*secrets.py

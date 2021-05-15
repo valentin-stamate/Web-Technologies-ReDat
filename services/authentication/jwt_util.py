@@ -1,10 +1,8 @@
-import json
-
 import jwt
 from jwt import InvalidSignatureError
 
-from authentication.instance.user_data import UserData
-from authentication.secrets import *
+from services.authentication.instance.user_data import UserData
+from services.authentication.secrets import *
 
 
 def jwt_encode(payload: UserData) -> str:
