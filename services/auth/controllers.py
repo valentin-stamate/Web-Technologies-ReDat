@@ -19,7 +19,6 @@ def auth_user(environ) -> ResponseData:
         response.status = HttpStatus.BAD_REQUEST
         return response
 
-
     res = requests.post(ServiceUrl.SERVER + "/auth_user", json=body)
 
     response.payload = res.text

@@ -20,7 +20,7 @@ function onLogin(e) {
             const status = request.status;
 
             if (status === 200) {
-                setCookie(USER_AUTH_COOKIE, JSON.parse(request.responseText).userAuth);
+                setCookie(USER_AUTH_COOKIE, JSON.parse(request.responseText).token);
             }
             /* TODO else, display the errors */
         }

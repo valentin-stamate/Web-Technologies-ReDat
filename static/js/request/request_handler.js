@@ -5,6 +5,5 @@ export function sendRequest(URL, METHOD, payload) {
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     request.send(JSON.stringify(payload));
-    console.log(JSON.stringify(payload))
     return request;
 }
