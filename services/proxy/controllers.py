@@ -1,96 +1,45 @@
+import os
+import requests
 from services.auth.instance.user_data import UserData
 from services.auth.jwt_util import jwt_encode
-from util.ResponseData import ResponseData
-from services.server.renderer import render_template
+from util.request.content_type import content_type
+from util.response_data import ResponseData
 from util.request.response_data import HttpStatus, ContentType
 from services.server.database.models.user_model import User
+from util.service_url import ServiceUrl
 from util.util import read_body, json_to_dict, dict_to_json
 
 
-def home_renderer(environ) -> ResponseData:
+def get_page(environ) -> ResponseData:
+    path = environ.get("PATH_INFO")
+    filename, file_extension = os.path.splitext(path)
+
     response = ResponseData()
 
-    response.payload = render_template(template_name='index.html',
-                                       context={'top_bar': render_template('top_bar.html'),
-                                                'footer': render_template('footer.html')})
-    response.status = HttpStatus.OK
-    response.headers = [ContentType.HTML]
+    if filename == "/" or filename == "" or filename == "/home":
+        filename = "/index"
 
-    return response
+    res = requests.get(ServiceUrl.SERVER + filename + ".html")
 
-
-def login_renderer(environ) -> ResponseData:
-    response = ResponseData()
-
-    response.payload = render_template(template_name='login.html', context={})
+    response.payload = res.text
     response.status = HttpStatus.OK
     response.headers = [ContentType.HTML]
     return response
 
 
-def register_renderer(environ) -> ResponseData:
+def get_resource(environ) -> ResponseData:
+    path = environ.get("PATH_INFO")
+    filename, file_extension = os.path.splitext(path)
+
     response = ResponseData()
 
-    response.payload = render_template(template_name='register.html', context={})
+    response.headers.append(content_type.get(file_extension, 'text/html'))
+
+    res = requests.get(ServiceUrl.SERVER + path)
+
+    response.payload = res.text
     response.status = HttpStatus.OK
-    response.headers = [ContentType.HTML]
-    return response
 
-
-def topics_renderer(environ) -> ResponseData:
-    response = ResponseData()
-
-    response.payload = render_template(template_name='topics_of_interest.html')
-    response.status = HttpStatus.OK
-    response.headers = [ContentType.HTML]
-    return response
-
-
-def confirm_account_renderer(environ) -> ResponseData:
-    response = ResponseData()
-
-    response.payload = render_template(template_name='confirm_account.html')
-    response.status = HttpStatus.OK
-    response.headers = [ContentType.HTML]
-    return response
-
-
-def user_profile_renderer(environ) -> ResponseData:
-    response = ResponseData()
-
-    response.payload = render_template(template_name='user_profile.html',
-                                       context={'top_bar': render_template('top_bar.html'),
-                                                'footer': render_template('footer.html')})
-    response.status = HttpStatus.OK
-    response.headers = [ContentType.HTML]
-    return response
-
-
-def documentation_renderer(environ) -> ResponseData:
-    response = ResponseData()
-
-    response.payload = render_template(template_name='documentation.html',
-                                       context={'top_bar': render_template('top_bar.html'),
-                                                'footer': render_template('footer.html')})
-    response.headers = [ContentType.HTML]
-    return response
-
-
-def doc_renderer(environ) -> ResponseData:
-    response = ResponseData()
-
-    response.payload = render_template(template_name='doc.html')
-    response.status = HttpStatus.OK
-    response.headers = [ContentType.HTML]
-    return response
-
-
-def page_not_found_renderer(environ) -> ResponseData:
-    response = ResponseData()
-
-    response.payload = render_template(template_name='404.html')
-    response.status = HttpStatus.OK
-    response.headers = [ContentType.HTML]
     return response
 
 
