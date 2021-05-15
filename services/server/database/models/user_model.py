@@ -32,7 +32,7 @@ class UserModel:
             print(f"User {self.username} saved")
         except Exception as e:
             print(e)
-            return {'status': False, 'message': e}
+            return {'status': False, 'message': 'Error at adding user'}
 
         self.get_user_id()
 

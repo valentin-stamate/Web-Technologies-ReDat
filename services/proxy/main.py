@@ -1,10 +1,9 @@
 import requests
 
-from services.proxy.controllers import get_page, get_static_resource
+from services.proxy.controllers import get_page, get_static_resource, auth_token
 from util.pages import paths
 from util.request.response_data import HttpStatus, ContentType
 from util.response_data import ResponseData
-from services.proxy.controllers import get_page, get_static_resource, auth_token
 # CONTROLLER HANDLER
 from util.service_url import ServiceUrl
 from util.util import json_to_dict, read_body
@@ -26,6 +25,7 @@ def app(environ, start_response):
     elif path == '/register_user':
         print('trying to register')
         res = requests.post(ServiceUrl.AUTH + "/register_user", json=json_to_dict(read_body(environ)))
+        response.payload = res.text
     else:
         response.status = HttpStatus.NOT_FOUND
         response.payload = "Page not found."

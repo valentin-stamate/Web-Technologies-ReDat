@@ -1,10 +1,8 @@
 import os
-from services.server.controllers import get_file, auth_user
-from services.server.database.models.user_model import UserModel
-from util.pages import paths, pages
 
+from services.server.controllers import auth_user
 from services.server.controllers import get_file
-from services.server.database.models import user_model
+from services.server.database.models.user_model import UserModel
 from util.pages import pages
 from util.request.content_type import content_type
 from util.request.response_data import ContentType
@@ -34,17 +32,17 @@ def app(environ, start_response):
         response.headers = [ContentType.HTML]
     elif path == "/auth_user":
         response = auth_user(environ)
+    elif path == '/register_user':
+        body_dict = json_to_dict(read_body(environ))
+        new_user = UserModel(body_dict['username'], body_dict['firstname'], body_dict['lastname'],
+                             body_dict['email'],
+                             body_dict['password'])
+        response.payload = new_user.save()['message']
     else:
         response.payload = "Not found"
         response.headers = [ContentType.HTML]
         response.status = "404"
     # User Requests
-    if path == '/register_user':
-        body_dict = json_to_dict(read_body(environ))
-        new_user = UserModel(body_dict['username'], body_dict['firstname'], body_dict['lastname'],
-                             body_dict['email'],
-                             body_dict['password'])
-        new_user.save()
 
     response.payload = response.payload.encode("utf-8")
 

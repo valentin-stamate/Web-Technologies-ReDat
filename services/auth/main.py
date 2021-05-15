@@ -3,6 +3,7 @@ import requests
 
 from services.auth.controllers import auth_user
 from services.server.database.models import user_model
+from util.response_data import ResponseData
 from util.service_url import ServiceUrl
 from util.util import json_to_dict, read_body
 
@@ -12,30 +13,29 @@ def app(environ, start_response):
     if path.endswith("/"):
         path = path[:-1]
 
-    response = ""
+    response = ResponseData()
 
     headers = []
-    response_status = "200 OK"
 
     if path == "":
-        response = "Hello there. This is the auth service."
+        response.payload = "Hello there. This is the auth service."
     elif path == "/auth_user":
         response = auth_user(environ)
     elif path == "/register_user":
-        register_response = register(environ)
-        response = register_response['message']
+        res = requests.post(ServiceUrl.SERVER + "/register_user", json=json_to_dict(read_body(environ)))
+        response.payload = res.text
 
-    response = response.payload.encode("utf-8")
+    response.payload = response.payload.encode("utf-8")
 
-    response_headers = [("Content-Length", str(len(response)))]
-    response_headers += headers
+    response_headers = [("Content-Length", str(len(response.payload)))]
+    response_headers += response.headers
 
     start_response(
-        response_status,
+        response.status,
         response_headers
     )
 
-    return iter([response])
+    return iter([response.payload])
 
 
 # REGISTER NEW USER
@@ -47,7 +47,8 @@ def register(environ) -> dict:
     if db_user is not None:
         return {'status': False, 'message': "Username already exists"}
 
-    new_user = user_model.UserModel(body_dict['username'], body_dict['firstname'], body_dict['lastname'], body_dict['email'],
+    new_user = user_model.UserModel(body_dict['username'], body_dict['firstname'], body_dict['lastname'],
+                                    body_dict['email'],
                                     body_dict['password'])
     if not new_user.is_valid()['status']:
         return {'status': False, 'message': new_user.is_valid()['message']}
