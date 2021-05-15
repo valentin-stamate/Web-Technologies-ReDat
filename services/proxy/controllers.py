@@ -69,38 +69,12 @@ def get_static_resource(environ) -> ResponseData:
     return response
 
 
-# REST ENDPOINTS
-# def get_user_auth(environ) -> ResponseData:
-#     response = ResponseData()
-#
-#     body_dict = json_to_dict(read_body(environ))
-#
-#     user = User(username=body_dict['username'], password=body_dict['password'])
-#
-#     status = user.login()
-#
-#     response.put(payload=dict_to_json({'error': status['message']}), status=HttpStatus.NOT_FOUND,
-#                  headers=[ContentType.JSON])
-#
-#     if not status['status']:
-#         return response
-#
-#     user = UserData(user.user_id, user.username, user.email)
-#
-#     user_jwt_data = jwt_encode(user)
-#
-#     data = {'userAuth': user_jwt_data}
-#
-#     response.put(payload=dict_to_json(data), status=HttpStatus.OK, headers = [ContentType.JSON])
-#
-#     return response
-
-def get_auth_token(environ) -> ResponseData:
+def auth_token(environ) -> ResponseData:
     response = ResponseData()
 
     body_dict = json_to_dict(read_body(environ))
 
-    res = requests.post(ServiceUrl.SERVER + "/get_auth_token", json=body_dict)
+    res = requests.post(ServiceUrl.AUTH + "/auth_user", json=body_dict)
 
     response.payload = res.text
     response.status = "200"

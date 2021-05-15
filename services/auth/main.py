@@ -1,6 +1,7 @@
 # CONTROLLER HANDLER
 import requests
 
+from services.auth.controllers import auth_user
 from services.server.database.models import user_model
 from util.service_url import ServiceUrl
 from util.util import json_to_dict, read_body
@@ -19,12 +20,12 @@ def app(environ, start_response):
     if path == "":
         response = "Hello there. This is the auth service."
     elif path == "/auth_user":
-        response = "dsad"
+        response = auth_user(environ)
     elif path == "/register_user":
         register_response = register(environ)
         response = register_response['message']
 
-    response = response.encode("utf-8")
+    response = response.payload.encode("utf-8")
 
     response_headers = [("Content-Length", str(len(response)))]
     response_headers += headers

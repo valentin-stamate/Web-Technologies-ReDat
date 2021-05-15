@@ -19,7 +19,7 @@ def get_file(path):
     return response
 
 
-def login_user(environ):
+def auth_user(environ):
     response = ResponseData()
     response.headers = [ContentType.JSON]
 
@@ -41,3 +41,4 @@ def login_user(environ):
     response.status = HttpStatus.OK
 
     return response
+

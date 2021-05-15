@@ -4,7 +4,7 @@ from services.proxy.controllers import get_page, get_static_resource
 from util.pages import paths
 from util.request.response_data import HttpStatus, ContentType
 from util.response_data import ResponseData
-from services.proxy.controllers import get_page, get_static_resource, get_auth_token
+from services.proxy.controllers import get_page, get_static_resource, auth_token
 # CONTROLLER HANDLER
 from util.service_url import ServiceUrl
 from util.util import json_to_dict, read_body
@@ -16,14 +16,13 @@ def app(environ, start_response):
         path = path[:-1]
 
     response = ResponseData()
-    print(path)
-    print(read_body(environ))
+
     if path in paths:
         response = get_page(environ)
     elif path.startswith('/static'):
         response = get_static_resource(environ)
-    elif path == "/get_auth_token":
-        response = get_auth_token(environ)
+    elif path == "/auth_user":
+        response = auth_token(environ)
     elif path == '/register_user':
         print('trying to register')
         res = requests.post(ServiceUrl.AUTH + "/register_user", json=json_to_dict(read_body(environ)))
