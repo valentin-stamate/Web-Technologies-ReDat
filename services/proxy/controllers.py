@@ -2,6 +2,7 @@ import os
 import requests
 from services.auth.instance.user_data import UserData
 from services.auth.jwt_util import jwt_encode
+from services.proxy.template_formatter import render_template
 from util.request.content_type import content_type
 from util.response_data import ResponseData
 from util.request.response_data import HttpStatus, ContentType
@@ -12,22 +13,49 @@ from util.util import read_body, json_to_dict, dict_to_json
 
 def get_page(environ) -> ResponseData:
     path = environ.get("PATH_INFO")
-    filename, file_extension = os.path.splitext(path)
+    path, file_extension = os.path.splitext(path)
 
     response = ResponseData()
 
-    if filename == "/" or filename == "" or filename == "/home":
-        filename = "/index"
+    if path == "/" or path == "" or path == "/home":
+        path = "/index"
 
-    res = requests.get(ServiceUrl.SERVER + filename + ".html")
+    if path == "/index":
+        response.payload = render_home(environ)
+    elif path == "/profile":
+        response.payload = render_user_profile(environ)
 
-    response.payload = res.text
+    # Other pages that requires no other template or processing
+    if path == "/register" or path == "/login" or path == "/doc" or path == "/documentation"\
+            or path == "/confirm_account" or path == "/topics_of_interests":
+        response.payload = requests.get(ServiceUrl.SERVER + path + ".html").text
+
     response.status = HttpStatus.OK
     response.headers = [ContentType.HTML]
     return response
 
 
-def get_resource(environ) -> ResponseData:
+# RENDERING PAGES
+def render_home(environ):
+    res = requests.get(ServiceUrl.SERVER + "/index.html")
+
+    top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
+    footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
+
+    return render_template(res.text, {'top_bar': top_bar_html, 'footer': footer_html})
+
+
+def render_user_profile(environ):
+    res = requests.get(ServiceUrl.SERVER + "/user_profile.html")
+
+    top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
+    footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
+
+    return render_template(res.text, {'top_bar': top_bar_html, 'footer': footer_html})
+
+
+# RETURN A RESOURCE FORM /static FOLDER
+def get_static_resource(environ) -> ResponseData:
     path = environ.get("PATH_INFO")
     filename, file_extension = os.path.splitext(path)
 

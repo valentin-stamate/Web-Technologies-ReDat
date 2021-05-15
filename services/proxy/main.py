@@ -1,7 +1,7 @@
 from util.pages import paths
 from util.request.response_data import HttpStatus, ContentType
 from util.response_data import ResponseData
-from services.proxy.controllers import get_page, get_resource
+from services.proxy.controllers import get_page, get_static_resource
 
 
 # CONTROLLER HANDLER
@@ -17,7 +17,7 @@ def app(environ, start_response):
     if path in paths:
         response = get_page(environ)
     elif path.startswith('/static'):
-        response = get_resource(environ)
+        response = get_static_resource(environ)
     else:
         response.status = HttpStatus.NOT_FOUND
         response.payload = ""
