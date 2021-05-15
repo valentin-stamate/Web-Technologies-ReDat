@@ -5,7 +5,7 @@ from util.password_encryption import PasswordEncryption
 from util.util import current_timestamp
 
 
-class User:
+class UserModel:
     def __init__(self, username, firstname='DummyUser', lastname='DummyUser', email='dummyuser@gmail.com',
                  password='123456789', user_id=0, date_created=current_timestamp()):
         self.user_id = user_id
@@ -49,7 +49,7 @@ class User:
     # AUTHENTICATION
     def login(self) -> dict:
 
-        db_user = User.get_by_username(self.username)['object']
+        db_user = UserModel.get_by_username(self.username)['object']
 
         if db_user is None:
             return {'status': False, 'message': "User doesn't exist"}
@@ -90,21 +90,21 @@ class User:
     # GETTERS
     @staticmethod
     def get_by_username(username):
-        return User.__get_user_by_key("username", f"'{username}'")
+        return UserModel.__get_user_by_key("username", f"'{username}'")
 
     @staticmethod
     def get_by_id(user_id):
-        return User.__get_user_by_key("id", f"{user_id}")
+        return UserModel.__get_user_by_key("id", f"{user_id}")
 
     def get_user_id(self):
-        self.user_id = User.__get_user_by_key('username', f"'{self.username}'")['object'].user_id
+        self.user_id = UserModel.__get_user_by_key('username', f"'{self.username}'")['object'].user_id
 
     @staticmethod
     def __get_user_by_key(key, value):
         try:
             row = execute_sql(f"SELECT * FROM users WHERE {key} = {value}")[0]
-            user = User(user_id=row[0], username=row[1], firstname=row[2], lastname=row[3],
-                        email=row[4], password=row[5], date_created=row[6])
+            user = UserModel(user_id=row[0], username=row[1], firstname=row[2], lastname=row[3],
+                             email=row[4], password=row[5], date_created=row[6])
             return {'object': user, 'message': 'Success'}
         except IndexError:
             return {'object': None, 'message': f"User with key:{key} and value:{value} not found"}

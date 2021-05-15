@@ -1,17 +1,17 @@
 import jwt
 from jwt import InvalidSignatureError
 
-from services.auth.instance.user_data import UserData
+from util.instance.user_jwt_data import UserJWTData
 from services.auth.secrets import *
 
 
-def jwt_encode(payload: UserData) -> str:
+def jwt_encode(payload: UserJWTData) -> str:
     return jwt.encode(payload.__dict__, JWT_SECRET_KEY, JWT_ALGORITHM)
 
 
-def jwt_decode(jwt_encoded: str) -> UserData:
+def jwt_decode(jwt_encoded: str) -> UserJWTData:
     dict_res = jwt.decode(jwt_encoded, JWT_SECRET_KEY, [JWT_ALGORITHM])
-    return UserData(dict_res['user_id'], dict_res['username'], dict_res['email'])
+    return UserJWTData(dict_res['user_id'], dict_res['username'], dict_res['email'])
 
 
 def jwt_check(jwt_encoded: str) -> bool:

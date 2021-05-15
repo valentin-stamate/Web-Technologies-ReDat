@@ -38,13 +38,13 @@ def app(environ, start_response):
 def register(environ) -> dict:
     body_dict = json_to_dict(read_body(environ))
 
-    db_user = user_model.User.get_by_username(body_dict['username'])['object']
+    db_user = user_model.UserModel.get_by_username(body_dict['username'])['object']
 
     if db_user is not None:
         return {'status': False, 'message': "Username already exists"}
 
-    new_user = user_model.User(body_dict['username'], body_dict['firstname'], body_dict['lastname'], body_dict['email'],
-                               body_dict['password'])
+    new_user = user_model.UserModel(body_dict['username'], body_dict['firstname'], body_dict['lastname'], body_dict['email'],
+                                    body_dict['password'])
     if not new_user.is_valid()['status']:
         return {'status': False, 'message': new_user.is_valid()['message']}
     new_user.save()

@@ -1,7 +1,7 @@
 import pandas
 
 from services.server.database.connection.connection import execute_sql
-from services.server.database.models.user_model import User
+from services.server.database.models.user_model import UserModel
 from services.external.reddit_api.reddit_data import get_hot_posts, get_trending_subreddits
 from services.external.reddit_api.reddit_post import Post
 
@@ -17,21 +17,21 @@ execute_sql('''CREATE TABLE IF NOT EXISTS users (
 )''')
 print("Table users created successfully")
 
-user = User(username='ValentinSt', firstname='Valentin', lastname='Stamate', email='stamtevalentin125@gmail.com',
-            password='123456789')
+user = UserModel(username='ValentinSt', firstname='Valentin', lastname='Stamate', email='stamtevalentin125@gmail.com',
+                 password='123456789')
 user.save()
 
-user = User(username='Lorenzo', firstname='Iphone', lastname='Laurentiu', email='iphonelaurentiu@gmail.com',
-            password='123456789')
+user = UserModel(username='Lorenzo', firstname='Iphone', lastname='Laurentiu', email='iphonelaurentiu@gmail.com',
+                 password='123456789')
 user.save()
 
-user = User(username='ValentinSt', password='123456789')
+user = UserModel(username='ValentinSt', password='123456789')
 if user.login():
     print(user)
 else:
     print("Login failed")
 
-user = User(username='Lex', password='123456789')
+user = UserModel(username='Lex', password='123456789')
 print(user.is_valid())
 
 posts_list = get_hot_posts('games',10)

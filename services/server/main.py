@@ -1,5 +1,5 @@
 import os
-from services.server.controllers import get_file
+from services.server.controllers import get_file, login_user
 from util.pages import paths, pages
 from util.request.content_type import content_type
 from util.response_data import ResponseData
@@ -26,6 +26,8 @@ def app(environ, start_response):
     elif path in pages:
         response = get_file("/templates" + path)
         response.headers = [ContentType.HTML]
+    elif path == "/get_auth_token":
+        response = login_user(environ)
     else:
         response.payload = "Not found"
         response.headers = [ContentType.HTML]

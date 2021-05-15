@@ -1,7 +1,7 @@
 from util.pages import paths
 from util.request.response_data import HttpStatus, ContentType
 from util.response_data import ResponseData
-from services.proxy.controllers import get_page, get_static_resource
+from services.proxy.controllers import get_page, get_static_resource, get_auth_token
 
 
 # CONTROLLER HANDLER
@@ -12,15 +12,15 @@ def app(environ, start_response):
 
     response = ResponseData()
 
-    print(path)
-
     if path in paths:
         response = get_page(environ)
     elif path.startswith('/static'):
         response = get_static_resource(environ)
+    elif path == "/get_auth_token":
+        response = get_auth_token(environ)
     else:
         response.status = HttpStatus.NOT_FOUND
-        response.payload = ""
+        response.payload = "Page not found."
         response.headers = [ContentType.HTML]
 
     response.payload = response.payload.encode("utf-8")
