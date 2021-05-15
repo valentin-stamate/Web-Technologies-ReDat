@@ -1,6 +1,6 @@
-const DEPLOY = "http://127.0.0.1:8000"
+const DEPLOY = ""
 
-const LOGIN_ENDPOINT = DEPLOY + "/get_user_auth";
+const LOGIN_ENDPOINT = DEPLOY + "/auth_user";
 const REGISTER_ENDPOINT = DEPLOY + "/register_user";
 export {LOGIN_ENDPOINT}
 export {REGISTER_ENDPOINT}
