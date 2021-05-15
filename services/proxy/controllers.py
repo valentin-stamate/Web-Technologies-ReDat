@@ -1,7 +1,7 @@
 from services.auth.instance.user_data import UserData
 from services.auth.jwt_util import jwt_encode
 from util.ResponseData import ResponseData
-from util.request.renderer import render_template
+from services.server.renderer import render_template
 from util.request.response_data import HttpStatus, ContentType
 from services.server.database.models.user_model import User
 from util.util import read_body, json_to_dict, dict_to_json
