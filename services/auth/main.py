@@ -1,5 +1,8 @@
 # CONTROLLER HANDLER
+import requests
+
 from services.server.database.models import user_model
+from util.service_url import ServiceUrl
 from util.util import json_to_dict, read_body
 
 
@@ -47,5 +50,5 @@ def register(environ) -> dict:
                                     body_dict['password'])
     if not new_user.is_valid()['status']:
         return {'status': False, 'message': new_user.is_valid()['message']}
-    new_user.save()
+    res = requests.post(ServiceUrl.SERVER + "/register_user", json=body_dict)
     return {'status': True, 'message': "User created"}
