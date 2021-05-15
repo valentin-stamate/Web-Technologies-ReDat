@@ -1,57 +1,102 @@
-from services.authentication.instance.user_data import UserData
-from services.authentication.jwt_util import jwt_encode
+from services.auth.instance.user_data import UserData
+from services.auth.jwt_util import jwt_encode
+from util.ResponseData import ResponseData
 from util.request.renderer import render_template
 from util.request.response_data import HttpStatus, ContentType
 from services.server.database.models.user_model import User
 from util.util import read_body, json_to_dict, dict_to_json
 
 
-def home_renderer(environ) -> (str, str, []):
-    data = render_template(template_name='index.html',
-                           context={'top_bar': render_template('top_bar.html'),
-                                    'footer': render_template('footer.html')})
+def home_renderer(environ) -> ResponseData:
+    response = ResponseData()
 
-    return data, HttpStatus.OK, [ContentType.HTML]
+    response.payload = render_template(template_name='index.html',
+                                       context={'top_bar': render_template('top_bar.html'),
+                                                'footer': render_template('footer.html')})
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.HTML]
 
-
-def login_renderer(environ) -> (str, str, []):
-    return render_template(template_name='login.html', context={}), HttpStatus.OK, [ContentType.HTML]
-
-
-def register_renderer(environ) -> (str, str, []):
-    return render_template(template_name='register.html', context={}), HttpStatus.OK, [ContentType.HTML]
+    return response
 
 
-def topics_renderer(environ) -> (str, str, []):
-    return render_template(template_name='topics_of_interest.html'), HttpStatus.OK, [ContentType.HTML]
+def login_renderer(environ) -> ResponseData:
+    response = ResponseData()
+
+    response.payload = render_template(template_name='login.html', context={})
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.HTML]
+    return response
 
 
-def confirm_account_renderer(environ) -> (str, str, []):
-    return render_template(template_name='confirm_account.html'), HttpStatus.OK, [ContentType.HTML]
+def register_renderer(environ) -> ResponseData:
+    response = ResponseData()
+
+    response.payload = render_template(template_name='register.html', context={})
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.HTML]
+    return response
 
 
-def user_profile_renderer(environ):
-    return render_template(template_name='user_profile.html',
-                           context={'top_bar': render_template('top_bar.html'),
-                                    'footer': render_template('footer.html')}), HttpStatus.OK, [ContentType.HTML]
+def topics_renderer(environ) -> ResponseData:
+    response = ResponseData()
+
+    response.payload = render_template(template_name='topics_of_interest.html')
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.HTML]
+    return response
 
 
-def documentation_renderer(environ):
-    return render_template(template_name='documentation.html',
-                           context={'top_bar': render_template('top_bar.html'),
-                                    'footer': render_template('footer.html')}), HttpStatus.OK, [ContentType.HTML]
+def confirm_account_renderer(environ) -> ResponseData:
+    response = ResponseData()
+
+    response.payload = render_template(template_name='confirm_account.html')
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.HTML]
+    return response
 
 
-def doc_renderer(environ):
-    return render_template(template_name='doc.html')
+def user_profile_renderer(environ) -> ResponseData:
+    response = ResponseData()
+
+    response.payload = render_template(template_name='user_profile.html',
+                                       context={'top_bar': render_template('top_bar.html'),
+                                                'footer': render_template('footer.html')})
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.HTML]
+    return response
 
 
-def page_not_found_renderer(environ):
-    return render_template(template_name='404.html')
+def documentation_renderer(environ) -> ResponseData:
+    response = ResponseData()
+
+    response.payload = render_template(template_name='documentation.html',
+                                       context={'top_bar': render_template('top_bar.html'),
+                                                'footer': render_template('footer.html')})
+    response.headers = [ContentType.HTML]
+    return response
+
+
+def doc_renderer(environ) -> ResponseData:
+    response = ResponseData()
+
+    response.payload = render_template(template_name='doc.html')
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.HTML]
+    return response
+
+
+def page_not_found_renderer(environ) -> ResponseData:
+    response = ResponseData()
+
+    response.payload = render_template(template_name='404.html')
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.HTML]
+    return response
 
 
 # REST ENDPOINTS
-def get_user_auth(environ) -> (str, str, []):
+def get_user_auth(environ) -> ResponseData:
+    response = ResponseData()
 
     body_dict = json_to_dict(read_body(environ))
 
@@ -59,8 +104,11 @@ def get_user_auth(environ) -> (str, str, []):
 
     status = user.login()
 
+    response.put(payload=dict_to_json({'error': status['message']}), status=HttpStatus.NOT_FOUND,
+                 headers=[ContentType.JSON])
+
     if not status['status']:
-        return dict_to_json({'error': status['message']}), HttpStatus.NOT_FOUND, [ContentType.JSON]
+        return response
 
     user = UserData(user.user_id, user.username, user.email)
 
@@ -68,4 +116,6 @@ def get_user_auth(environ) -> (str, str, []):
 
     data = {'userAuth': user_jwt_data}
 
-    return dict_to_json(data), HttpStatus.OK, [ContentType.JSON]
+    response.put(payload=dict_to_json(data), status=HttpStatus.OK, headers = [ContentType.JSON])
+
+    return response

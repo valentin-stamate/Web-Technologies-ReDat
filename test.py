@@ -1,7 +1,7 @@
 import unittest
 from unittest import TestCase
-from services.authentication.instance.user_data import UserData
-from services.authentication.jwt_util import jwt_encode, jwt_decode, jwt_check
+from services.auth.instance.user_data import UserData
+from services.auth.jwt_util import jwt_encode, jwt_decode, jwt_check
 
 
 class JwtTest(TestCase):

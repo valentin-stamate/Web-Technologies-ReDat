@@ -1,4 +1,6 @@
 import os
+
+from util.ResponseData import ResponseData
 from util.request.content_type import *
 from util.request.controllers import home_renderer, page_not_found_renderer, login_renderer, register_renderer, \
     topics_renderer, confirm_account_renderer, user_profile_renderer, documentation_renderer, doc_renderer, \
@@ -16,46 +18,42 @@ def app(environ, start_response):
 
     filename, file_extension = os.path.splitext(path)
 
-    headers = []
-    response_status = "200 OK"
+    response = ResponseData()
 
     if path == "" or path == "/home":
-        data, response_status, headers = home_renderer(environ)
+        response = home_renderer(environ)
     elif path == "/login":
-        data, response_status, headers = login_renderer(environ)
+        response = login_renderer(environ)
     elif path == "/register":
-        data, response_status, headers = register_renderer(environ)
+        response = register_renderer(environ)
     elif path == "/topics":
-        data, response_status, headers = topics_renderer(environ)
+        response = topics_renderer(environ)
     elif path == "/confirm_account":
-        data, response_status, headers = confirm_account_renderer(environ)
+        response = confirm_account_renderer(environ)
     elif path == "/profile":
-        data, response_status, headers = user_profile_renderer(environ)
+        response = user_profile_renderer(environ)
     elif path == "/documentation":
-        data, response_status, headers = documentation_renderer(environ)
+        response = documentation_renderer(environ)
     elif path == "/doc":
-        data = doc_renderer(environ)
+        response = doc_renderer(environ)
     elif path.startswith('/static'):
-        headers.append(content_type.get(file_extension, 'text/html'))
-        data = render_file(path)
-    # REST ENDPOINTS TODO split this into a microservice
-    elif path == "/get_user_auth":
+        response.headers.append(content_type.get(file_extension, 'text/html'))
+        response.payload = render_file(path)
+        response.status = "200"
+    elif path == "/auth_user":
         data, response_status, headers = get_user_auth(environ)
     else:
         data = page_not_found_renderer(environ)
 
-    data = data.encode("utf-8")
+    response.payload = response.payload.encode("utf-8")
 
-    response_headers = [("Content-Length", str(len(data)))]
-    response_headers += headers
+    response_headers = [("Content-Length", str(len(response.payload)))]
+    response_headers += response.headers
 
     start_response(
-        response_status,
-        response_headers
+        response.status,
+        response.headers
     )
 
-    return iter([data])
+    return iter([response.payload])
 
-
-# pipenv shell
-# gunicorn server:app --reload
