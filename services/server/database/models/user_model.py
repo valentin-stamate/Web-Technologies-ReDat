@@ -68,13 +68,13 @@ class User:
 
     # VALIDATION
     def is_valid(self):
-        if len(self.username) < 3:
+        if len(self.username) < 8:
             return {'status': False, 'message': 'Invalid username'}
 
-        if len(self.firstname) < 8:
+        if len(self.firstname) < 2:
             return {'status': False, 'message': 'Invalid firstname'}
 
-        if len(self.lastname) < 8:
+        if len(self.lastname) < 2:
             return {'status': False, 'message': 'Invalid lastname'}
 
         email_regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
