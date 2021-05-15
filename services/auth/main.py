@@ -2,10 +2,12 @@
 import requests
 
 from services.auth.controllers import auth_user
+from services.auth.jwt_util import jwt_check, jwt_decode
 from services.server.database.models import user_model
+from util.request.response_data import HttpStatus, ContentType
 from util.response_data import ResponseData
 from util.service_url import ServiceUrl
-from util.util import json_to_dict, read_body
+from util.util import json_to_dict, read_body, dict_to_json
 
 
 def app(environ, start_response):
@@ -15,8 +17,7 @@ def app(environ, start_response):
 
     response = ResponseData()
 
-    headers = []
-
+    response.headers = [ContentType.JSON]
     if path == "":
         response.payload = "Hello there. This is the auth service."
     elif path == "/auth_user":
@@ -24,6 +25,14 @@ def app(environ, start_response):
     elif path == "/register_user":
         res = requests.post(ServiceUrl.SERVER + "/register_user", json=json_to_dict(read_body(environ)))
         response.payload = res.text
+    elif path == '/update_user':
+        authorization = environ.get("HTTP_AUTHORIZATION")
+        if not jwt_check(authorization):
+            response.payload = 'Invalid auth token'
+            response.status = HttpStatus.UNAUTHORIZED
+        else:
+            response.payload = dict_to_json(jwt_decode(authorization).__dict__)
+            response.status = HttpStatus.OK
 
     response.payload = response.payload.encode("utf-8")
 

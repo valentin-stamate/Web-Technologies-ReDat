@@ -1,5 +1,3 @@
-import re
-
 from services.server.database.connection.connection import execute_sql
 from util.password_encryption import PasswordEncryption
 from util.util import current_timestamp
@@ -43,7 +41,7 @@ class UserModel:
             return {'status': False, 'message': 'User should be logged first'}
 
         execute_sql(
-            f"UPDATE users SET username = '{self.username}', firstname = '{self.firstname}', lastname = '{self.lastname}', password = '{self.password}' WHERE id = {self.user_id}")
+            f"UPDATE users SET username = '{self.username}', firstname = '{self.firstname}', lastname = '{self.lastname}', password = '{self.password}', email = '{self.email}' WHERE id = {self.user_id}")
 
         return {'status': True, 'message': 'User updated successfully'}
 
@@ -88,12 +86,12 @@ class UserModel:
 
     # GETTERS
     @staticmethod
-    def get_by_username(username):
-        return UserModel.__get_user_by_key("username", f"'{username}'")
+    def get_by_username(username) -> 'UserModel':
+        return UserModel.__get_user_by_key("username", f"'{username}'")['object']
 
     @staticmethod
     def get_by_id(user_id):
-        return UserModel.__get_user_by_key("id", f"{user_id}")
+        return UserModel.__get_user_by_key("id", f"{user_id}")['object']
 
     def get_user_id(self):
         self.user_id = UserModel.__get_user_by_key('username', f"'{self.username}'")['object'].user_id

@@ -16,6 +16,7 @@ def app(environ, start_response):
 
     response = ResponseData()
 
+    print(path)
     if path in paths:
         response = get_page(environ)
     elif path.startswith('/static'):
@@ -23,9 +24,18 @@ def app(environ, start_response):
     elif path == "/auth_user":
         response = auth_token(environ)
     elif path == '/register_user':
-        print('trying to register')
         res = requests.post(ServiceUrl.AUTH + "/register_user", json=json_to_dict(read_body(environ)))
         response.payload = res.text
+    elif path == '/update_user':
+        body = json_to_dict(read_body(environ))
+        res = requests.post(ServiceUrl.AUTH + "/update_user",
+                            headers={'Authorization': environ.get("HTTP_AUTHORIZATION")},
+                            json=body)
+        user_data = json_to_dict(res.text)
+        body['id'] = user_data['user_id']
+        if str(res.status_code) == HttpStatus.OK:
+            res = requests.post(ServiceUrl.SERVER + "/update_user", json=body)
+            response.payload = res.text
     else:
         response.status = HttpStatus.NOT_FOUND
         response.payload = "Page not found."
