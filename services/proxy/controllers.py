@@ -77,7 +77,7 @@ def auth_token(environ) -> ResponseData:
     res = requests.post(ServiceUrl.AUTH + "/auth_user", json=body_dict)
 
     response.payload = res.text
-    response.status = "200"
+    response.status = str(res.status_code)
     response.headers = [ContentType.JSON]
 
     return response

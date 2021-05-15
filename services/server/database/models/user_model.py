@@ -3,6 +3,7 @@ import re
 from services.server.database.connection.connection import execute_sql
 from util.password_encryption import PasswordEncryption
 from util.util import current_timestamp
+from util.validation.validation import valid_username, valid_name, valid_email, valid_password
 
 
 class UserModel:
@@ -68,21 +69,19 @@ class UserModel:
 
     # VALIDATION
     def is_valid(self):
-        if len(self.username) < 8:
+        if not valid_username(self.username):
             return {'status': False, 'message': 'Invalid username'}
 
-        if len(self.firstname) < 2:
+        if not valid_name(self.firstname):
             return {'status': False, 'message': 'Invalid firstname'}
 
-        if len(self.lastname) < 2:
+        if not valid_name(self.lastname):
             return {'status': False, 'message': 'Invalid lastname'}
 
-        email_regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
-
-        if not re.search(email_regex, self.email):
+        if not valid_email(self.email):
             return {'status': False, 'message': 'Invalid email'}
 
-        if len(self.password) < 8:
+        if not valid_password(self.password):
             return {'status': False, 'message': 'Invalid password'}
 
         return {'status': True, 'message': 'Invalid email'}

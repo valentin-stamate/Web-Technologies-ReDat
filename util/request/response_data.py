@@ -12,3 +12,4 @@ class ContentType:
     JPG = ("Content-Type", "image/jpeg")
     JS = ("Content-Type", "text/javascript")
     JSON = ("Content-Type", "text/json")
+    TEXT = ("Content-Type", "text/plain")

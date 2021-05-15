@@ -3,7 +3,6 @@ import json
 from services.auth.jwt_util import jwt_encode
 from services.server.database.models.user_model import UserModel
 from services.server.renderer import render_file
-from util.instance.user import User
 from util.instance.user_jwt_data import UserJWTData
 from util.response_data import ResponseData
 from util.request.response_data import HttpStatus, ContentType
