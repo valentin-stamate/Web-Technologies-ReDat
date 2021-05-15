@@ -1,5 +1,6 @@
 import os
 from services.server.controllers import get_file, login_user
+from services.server.database.models.user_model import UserModel
 from util.pages import paths, pages
 
 from services.server.controllers import get_file
@@ -40,9 +41,9 @@ def app(environ, start_response):
     # User Requests
     if path == '/register_user':
         body_dict = json_to_dict(read_body(environ))
-        new_user = user_model.User(body_dict['username'], body_dict['firstname'], body_dict['lastname'],
-                                   body_dict['email'],
-                                   body_dict['password'])
+        new_user = UserModel(body_dict['username'], body_dict['firstname'], body_dict['lastname'],
+                             body_dict['email'],
+                             body_dict['password'])
         new_user.save()
 
     response.payload = response.payload.encode("utf-8")

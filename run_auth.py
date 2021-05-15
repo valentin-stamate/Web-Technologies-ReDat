@@ -1,3 +1,3 @@
 import os
 
-os.system("gunicorn services.auth.main:app -b :8002 --reload")
+os.system("gunicorn services.auth.main:app -b :8001 --reload")

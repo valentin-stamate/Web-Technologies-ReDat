@@ -35,6 +35,7 @@ def app(environ, start_response):
     response.payload = response.payload.encode("utf-8")
 
     response_headers = [("Content-Length", str(len(response.payload)))]
+    response_headers += response.headers
 
     start_response(
         response.status,

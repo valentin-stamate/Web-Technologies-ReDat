@@ -59,7 +59,7 @@ def get_static_resource(environ) -> ResponseData:
 
     response = ResponseData()
 
-    response.headers.append(content_type.get(file_extension, 'text/html'))
+    response.headers = [content_type.get(file_extension, 'text/html')]
 
     res = requests.get(ServiceUrl.SERVER + path)
 
