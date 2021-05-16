@@ -1,5 +1,3 @@
-import json
-
 from services.auth.jwt_util import jwt_encode
 from services.server.database.models.user_model import UserModel
 from services.server.renderer import render_file
@@ -41,3 +39,19 @@ def auth_user(environ):
 
     return response
 
+
+def user_data(environ) -> ResponseData:
+    response = ResponseData()
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.JSON]
+
+    user_id = json_to_dict(read_body(environ))['id']
+    user_info = UserModel.get_by_id(user_id)['object']
+
+    user_info.password = ''
+    user_info.date_created = user_info.date_created.strftime("%m/%d/%Y, %H:%M:%S")
+    user_info = user_info.__dict__
+
+    response.payload = dict_to_json(user_info)
+
+    return response
