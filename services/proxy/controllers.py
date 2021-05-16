@@ -1,7 +1,6 @@
 import os
 import requests
 from services.proxy.template_formatter import render_template
-from util.instance.user import User
 from util.request.content_type import content_type
 from util.response_data import ResponseData
 from util.request.response_data import HttpStatus, ContentType
@@ -41,9 +40,11 @@ def render_home(environ) -> ResponseData:
     res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': environ.get("HTTP_AUTHORIZATION")})
 
     if str(res.status_code) == HttpStatus.UNAUTHORIZED:
-        response.payload = ""
-        response.status = HttpStatus.REDIRECT
-        response.headers = [("Location", "/login")]
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        response.headers = [ContentType.HTML]
         return response
 
     res = requests.get(ServiceUrl.SERVER + "/index.html")
