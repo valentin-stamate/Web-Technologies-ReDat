@@ -19,7 +19,7 @@ def get_page(environ) -> ResponseData:
         path = "/index"
 
     if path == "/index":
-        response.payload = render_home(environ)
+        response = render_home(environ)
     elif path == "/profile":
         response.payload = render_user_profile(environ)
 
@@ -34,13 +34,25 @@ def get_page(environ) -> ResponseData:
 
 
 # RENDERING PAGES
-def render_home(environ):
+def render_home(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.HTML]
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': environ.get("HTTP_AUTHORIZATION")})
+
+    if str(res.status_code) == HttpStatus.UNAUTHORIZED:
+        response.payload = ""
+        response.status = HttpStatus.REDIRECT
+        response.headers = [("Location", "/login")]
+        return response
+
     res = requests.get(ServiceUrl.SERVER + "/index.html")
 
     top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
     footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
 
-    return render_template(res.text, {'top_bar': top_bar_html, 'footer': footer_html})
+    response.payload = render_template(res.text, {'top_bar': top_bar_html, 'footer': footer_html})
+    return response
 
 
 def render_user_profile(environ):

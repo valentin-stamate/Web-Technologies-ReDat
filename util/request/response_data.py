@@ -3,6 +3,7 @@ class HttpStatus:
     NOT_FOUND = "404"
     BAD_REQUEST = "400"
     UNAUTHORIZED = "401"
+    REDIRECT = "301"
 
 
 class ContentType:
@@ -13,4 +14,4 @@ class ContentType:
     JPG = ("Content-Type", "image/jpeg")
     JS = ("Content-Type", "text/javascript")
     JSON = ("Content-Type", "text/json")
-    TEXT = ("Content-Type", "text/plain")
+    PLAIN = ("Content-Type", "text/plain")

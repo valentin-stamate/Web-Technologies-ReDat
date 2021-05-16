@@ -31,6 +31,7 @@ def auth_user(environ) -> ResponseData:
 def check_user_auth(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.JSON]
+    response.status = HttpStatus.OK
 
     authorization = environ.get("HTTP_AUTHORIZATION")
     if not jwt_check(authorization):
@@ -38,8 +39,17 @@ def check_user_auth(environ) -> ResponseData:
         response.status = HttpStatus.UNAUTHORIZED
         return response
 
-    response.payload = dict_to_json(jwt_decode(authorization).__dict__)
-    response.status = HttpStatus.OK
+    user_payload = jwt_decode(authorization)
+
+    if user_payload is None:
+        response.payload = "Unauthorized"
+        response.headers = [ContentType.PLAIN]
+        response.status = HttpStatus.UNAUTHORIZED
+        return response
+
+    print(user_payload)
+
+    response.payload = dict_to_json(user_payload.__dict__)
 
     return response
 
