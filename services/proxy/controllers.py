@@ -88,7 +88,31 @@ def render_user_profile(environ):
     user_data = requests.get(ServiceUrl.SERVER + "/user_data", json={'id': user_data['user_id']}).text
     user_data = json_to_dict(user_data)
 
-    context = {'top_bar': top_bar_html, 'footer': footer_html, 'image_url': user_data['image_url']}
+    # TODO
+    user_data['topics'] = {'Anime': 1, 'Funny': 2, 'Genshin Inpact': 3, 'It': 4, 'Movies': 5, 'Memes': 6}
+
+    topic_item_template = "<div data-id={id}><button>x</button><b>{topic_name}</b></div>"
+
+    topics_text = ''
+
+    topic_item_list_template = '<div class="topic-list-item" data-id="{topic_id}">' \
+                               '    <div><b>{topic_name}</b></div>' \
+                               '    <div class="flex-right"></div>' \
+                               '    <button class="button primary">Add</button>' \
+                               '</div>'
+
+    all_topics = {'Anime': 1, 'It': 2, 'Memes': 3, 'Casual': 4}
+
+    all_topics_html = ''
+
+    for topic in all_topics:
+        all_topics_html += render_template(topic_item_list_template, {'topic_id': all_topics[topic], 'topic_name': topic})
+
+    for topic in user_data['topics']:
+        topics_text += render_template(topic_item_template, {'id': user_data['topics'][topic], 'topic_name': topic})
+
+    context = {'top_bar': top_bar_html, 'footer': footer_html, 'rendered_topics': topics_text, 'all_topics': all_topics_html}
+    context.update(user_data)
 
     return render_template(res.text, context)
 

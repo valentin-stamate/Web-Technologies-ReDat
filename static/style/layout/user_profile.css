@@ -57,7 +57,7 @@ body {
     background-color: var(--layout-background);
     border-radius: var(--post-border-radius);
     justify-self: center;
-    width: 500px;
+    width: 720px;
     height: auto;
     padding: 2rem;
 }
@@ -73,11 +73,11 @@ body {
 
 #user-picture {
     height: 150px;
-    border-radius: 10%;
+    border-radius: 8px;
     justify-self: center;
 }
 
-#profile-component {
+.profile-component {
     grid-column: 2;
     justify-content: center;
     box-sizing: border-box;
@@ -95,12 +95,11 @@ body {
 
 .user-preferences > div {
     background: #FF4A00;
-    border: black;
     flex: 1 1 auto;
     margin: 8px;
     text-align: center;
     max-width: fit-content;
-    padding: 8px;
+    padding: 8px 14px 8px 8px;
     border-radius: 25px;
     font-size: 12px;
 }
@@ -109,12 +108,13 @@ body {
     background: #e04201;
     border: none;
     color: white;
-    text-align: center;
-    display: inline-block;
     border-radius: 55px;
-    margin-bottom: 2px;
-    justify-self: center;
-    outline: none;
+    padding-bottom: 3px;
+    margin-right: 6px;
+}
+
+.user-preferences > div > button:hover {
+    background: #c63a00;
 }
 
 .user-preferences > div > button:active {
@@ -122,7 +122,7 @@ body {
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 840px) {
     .user-profile {
         width: 70vw;
         grid-template-columns: 0;
@@ -136,11 +136,26 @@ body {
         column-gap: 0;
     }
 
-    #profile-component {
+    .profile-component {
         row-gap: 10px;
         grid-row: 2;
         column-gap: 0;
         justify-content: center;
     }
 
+}
+
+.topic-list-item {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    background-color: var(--color-00-dp);
+    padding: 2px 4px 2px 12px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    transition: all ease-in 0.2s;
+}
+
+.topic-list-item:hover {
+    background-color: var(--color-01-dp);
 }

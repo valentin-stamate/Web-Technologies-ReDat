@@ -30,6 +30,8 @@
     --white-16-dp: #616161;
     --white-24-dp: #424242;
 
+    --color-green: #238636;
+    --color-green-selected: #207b31;
 }
 
 .theme-light {
@@ -46,7 +48,10 @@
     --color-24-dp: var(--white-24-dp);
 
     --color-primary: #FF4500;
+    --color-primary-disabled: #923e25;
     --color-primary-selected: #dd4001;
+
+
 
     /* Layout */
     --background-color: #fff;

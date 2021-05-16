@@ -1,7 +1,8 @@
 @import "theme.css";
 
 .input-component {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
 }
 
 .input-label {
@@ -29,4 +30,10 @@
     outline: none;
     border: var(--input-field-selected);
     background-color: var(--input-field-background-color-selected);
+}
+
+.input-field-small {
+    padding: 12px 10px;
+    font-size: 0.75rem;
+    height: 2.5rem;
 }
