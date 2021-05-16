@@ -109,4 +109,4 @@ class UserModel:
             return {'object': None, 'message': f"User with key:{key} and value:{value} not found"}
 
     def __str__(self):
-        return f"User {self.user_id, self.username, self.firstname, self.lastname, self.email, self.password, self.date_created}"
+        return f"User {self.user_id, self.username, self.firstname, self.lastname, self.email, self.password, self.image_url, self.date_created}"

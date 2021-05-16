@@ -1,6 +1,6 @@
 import os
 
-from services.server.controllers import auth_user
+from services.server.controllers import auth_user, user_data
 from services.server.controllers import get_file
 from services.server.database.models.user_model import UserModel
 from util.pages import pages
@@ -54,6 +54,8 @@ def app(environ, start_response):
                     response.status = HttpStatus.BAD_REQUEST
             else:
                 response.status = HttpStatus.BAD_REQUEST
+    elif path == '/user_data':
+        response = user_data(environ)
     else:
         response.payload = "Not found"
         response.headers = [ContentType.HTML]

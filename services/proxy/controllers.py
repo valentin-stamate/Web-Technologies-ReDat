@@ -62,12 +62,35 @@ def render_home(environ) -> ResponseData:
 
 
 def render_user_profile(environ):
-    res = requests.get(ServiceUrl.SERVER + "/user_profile.html")
+    response = ResponseData()
+    response.headers = [ContentType.HTML]
+
+    token = get_auth_token(environ)
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    if str(res.status_code) == HttpStatus.UNAUTHORIZED:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
+    user_data = json_to_dict(res.text)
 
     top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
+    top_bar_html = render_template(top_bar_html, {'username': user_data['username']})
+
     footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
 
-    return render_template(res.text, {'top_bar': top_bar_html, 'footer': footer_html})
+    res = requests.get(ServiceUrl.SERVER + "/user_profile.html")
+
+    user_data = requests.get(ServiceUrl.SERVER + "/user_data", json={'id': user_data['user_id']}).text
+    user_data = json_to_dict(user_data)
+
+    context = {'top_bar': top_bar_html, 'footer': footer_html, 'image_url': user_data['image_url']}
+
+    return render_template(res.text, context)
 
 
 # RETURN A RESOURCE FORM /static FOLDER
