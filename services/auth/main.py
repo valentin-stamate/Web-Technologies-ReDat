@@ -1,7 +1,7 @@
 # CONTROLLER HANDLER
 import requests
 
-from services.auth.controllers import auth_user
+from services.auth.controllers import auth_user, check_user_auth
 from services.auth.jwt_util import jwt_check, jwt_decode
 from services.server.database.models import user_model
 from util.request.response_data import HttpStatus, ContentType
@@ -25,14 +25,8 @@ def app(environ, start_response):
     elif path == "/register_user":
         res = requests.post(ServiceUrl.SERVER + "/register_user", json=json_to_dict(read_body(environ)))
         response.payload = res.text
-    elif path == '/update_user':
-        authorization = environ.get("HTTP_AUTHORIZATION")
-        if not jwt_check(authorization):
-            response.payload = 'Invalid auth token'
-            response.status = HttpStatus.UNAUTHORIZED
-        else:
-            response.payload = dict_to_json(jwt_decode(authorization).__dict__)
-            response.status = HttpStatus.OK
+    elif path == '/check_user_auth':
+        response = check_user_auth(environ)
 
     response.payload = response.payload.encode("utf-8")
 

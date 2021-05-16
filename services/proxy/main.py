@@ -28,7 +28,7 @@ def app(environ, start_response):
         response.payload = res.text
     elif path == '/update_user':
         body = json_to_dict(read_body(environ))
-        res = requests.post(ServiceUrl.AUTH + "/update_user",
+        res = requests.post(ServiceUrl.AUTH + "/check_user_auth",
                             headers={'Authorization': environ.get("HTTP_AUTHORIZATION")},
                             json=body)
         user_data = json_to_dict(res.text)

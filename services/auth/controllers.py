@@ -1,5 +1,6 @@
 import requests
 
+from services.auth.jwt_util import jwt_check, jwt_decode
 from util.request.response_data import ContentType, HttpStatus
 from util.response_data import ResponseData
 from util.service_url import ServiceUrl
@@ -25,3 +26,20 @@ def auth_user(environ) -> ResponseData:
     response.status = str(res.status_code)
 
     return response
+
+
+def check_user_auth(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.JSON]
+
+    authorization = environ.get("HTTP_AUTHORIZATION")
+    if not jwt_check(authorization):
+        response.payload = 'Invalid auth token'
+        response.status = HttpStatus.UNAUTHORIZED
+        return response
+
+    response.payload = dict_to_json(jwt_decode(authorization).__dict__)
+    response.status = HttpStatus.OK
+
+    return response
+
