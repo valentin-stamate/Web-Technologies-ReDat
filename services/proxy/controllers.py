@@ -70,6 +70,13 @@ def render_user_profile(environ) -> ResponseData:
 
     token = get_auth_token(environ)
 
+    if token is None:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
     res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
 
     if str(res.status_code) == HttpStatus.UNAUTHORIZED:
@@ -128,6 +135,13 @@ def render_documentation(environ) -> ResponseData:
 
     token = get_auth_token(environ)
 
+    if token is None:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
     res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
 
     if str(res.status_code) == HttpStatus.UNAUTHORIZED:
@@ -185,15 +199,23 @@ def auth_token(environ) -> ResponseData:
 
 
 def get_auth_token(environ) -> str or None:
-    return get_cookies_as_dict(environ).get('user_auth', None)
+    cookies = get_cookies_as_dict(environ)
+
+    if cookies is None:
+        return None
+
+    return cookies.get('user_auth', None)
 
 
-def get_cookies_as_dict(environ) -> dict:
-    cookies = environ['HTTP_COOKIE']
-    cookies = cookies.split('; ')
-    handler = {}
+def get_cookies_as_dict(environ) -> dict or None:
+    try:
+        cookies = environ['HTTP_COOKIE']
+        cookies = cookies.split('; ')
+        handler = {}
 
-    for cookie in cookies:
-        cookie = cookie.split('=')
-        handler[cookie[0]] = cookie[1]
-    return handler
+        for cookie in cookies:
+            cookie = cookie.split('=')
+            handler[cookie[0]] = cookie[1]
+        return handler
+    except:
+        return None
