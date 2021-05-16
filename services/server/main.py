@@ -7,10 +7,10 @@ from util.pages import pages
 from util.request.content_type import content_type
 from util.request.response_data import ContentType, HttpStatus
 from util.response_data import ResponseData
-# CONTROLLER HANDLER
 from util.util import read_body, json_to_dict
 
 
+# CONTROLLER HANDLER
 def app(environ, start_response):
     path = environ.get("PATH_INFO")
     filename, file_extension = os.path.splitext(path)

@@ -20,10 +20,12 @@ def get_page(environ) -> ResponseData:
     if path == "/index":
         response = render_home(environ)
     elif path == "/profile":
-        response.payload = render_user_profile(environ)
+        response = render_user_profile(environ)
+    elif path == "/documentation":
+        response = render_documentation(environ)
 
     # Other pages that requires no other template or processing
-    if path == "/register" or path == "/login" or path == "/doc" or path == "/documentation"\
+    if path == "/register" or path == "/login" or path == "/doc"\
             or path == "/confirm_account" or path == "/topics_of_interests":
         response.payload = requests.get(ServiceUrl.SERVER + path + ".html").text
 
@@ -61,9 +63,10 @@ def render_home(environ) -> ResponseData:
     return response
 
 
-def render_user_profile(environ):
+def render_user_profile(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.HTML]
+    response.status = HttpStatus.OK
 
     token = get_auth_token(environ)
 
@@ -114,7 +117,40 @@ def render_user_profile(environ):
     context = {'top_bar': top_bar_html, 'footer': footer_html, 'rendered_topics': topics_text, 'all_topics': all_topics_html}
     context.update(user_data)
 
-    return render_template(res.text, context)
+    response.payload = render_template(res.text, context)
+    return response
+
+
+def render_documentation(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.HTML]
+    response.status = HttpStatus.OK
+
+    token = get_auth_token(environ)
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    if str(res.status_code) == HttpStatus.UNAUTHORIZED:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
+    user_data = json_to_dict(res.text)
+
+    top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
+    top_bar_html = render_template(top_bar_html, {'username': user_data['username']})
+
+    footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
+
+    res = requests.get(ServiceUrl.SERVER + "/documentation.html")
+
+    context = {'top_bar': top_bar_html, 'footer': footer_html}
+    context.update(user_data)
+
+    response.payload = render_template(res.text, context)
+    return response
 
 
 # RETURN A RESOURCE FORM /static FOLDER
