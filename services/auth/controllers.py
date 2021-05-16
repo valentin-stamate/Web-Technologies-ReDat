@@ -34,6 +34,9 @@ def check_user_auth(environ) -> ResponseData:
     response.status = HttpStatus.OK
 
     authorization = environ.get("HTTP_AUTHORIZATION")
+
+    print(authorization)
+
     if not jwt_check(authorization):
         response.payload = 'Invalid auth token'
         response.status = HttpStatus.UNAUTHORIZED

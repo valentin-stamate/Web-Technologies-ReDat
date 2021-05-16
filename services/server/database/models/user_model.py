@@ -86,12 +86,12 @@ class UserModel:
 
     # GETTERS
     @staticmethod
-    def get_by_username(username) -> 'UserModel':
-        return UserModel.__get_user_by_key("username", f"'{username}'")['object']
+    def get_by_username(username):
+        return UserModel.__get_user_by_key("username", f"'{username}'")
 
     @staticmethod
     def get_by_id(user_id):
-        return UserModel.__get_user_by_key("id", f"{user_id}")['object']
+        return UserModel.__get_user_by_key("id", f"{user_id}")
 
     def get_user_id(self):
         self.user_id = UserModel.__get_user_by_key('username', f"'{self.username}'")['object'].user_id

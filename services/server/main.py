@@ -40,9 +40,9 @@ def app(environ, start_response):
         response.payload = new_user.save()['message']
     elif path == '/update_user':
         body = json_to_dict(read_body(environ))
-        updated_user = UserModel.get_by_id(body['id'])
+        updated_user = UserModel.get_by_id(body['id'])['object']
         if body['username'] != updated_user.username:
-            if UserModel.get_by_username(body['username']) is None:
+            if UserModel.get_by_username(body['username'])['object'] is None:
                 updated_user.username = body['username']
                 updated_user.lastname = body['lastname']
                 updated_user.firstname = body['firstname']
