@@ -48,9 +48,13 @@ def render_home(environ) -> ResponseData:
         response.status = str(res.status_code)
         return response
 
+    user_data = json_to_dict(res.text)
+
     res = requests.get(ServiceUrl.SERVER + "/index.html")
 
     top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
+    top_bar_html = render_template(top_bar_html, {'username': user_data['username']})
+
     footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
 
     response.payload = render_template(res.text, {'top_bar': top_bar_html, 'footer': footer_html})
