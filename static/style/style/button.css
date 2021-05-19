@@ -37,6 +37,14 @@
     background-color: var(--color-primary);
 }
 
+.primary[disabled] {
+    background-color: var(--color-primary-disabled);
+}
+
+.secondary {
+    background-color: var(--color-primary);
+}
+
 .primary:hover {
     background-color: var(--color-primary-selected);
 }

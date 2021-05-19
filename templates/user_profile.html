@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
     <title>My profile</title>
-    <link rel="icon" href="static/assets/favico.svg"/>
-    <link rel="stylesheet" href=static/style/layout/user_profile.css>
+    <link rel="icon" href="/static/assets/favico.svg"/>
+    <link rel="stylesheet" href=/static/style/layout/user_profile.css>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -16,53 +16,83 @@
     {top_bar}
 
     <div id="middle-bar">
+
         <div class="user-profile">
+
             <div class="options">
                 <label id="general">General</label>
                 <label id="topics">Topics</label>
                 <label id="appearance">Appearance</label>
             </div>
-            <div id="profile-component">
-                <div id="current-settings-menu">
-                </div>
+
+            <div class="profile-component">
+                <div id="current-settings-menu"></div>
+
                 <div id="general-option">
+
                     <img id="user-picture" src="{image_url}" alt="default user">
-                    <p>username</p>
-                    <p>adress@email.com</p>
+
+                    <div class="input-component">
+                        <label for="username" class="input-label">Username</label>
+                        <input type="text" name="username" id="username" class="input-field input-field-small" value="{username}" minlength="8">
+                    </div>
+
+                    <div style="display: flex; gap:1rem">
+                        <div class="input-component">
+                            <label for="firstname" class="input-label">Firstname</label>
+                            <input type="text" name="username" id="firstname" class="input-field input-field-small" value="{firstname}">
+                        </div>
+
+                        <div class="input-component">
+                            <label for="lastname" class="input-label">Lastname</label>
+                            <input type="text" name="username" id="lastname" class="input-field input-field-small" value="{lastname}">
+                        </div>
+                    </div>
+
+                    <div class="input-component">
+                        <label for="email" class="input-label">Email</label>
+                        <input type="email" name="username" id="email" class="input-field input-field-small" value="{email}">
+                    </div>
+
+                    <div style="display: flex; gap:1rem">
+                        <div class="input-component">
+                            <label for="old_password" class="input-label">Old Password</label>
+                            <input type="password" name="username" id="old_password" class="input-field input-field-small">
+                        </div>
+
+                        <div class="input-component">
+                            <label for="new_password" class="input-label">New Password</label>
+                            <input type="password" name="username" id="new_password" class="input-field input-field-small">
+                        </div>
+                    </div>
+
+                    <div class="input-component">
+                        <label for="profile_photo" class="input-label">Profile Photo</label>
+                        <input type="email" name="username" id="profile_photo" class="input-field input-field-small" value="{image_url}">
+                    </div>
+
+                    <div>
+                        <button type="submit" class="button primary">Save</button>
+                    </div>
+
+                    <small>Created at: <b>{date_created}</b></small>
+
                 </div>
+
                 <div id="appearance-option">
                     <button id="btn-toggle-theme" class="button primary">Toggle Theme</button>
                 </div>
+
                 <div id="topics-option">
+                    <h2>Your Topics</h2>
+
                     <div class="user-preferences">
-                        <div>
-                            <button>x</button>
-                            Anime
-                        </div>
-                        <div>
-                            <button>x</button>
-                            Funny
-                        </div>
-                        <div>
-                            <button>x</button>
-                            Genshin Impact
-                        </div>
-                        <div>
-                            <button>x</button>
-                            IT
-                        </div>
-                        <div>
-                            <button>x</button>
-                            Movies
-                        </div>
-                        <div>
-                            <button>x</button>
-                            Music
-                        </div>
-                        <div>
-                            <button>x</button>
-                            War
-                        </div>
+                        {rendered_topics}
+                    </div>
+
+                    <h2>All Topics</h2>
+                    <div>
+                        {all_topics}
                     </div>
                 </div>
 
@@ -73,9 +103,9 @@
 
 {footer}
 
-<script src="static/js/util/toggle_theme.js"></script>
-<script src="static/js/settings_options.js"></script>
-<script src="static/js/top_bar_collapse.js"></script>
+<script src="/static/js/util/toggle_theme.js"></script>
+<script src="/static/js/settings_options.js"></script>
+<script src="/static/js/top_bar_collapse.js"></script>
 <script src="https://kit.fontawesome.com/921ba4621c.js" crossorigin="anonymous"></script>
 </body>
 </html>

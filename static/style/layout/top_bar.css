@@ -48,7 +48,7 @@
     color: #1d1d1d;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 760px) {
     .top-bar-navigation {
         display: none;
     }
