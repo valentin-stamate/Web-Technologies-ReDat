@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 gunicorn = "==20.1.0"
+matplotlib = "*"
 
 [dev-packages]
 

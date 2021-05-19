@@ -34,7 +34,7 @@ def get_hot_posts(topic, limit=25):
     res = requests.get('https://oauth.reddit.com/r/{topic}/hot'.format(topic=topic), headers=headers,
                        params={'limit': '{limit}'.format(limit=limit)})
 
-    posts = [] * limit
+    posts = []
     for post in res.json()['data']['children']:
         posts.append(post)
     # print(post['data'].keys())  # items that can be obtained
