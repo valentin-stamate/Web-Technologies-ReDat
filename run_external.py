@@ -5,7 +5,7 @@ import threading
 from services.external.statistics.statistics import *
 
 x = threading.Thread(target=general_up_votes_statistic, daemon=True)
-y = threading.Thread(target=subreddit_comment_stats(), daemon=True)
+y = threading.Thread(target=subreddit_comment_stats, daemon=True)
 x.start()
 y.start()
 os.system(""

@@ -71,7 +71,7 @@ def subreddit_comment_stats():
             ax.grid()
             fig.savefig("static/stats/{topic}_stats.svg".format(topic=topic))
             plt.close('all')
-            print("(Comments statistic) Last updated : " + str(current_timestamp()))
+            print("({topic} comments statistic) Last updated : ".format(topic=topic) + str(current_timestamp()))
 
         matrix_shift(comment_stats)
         time.sleep(600)
