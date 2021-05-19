@@ -82,7 +82,7 @@ def statistics_thread():
         plt.title("Most up voted 10 subreddits")
         plt.ylabel("Up Votes")
         plt.xlabel("Subreddits")
-        plt.savefig("static/stats/ups_stats.png")
+        plt.savefig("static/stats/ups_stats.svg")
         plt.show()
         print("Last updated : " + str(current_timestamp()))
         time.sleep(3600)
