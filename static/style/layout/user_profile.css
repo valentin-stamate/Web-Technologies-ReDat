@@ -71,12 +71,6 @@ body {
     min-height: 400px;
 }
 
-#user-picture {
-    height: 150px;
-    border-radius: 8px;
-    justify-self: center;
-}
-
 .profile-component {
     grid-column: 2;
     justify-content: center;

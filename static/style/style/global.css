@@ -21,6 +21,12 @@ img {
     max-width: 100%;
 }
 
+#user-picture {
+    height: 150px;
+    border-radius: 8px;
+    justify-self: center;
+}
+
 .rounded {
     border-radius: 8px;
     overflow: hidden;
