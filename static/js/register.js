@@ -16,17 +16,26 @@ function onRegister(e) {
 
     console.log(payload);
 
-    // const request = sendRequest(REGISTER_ENDPOINT, "POST", payload);
-    // request.onreadystatechange = (e) => {
-    //     if (request.readyState === XMLHttpRequest.DONE) {
-    //         const status = request.status;
-    //
-    //         // if (status === 200) {
-    //         //     setCookie(USER_AUTH_COOKIE, JSON.parse(request.responseText).userAuth);
-    //         // }
-    //         /* TODO else, display the errors */
-    //     }
-    // }
+    if (payload.password !== payload.passconfirmation) {
+        /* TODO error */
+        console.log("Password don't match");
+        return;
+    }
+
+    const request = sendRequest(REGISTER_ENDPOINT, "POST", payload);
+
+    request.onreadystatechange = (e) => {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            const status = request.status;
+
+            console.log(request);
+
+            if (status === 200) {
+                setCookie(USER_AUTH_COOKIE, JSON.parse(request.responseText).token);
+            }
+            /* TODO else, display the errors */
+        }
+    }
 }
 
 const previewImage = document.getElementById("preview-image");

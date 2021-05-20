@@ -27,3 +27,7 @@ def dict_to_json(value: []) -> str:
 def read_body(environ) -> str:
     body: BytesIO = environ.get("wsgi.input")
     return body.read().decode('utf8').replace("'", '"')
+
+
+def timestamp_to_str(timestamp) -> str:
+    return timestamp.strftime("%m/%d/%Y, %H:%M:%S")

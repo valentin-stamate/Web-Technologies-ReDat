@@ -63,6 +63,18 @@ def render_home(environ) -> ResponseData:
     return response
 
 
+def register_user(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.JSON]
+
+    res = requests.post(ServiceUrl.AUTH + "/register_user", json=json_to_dict(read_body(environ)))
+
+    response.payload = res.text
+    response.status = str(res.status_code)
+
+    return response
+
+
 def render_user_profile(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.HTML]
@@ -184,8 +196,9 @@ def get_static_resource(environ) -> ResponseData:
     return response
 
 
-def auth_token(environ) -> ResponseData:
+def auth_user(environ) -> ResponseData:
     response = ResponseData()
+    response.headers = [ContentType.JSON]
 
     body_dict = json_to_dict(read_body(environ))
 
@@ -193,7 +206,6 @@ def auth_token(environ) -> ResponseData:
 
     response.payload = res.text
     response.status = str(res.status_code)
-    response.headers = [ContentType.JSON]
 
     return response
 

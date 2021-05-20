@@ -1,7 +1,7 @@
 # CONTROLLER HANDLER
 import requests
 
-from services.auth.controllers import auth_user, check_user_auth
+from services.auth.controllers import auth_user, check_user_auth, register_user
 from services.auth.jwt_util import jwt_check, jwt_decode
 from services.server.database.models import user_model
 from util.request.response_data import HttpStatus, ContentType
@@ -23,8 +23,7 @@ def app(environ, start_response):
     elif path == "/auth_user":
         response = auth_user(environ)
     elif path == "/register_user":
-        res = requests.post(ServiceUrl.SERVER + "/register_user", json=json_to_dict(read_body(environ)))
-        response.payload = res.text
+        response = register_user(environ)
     elif path == '/check_user_auth':
         response = check_user_auth(environ)
 
