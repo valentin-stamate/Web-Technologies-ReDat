@@ -48,7 +48,7 @@ body {
   padding: 1.5rem;
 }
 
-.register-password {
+.two-inputs {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 2rem;
@@ -67,7 +67,7 @@ body {
     width: 90%;
   }
 
-  .register-password {
+  .two-inputs {
     display: flex;
     flex-direction: column;
   }

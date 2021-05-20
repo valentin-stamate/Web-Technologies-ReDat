@@ -34,26 +34,46 @@
                         <input type="text" name="register-username" id="register-username-field" class="input-field" minlength="8" required>
                    </div>
 
-                   <div class="input-component">
-                       <label for="register-email-field" class="input-label">Email</label>
-                       <input type="email" name="register-email" id="register-email-field" class="input-field" minlength="10" required>
+                   <div class="two-inputs">
+                       <div class="input-component">
+                           <label for="firstname-field" class="input-label">Firstname</label>
+                           <input type="text" name="password" id="firstname-field" class="input-field" minlength="8" required>
+                       </div>
+
+                       <div class="input-component">
+                           <label for="lastname-field" class="input-label">Lastname</label>
+                           <input type="text" name="password-confirmation" id="lastname-field" class="input-field" minlength="8" required>
+                       </div>
                    </div>
 
-                   <div class="register-password">
+                   <div class="input-component">
+                       <label for="register-email-field" class="input-label">Email</label>
+                       <input type="email" name="email" id="register-email-field" class="input-field" minlength="10" required>
+                   </div>
+
+                   <div class="two-inputs">
                        <div class="input-component">
                            <label for="register-password-field" class="input-label">Password</label>
-                           <input type="password" name="register-password" id="register-password-field" class="input-field" minlength="8" required>
+                           <input type="password" name="password" id="register-password-field" class="input-field" minlength="8" required>
                        </div>
 
                        <div class="input-component">
                            <label for="register-repassword-field" class="input-label">Confirm</label>
-                           <input type="password" name="register-password-confirmation" id="register-repassword-field" class="input-field" minlength="8" required>
+                           <input type="password" name="password-confirmation" id="register-repassword-field" class="input-field" minlength="8" required>
                        </div>
                    </div>
 
+                   <div class="input-component">
+                       <label for="image-url-field" class="input-label">Image Url</label>
+                       <input type="url" name="image-url" id="image-url-field" class="input-field" minlength="8">
+                       <button type="button" class="button primary" id="preview-button">Preview</button>
+                   </div>
+
+                   <div id="preview-image"></div>
+
                    <br>
 
-                   <button type="submit" class="button button-large primary">Create Account</button>
+                   <button class="button button-large primary">Create Account</button>
 
                </form>
 
