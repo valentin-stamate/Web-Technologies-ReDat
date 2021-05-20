@@ -2,7 +2,7 @@ from services.server.database.models.user_model import UserModel
 from services.server.renderer import render_file
 from util.response_data import ResponseData
 from util.request.response_data import HttpStatus, ContentType
-from util.util import read_body, json_to_dict, dict_to_json
+from util.util import read_body, json_to_dict, dict_to_json, timestamp_to_str
 
 
 def get_file(path):
@@ -55,6 +55,8 @@ def check_user(environ):
         return response
 
     user.password = ""
+
+    user.date_created = str()
     response.payload = dict_to_json(user.__dict__)
 
     return response
@@ -69,7 +71,7 @@ def user_data(environ) -> ResponseData:
     user_info = UserModel.get_by_id(user_id)['object']
 
     user_info.password = ''
-    user_info.date_created = user_info.date_created.strftime("%m/%d/%Y, %H:%M:%S")
+    user_info.date_created = timestamp_to_str(user_info.date_created)
     user_info = user_info.__dict__
 
     response.payload = dict_to_json(user_info)

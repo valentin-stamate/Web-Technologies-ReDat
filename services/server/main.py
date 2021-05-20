@@ -1,6 +1,6 @@
 import os
 
-from services.server.controllers import user_data, register_user
+from services.server.controllers import user_data, register_user, check_user
 from services.server.controllers import get_file
 from services.server.database.models.user_model import UserModel
 from util.pages import pages

@@ -44,7 +44,7 @@ def auth_user(environ):
 
     body = json_to_dict(res.text)
 
-    user_data = UserJWTData(user_id=body['id'], username=body['username'], email=body['email'])
+    user_data = UserJWTData(user_id=body['user_id'], username=body['username'], email=body['email'])
     token = jwt_encode(user_data)
 
     response.payload = dict_to_json({'token': token})
