@@ -1,6 +1,6 @@
 import os
 
-from services.server.controllers import auth_user, user_data
+from services.server.controllers import user_data, register_user
 from services.server.controllers import get_file
 from services.server.database.models.user_model import UserModel
 from util.pages import pages
@@ -30,14 +30,10 @@ def app(environ, start_response):
     elif path in pages:
         response = get_file("/templates" + path)
         response.headers = [ContentType.HTML]
-    elif path == "/auth_user":
-        response = auth_user(environ)
+    elif path == "/check_user":
+        response = check_user(environ)
     elif path == '/register_user':
-        body = json_to_dict(read_body(environ))
-        new_user = UserModel(body['username'], body['firstname'], body['lastname'],
-                             body['email'],
-                             body['password'])
-        response.payload = new_user.save()['message']
+        response = register_user(environ)
     elif path == '/update_user':
         body = json_to_dict(read_body(environ))
         updated_user = UserModel.get_by_id(body['id'])['object']

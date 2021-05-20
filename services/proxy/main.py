@@ -1,6 +1,6 @@
 import requests
 
-from services.proxy.controllers import get_page, get_static_resource, auth_token
+from services.proxy.controllers import get_page, get_static_resource, auth_user, register_user
 from util.pages import paths
 from util.request.response_data import HttpStatus, ContentType
 from util.response_data import ResponseData
@@ -21,10 +21,9 @@ def app(environ, start_response):
     elif path.startswith('/static'):
         response = get_static_resource(environ)
     elif path == "/auth_user":
-        response = auth_token(environ)
+        response = auth_user(environ)
     elif path == '/register_user':
-        res = requests.post(ServiceUrl.AUTH + "/register_user", json=json_to_dict(read_body(environ)))
-        response.payload = res.text
+        response = register_user(environ)
     elif path == '/update_user':
         body = json_to_dict(read_body(environ))
         res = requests.post(ServiceUrl.AUTH + "/check_user_auth",
