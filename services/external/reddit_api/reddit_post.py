@@ -56,7 +56,7 @@ class Post:
         self.domain = post['data']['domain']
         self.allow_live_comments = post['data']['allow_live_comments']
         self.selftext_html = post['data']['selftext_html']
-        self.likes = post['data']['likes']
+        self.likes = post['data']['reports']
         self.suggested_sort = post['data']['suggested_sort']
         self.banned_at_utc = post['data']['banned_at_utc']
         self.view_count = post['data']['view_count']
