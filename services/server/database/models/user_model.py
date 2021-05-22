@@ -88,18 +88,18 @@ class UserModel:
 
     # GETTERS
     @staticmethod
-    def get_by_username(username):
+    def get_by_username(username) -> {}:
         return UserModel.__get_user_by_key("username", f"'{username}'")
 
     @staticmethod
-    def get_by_id(user_id):
+    def get_by_id(user_id) -> {}:
         return UserModel.__get_user_by_key("id", f"{user_id}")
 
     def get_user_id(self):
         self.user_id = UserModel.__get_user_by_key('username', f"'{self.username}'")['object'].user_id
 
     @staticmethod
-    def __get_user_by_key(key, value):
+    def __get_user_by_key(key, value) -> {}:
         try:
             row = execute_sql(f"SELECT * FROM users WHERE {key} = {value}")[0]
             user = UserModel(user_id=row[0], username=row[1], firstname=row[2], lastname=row[3],

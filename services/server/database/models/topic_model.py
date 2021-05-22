@@ -1,3 +1,5 @@
+import typing
+
 from services.server.database.connection.connection import execute_sql
 
 
@@ -21,11 +23,11 @@ class TopicModel:
             print(f"Topic {self.name} saved")
         except Exception as e:
             print(e)
-            return {'status': False, 'message': 'Error at adding user'}
+            return {'status': False, 'message': 'Error at adding topic'}
 
         self.fetch_topic()
 
-        return {'status': True, 'message': 'User created successfully'}
+        return {'status': True, 'message': 'Topic created successfully'}
 
     # GETTERS
     @staticmethod
@@ -45,5 +47,16 @@ class TopicModel:
         except IndexError:
             return {'object': None, 'message': f"Topic with key:{key} and value:{value} not found"}
 
+    @staticmethod
+    def get_all() -> typing.List['TopicModel']:
+        topics = []
+
+        rows = execute_sql("SELECT * FROM topics")
+
+        for row in rows:
+            topics.append(TopicModel(topic_id=row[0], name=row[1]))
+
+        return topics
+
     def __str__(self):
-        return f"User {self.topic_id, self.name}"
+        return f"Topic {self.topic_id, self.name}"

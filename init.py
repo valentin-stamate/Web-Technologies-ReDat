@@ -1,6 +1,8 @@
 from services.server.database.connection.connection import execute_sql
+from services.server.database.models.topic_model import TopicModel
 from services.server.database.models.user_model import UserModel
 from services.external.topics import topics
+from services.server.database.models.user_topics_model import UserTopicModel
 
 execute_sql('''DROP TABLE IF EXISTS user_topics''')
 execute_sql('''DROP TABLE IF EXISTS topics''')
@@ -45,10 +47,21 @@ def create_users():
 
 
 def insert_topics():
-
     for topic in topics:
-        print(topic)
+        topic_model = TopicModel(topic)
+        topic_model.save()
+
+
+def add_user_topics():
+    user_model: UserModel = UserModel.get_by_username('ValentinSt')['object']
+
+    for i in range(1, 5):
+        topic_model = TopicModel.get_by_id(i)['object']
+        user_topic = UserTopicModel(user_model, topic_model)
+        user_topic.save()
 
 
 create_users()
 insert_topics()
+add_user_topics()
+
