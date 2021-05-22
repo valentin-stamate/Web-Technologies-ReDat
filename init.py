@@ -1,6 +1,8 @@
 from services.server.database.connection.connection import execute_sql
 from services.server.database.models.user_model import UserModel
 
+execute_sql('''DROP TABLE IF EXISTS user_topics''')
+execute_sql('''DROP TABLE IF EXISTS topics''')
 execute_sql('''DROP TABLE IF EXISTS users''')
 
 execute_sql('''CREATE TABLE IF NOT EXISTS users (
@@ -15,6 +17,22 @@ execute_sql('''CREATE TABLE IF NOT EXISTS users (
     PRIMARY KEY (id)
 )''')
 print("Table users created successfully")
+
+execute_sql('''CREATE TABLE topics (
+    id SERIAL,
+    name VARCHAR (255) UNIQUE NOT NULL,
+    PRIMARY KEY (id)
+)''')
+print("Table topics created successfully")
+
+execute_sql('''CREATE TABLE user_topics (
+    user_id INTEGER NOT NULL,
+    topic_id INTEGER NOT NULL,
+    UNIQUE (user_id, topic_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (topic_id) REFERENCES topics(id) ON DELETE CASCADE
+)''')
+print("Table user_topics created successfully")
 
 user = UserModel(username='ValentinSt', firstname='Valentin', lastname='Stamate', email='stamtevalentin125@gmail.com',
                  password='123456789')
