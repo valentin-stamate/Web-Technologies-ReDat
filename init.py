@@ -1,5 +1,6 @@
 from services.server.database.connection.connection import execute_sql
 from services.server.database.models.user_model import UserModel
+from services.external.topics import topics
 
 execute_sql('''DROP TABLE IF EXISTS user_topics''')
 execute_sql('''DROP TABLE IF EXISTS topics''')
@@ -34,10 +35,20 @@ execute_sql('''CREATE TABLE user_topics (
 )''')
 print("Table user_topics created successfully")
 
-user = UserModel(username='ValentinSt', firstname='Valentin', lastname='Stamate', email='stamtevalentin125@gmail.com',
-                 password='123456789')
-user.save()
 
-user = UserModel(username='Lorenzo', firstname='Iphone', lastname='Laurentiu', email='iphonelaurentiu@gmail.com',
-                 password='123456789')
-user.save()
+def create_users():
+    UserModel(username='ValentinSt', firstname='Valentin', lastname='Stamate', email='stamtevalentin125@gmail.com',
+              password='123456789').save()
+
+    UserModel(username='Lorenzo', firstname='Iphone', lastname='Laurentiu', email='iphonelaurentiu@gmail.com',
+              password='123456789').save()
+
+
+def insert_topics():
+
+    for topic in topics:
+        print(topic)
+
+
+create_users()
+insert_topics()
