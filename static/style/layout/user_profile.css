@@ -8,6 +8,7 @@
 @import "../style/footer.css";
 @import "top_bar.css";
 @import "../style/position.css";
+@import "../style/topics.css";
 
 body {
     padding: 0;
@@ -87,35 +88,6 @@ body {
     padding: 16px 0 16px 0;
 }
 
-.user-preferences > div {
-    background: #FF4A00;
-    flex: 1 1 auto;
-    margin: 8px;
-    text-align: center;
-    max-width: fit-content;
-    padding: 8px 14px 8px 8px;
-    border-radius: 25px;
-    font-size: 12px;
-}
-
-.user-preferences > div > button {
-    background: #e04201;
-    border: none;
-    color: white;
-    border-radius: 55px;
-    padding-bottom: 3px;
-    margin-right: 6px;
-}
-
-.user-preferences > div > button:hover {
-    background: #c63a00;
-}
-
-.user-preferences > div > button:active {
-    background: #00000040;
-}
-
-
 @media (max-width: 840px) {
     .user-profile {
         width: 70vw;
@@ -137,19 +109,4 @@ body {
         justify-content: center;
     }
 
-}
-
-.topic-list-item {
-    display: flex;
-    align-items: center;
-    border-radius: 8px;
-    background-color: var(--color-00-dp);
-    padding: 2px 4px 2px 12px;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    transition: all ease-in 0.2s;
-}
-
-.topic-list-item:hover {
-    background-color: var(--color-01-dp);
 }

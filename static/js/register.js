@@ -32,6 +32,7 @@ function onRegister(e) {
 
             if (status === 200) {
                 setCookie(USER_AUTH_COOKIE, JSON.parse(request.responseText).token);
+                window.location = "/topics"
             }
             /* TODO else, display the errors */
         }

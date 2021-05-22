@@ -5,7 +5,15 @@ from util.request.content_type import content_type
 from util.response_data import ResponseData
 from util.request.response_data import HttpStatus, ContentType
 from util.service_url import ServiceUrl
-from util.util import read_body, json_to_dict, dict_to_json
+from util.util import read_body, json_to_dict
+
+# TODO put these in files
+topic_item_list_template = '<div class="topic-list-item" data-id="{topic_id}">' \
+                               '    <div><b>{topic_name}</b></div>' \
+                               '    <div class="flex-right"></div>' \
+                               '    <button class="button primary">Add</button>' \
+                               '</div>'
+topic_item_template = "<div data-id={id}><button>x</button><b>{topic_name}</b></div>"
 
 
 def get_page(environ) -> ResponseData:
@@ -23,10 +31,11 @@ def get_page(environ) -> ResponseData:
         response = render_user_profile(environ)
     elif path == "/documentation":
         response = render_documentation(environ)
-
+    elif path == "/topics":
+        response = render_topics(environ)
     # Other pages that requires no other template or processing
     if path == "/register" or path == "/login" or path == "/doc"\
-            or path == "/confirm_account" or path == "/topics_of_interests":
+            or path == "/confirm_account":
         response.payload = requests.get(ServiceUrl.SERVER + path + ".html").text
 
     response.status = HttpStatus.OK
@@ -35,6 +44,51 @@ def get_page(environ) -> ResponseData:
 
 
 # RENDERING PAGES
+def render_topics(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.HTML]
+    response.status = HttpStatus.OK
+
+    token = get_auth_token(environ)
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    if str(res.status_code) == HttpStatus.UNAUTHORIZED:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
+    user_data = json_to_dict(res.text)
+
+    topics_html = requests.get(ServiceUrl.SERVER + "/topics.html").text
+
+    res = requests.get(ServiceUrl.SERVER + "/user_topics", json={'id': user_data['user_id']})
+
+    user_topics = json_to_dict(res.text)
+
+    user_topics_html = ''
+    all_topics_html = ''
+
+    for topic in user_topics:
+        user_topics_html += render_template(topic_item_template,
+                                            {'id': topic['topic_id'], 'topic_name': topic['name']})
+
+    res = requests.get(ServiceUrl.SERVER + "/all_topics")
+
+    all_topics = json_to_dict(res.text)
+
+    for topic in all_topics:
+        all_topics_html += render_template(topic_item_list_template,
+                                           {'topic_id': topic['topic_id'], 'topic_name': topic['name']})
+
+    response.payload = render_template(topics_html, {'username': user_data['username'],
+                                                     'user_topics': user_topics_html, 'all_topics': all_topics_html})
+
+    return response
+
+
 def render_home(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.HTML]
@@ -113,15 +167,7 @@ def render_user_profile(environ) -> ResponseData:
     # TODO
     user_data['topics'] = {'Anime': 1, 'Funny': 2, 'Genshin Inpact': 3, 'It': 4, 'Movies': 5, 'Memes': 6}
 
-    topic_item_template = "<div data-id={id}><button>x</button><b>{topic_name}</b></div>"
-
     topics_text = ''
-
-    topic_item_list_template = '<div class="topic-list-item" data-id="{topic_id}">' \
-                               '    <div><b>{topic_name}</b></div>' \
-                               '    <div class="flex-right"></div>' \
-                               '    <button class="button primary">Add</button>' \
-                               '</div>'
 
     all_topics = {'Anime': 1, 'It': 2, 'Memes': 3, 'Casual': 4}
 

@@ -1,4 +1,6 @@
+from services.server.database.models.topic_model import TopicModel
 from services.server.database.models.user_model import UserModel
+from services.server.database.models.user_topics_model import UserTopicModel
 from services.server.renderer import render_file
 from util.response_data import ResponseData
 from util.request.response_data import HttpStatus, ContentType
@@ -12,30 +14,6 @@ def get_file(path):
     response.status = HttpStatus.OK
     response.headers = [ContentType.HTML]
     return response
-
-
-# def auth_user(environ):
-#     response = ResponseData()
-#     response.headers = [ContentType.JSON]
-#
-#     response_body = json_to_dict(read_body(environ))
-#
-#     user = UserModel(username=response_body['username'], password=response_body['password'])
-#
-#     status = user.login()
-#
-#     if not status['status']:
-#         response.payload = status['message']
-#         response.status = HttpStatus.BAD_REQUEST
-#         return response
-#
-#     user_data = UserJWTData(user_id=user.user_id, username=user.username, email=user.email)
-#     token = jwt_encode(user_data)
-#
-#     response.payload = dict_to_json({'token': token})
-#     response.status = HttpStatus.OK
-#
-#     return response
 
 
 def check_user(environ):
@@ -58,6 +36,49 @@ def check_user(environ):
 
     user.date_created = str()
     response.payload = dict_to_json(user.__dict__)
+
+    return response
+
+
+def user_topics(environ) -> ResponseData:
+    response = ResponseData()
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.JSON]
+
+    user_id = json_to_dict(read_body(environ))['id']
+    user_model = UserModel.get_by_id(user_id)['object']
+
+    topics = UserTopicModel.get_all(user_model)
+
+    payload = '['
+
+    for topic in topics:
+        topic_json = dict_to_json(topic.__dict__)
+        payload += topic_json + ','
+    payload += ']'
+    payload = payload.replace(",]", "]")
+
+    response.payload = payload
+
+    return response
+
+
+def all_topics(environ):
+    response = ResponseData()
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.JSON]
+
+    topics = TopicModel.get_all()
+
+    payload = '['
+
+    for topic in topics:
+        topic_json = dict_to_json(topic.__dict__)
+        payload += topic_json + ','
+    payload += ']'
+    payload = payload.replace(",]", ']')
+
+    response.payload = payload
 
     return response
 

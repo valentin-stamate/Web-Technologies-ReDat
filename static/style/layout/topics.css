@@ -4,6 +4,7 @@
 @import "../style/global.css";
 @import "../style/theme.css";
 @import "../style/footer.css";
+@import "../style/topics.css";
 
 .logo {
     padding: 2rem;
