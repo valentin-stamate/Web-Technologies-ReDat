@@ -1,19 +1,13 @@
 import time
-
 import matplotlib.pyplot as plt
 import numpy as np
 
+from services.external.topics import topics
+from services.external.controllers import write_to_csv, matrix_shift
 from services.external.reddit_api.reddit_data import *
 from util.util import current_timestamp
 
-topics = ['Activism', 'AddictionSupport', 'Animals', 'Anime', 'AskReddit', 'Pets', 'Art', 'Beauty', 'Makeup',
-          'Business', 'Economics', 'Finance', 'Careers', 'Cars', 'Celebrity', 'Crafts', 'DIY',
-          'Crypto', 'Culture', 'Ethnicity', 'Ethics', 'Philosophy', 'Family', 'Relationships', 'Fashion', 'Fitness',
-          'Nutrition', 'Food', 'Funny', 'Humor', 'Gaming', 'Gender', 'History', 'Hobbies', 'Home', 'Garden', 'Internet',
-          'Culture', 'Memes', 'Law', 'Education', 'Marketplace', 'Deals', 'MentalHealth', 'MensHealth',
-          'Meta', 'Military', 'Movies', 'Music', 'Outdoors', 'Nature', 'Place', 'Podcasts', 'Streamers', 'Politics',
-          'Programming', 'Reading', 'Writing', 'Religion', 'Spirituality', 'Science', 'SexualOrientation', 'Sports',
-          'TabletopGames', 'Technology', 'Television', 'Travel', 'WorldNews']
+time_ax = np.arange(10, 70, 10)
 
 
 def general_up_votes_statistic():
@@ -37,21 +31,13 @@ def general_up_votes_statistic():
         plt.ylabel("Up Votes")
         plt.xlabel("Subreddits")
         plt.savefig("static/stats/general_ups_stats.svg")
-        plt.show()
+        plt.close('all')
         print("(General up votes statistic) Last updated : " + str(current_timestamp()))
         time.sleep(3600)
 
 
-def matrix_shift(matrix):
-    for row in range(0, len(topics)):
-        for col in range(1, 6):
-            matrix[row][col - 1] = matrix[row][col]
-        matrix[row][5] = 0
-
-
-def subreddit_comment_stats():
+def comments_statistic():
     comment_stats = [[0] * 6 for i in range(len(topics))]
-    time_ax = np.arange(0, 60, 10)
     while True:
         for topic in topics:
             try:
@@ -60,74 +46,44 @@ def subreddit_comment_stats():
                     comment_stats[topics.index(topic)][5] += post['data']['num_comments']
             except Exception:
                 print(topic)
-            plt.figure(figsize=(15, 8))
-            fig, ax = plt.subplots()
-            ax.plot(time_ax, comment_stats[topics.index(topic)])
-            ax.set(xlabel='time (m)', ylabel='Nr Comments',
-                   title='Comments in the last hour in {topic}'.format(topic=topic))
-            ax.grid()
-            fig.savefig("static/stats/comments/{topic}_stats.svg".format(topic=topic))
-            plt.close('all')
-            print("({topic} comments statistic) Last updated : ".format(topic=topic) + str(current_timestamp()))
 
-        matrix_shift(comment_stats)
+        write_to_csv('static/stats/csv/comments.csv', comment_stats)
+        matrix_shift(comment_stats, len(topics))
         time.sleep(600)
 
 
-def upvote_statistic():
-    upvote_stats = [[0] * 6 for i in range(len(topics))]
-    time_ax = np.arange(0, 60, 10)
+def upvote_ratio_statistic():
+    upvote_ratio_stats = [[0] * 6 for i in range(len(topics))]
     while True:
         for topic in topics:
             try:
                 res = get_hot_posts(topic=topic, limit=1000)
                 for post in res:
-                    upvote_stats[topics.index(topic)][5] += post['data']['upvote_ratio']
-                upvote_stats[topics.index(topic)][5] /= len(res)
+                    upvote_ratio_stats[topics.index(topic)][5] += post['data']['upvote_ratio']
+                upvote_ratio_stats[topics.index(topic)][5] /= len(res)
             except Exception:
                 print(topic)
-            plt.figure(figsize=(15, 8))
-            fig, ax = plt.subplots()
-            ax.stackplot(time_ax, upvote_stats[topics.index(topic)])
-            ax.set(xlabel='time (m)', ylabel='Upvote Ratio',
-                   title='Upvote ratio in the last hour in {topic}'.format(topic=topic))
-            ax.grid()
-            fig.savefig("static/stats/upvote_ratio/{topic}_upvote_ratio_stats.svg".format(topic=topic))
-            plt.close('all')
-            print("({topic} upvote ratio statistic) Last updated : ".format(topic=topic) + str(current_timestamp()))
-
-        matrix_shift(upvote_stats)
+        write_to_csv('static/stats/csv/upvote_ratio.csv', upvote_ratio_stats)
+        matrix_shift(upvote_ratio_stats, len(topics))
         time.sleep(600)
 
 
 def ups_downs_statistic():
     ups_stats = [[0] * 6 for i in range(len(topics))]
     downs_stats = [[0] * 6 for i in range(len(topics))]
-    time_ax = np.arange(0, 60, 10)
     while True:
         for topic in topics:
             try:
                 res = get_hot_posts(topic=topic, limit=1000)
                 for post in res:
                     ups_stats[topics.index(topic)][5] += post['data']['ups']
-                    downs_stats[topics.index(topic)][5] += post['data']['ups'] / post['data']['upvote_ratio'] - \
-                                                           post['data']['ups']
+                    downs_stats[topics.index(topic)][5] += int(post['data']['ups'] / post['data']['upvote_ratio'] -
+                                                               post['data']['ups'])
             except Exception:
                 print(topic)
-            plt.figure(figsize=(15, 8))
-            fig, ax = plt.subplots()
 
-            ax.plot(time_ax, ups_stats[topics.index(topic)], color='blue', label='up votes', linewidth=2)
-            ax.plot(time_ax, downs_stats[topics.index(topic)], color='red', label='down votes', linewidth=2)
-            ax.set(xlabel='time (m)', ylabel='Ups-Downs',
-                   title='Ups-Downs in the last hour in {topic}'.format(topic=topic))
-            ax.grid()
-            ax.legend()
-            fig.savefig("static/stats/ups_downs/{topic}_ups_downs_stats.svg".format(topic=topic))
-            plt.close('all')
-            print("({topic} ups_downs statistic) Last updated : ".format(topic=topic) + str(current_timestamp()))
-
-        matrix_shift(ups_stats)
-        matrix_shift(downs_stats)
+        write_to_csv('static/stats/csv/ups.csv', ups_stats)
+        write_to_csv('static/stats/csv/downs.csv', downs_stats)
+        matrix_shift(ups_stats, len(topics))
+        matrix_shift(downs_stats, len(topics))
         time.sleep(600)
-
