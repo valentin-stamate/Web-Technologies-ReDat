@@ -2,7 +2,7 @@ from services.external.controllers import *
 from services.external.reddit_api.reddit_data import get_hot_posts
 from util.request.response_data import ContentType, HttpStatus
 from util.response_data import ResponseData
-from util.util import json_to_dict, read_body
+from util.util import json_to_dict, read_body, dict_to_json
 
 
 def app(environ, start_response):
@@ -15,6 +15,15 @@ def app(environ, start_response):
     response.headers = [ContentType.JSON]
     if path == "":
         response.payload = "Hello there. This is the external api service."
+    elif path == '/check_new':
+        body = json_to_dict(read_body(environ))
+        response.status = HttpStatus.OK
+        actual_com_nr = get_com_nr(body['topic'])
+        notification = 0
+        if actual_com_nr != int(body['comments_number']):
+            notification = 1
+        response.payload = dict_to_json({'notifications': notification, 'comments_number': actual_com_nr})
+        response.headers = [ContentType.JSON]
     elif path == '/statistic/general':
         response.status = HttpStatus.OK
         response.payload = (str(get_general_statistic()))
