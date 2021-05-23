@@ -9,6 +9,7 @@
 @import "top_bar.css";
 @import "../style/position.css";
 @import "../style/topics.css";
+@import "../style/chip.css";
 
 body {
     padding: 0;

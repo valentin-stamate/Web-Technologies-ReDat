@@ -120,3 +120,8 @@ function refreshTopics() {
     fetchUserTopics();
     fetchAllTopics();
 }
+
+const startButton = document.getElementById('start-exploring-button');
+startButton.addEventListener('click', function (e) {
+    document.location = '/home';
+});

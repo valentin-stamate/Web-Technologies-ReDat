@@ -210,22 +210,7 @@ def render_user_profile(environ) -> ResponseData:
     user_data = requests.get(ServiceUrl.SERVER + "/user_data", json={'id': user_data['user_id']}).text
     user_data = json_to_dict(user_data)
 
-    # TODO
-    user_data['topics'] = {'Anime': 1, 'Funny': 2, 'Genshin Inpact': 3, 'It': 4, 'Movies': 5, 'Memes': 6}
-
-    topics_text = ''
-
-    all_topics = {'Anime': 1, 'It': 2, 'Memes': 3, 'Casual': 4}
-
-    all_topics_html = ''
-
-    # for topic in all_topics:
-    #     all_topics_html += render_template(topic_item_list_template, {'topic_id': all_topics[topic], 'topic_name': topic})
-    #
-    # for topic in user_data['topics']:
-    #     topics_text += render_template(topic_item_template, {'id': user_data['topics'][topic], 'topic_name': topic})
-
-    context = {'top_bar': top_bar_html, 'footer': footer_html, 'rendered_topics': topics_text, 'all_topics': all_topics_html}
+    context = {'top_bar': top_bar_html, 'footer': footer_html}
     context.update(user_data)
 
     response.payload = render_template(res.text, context)
