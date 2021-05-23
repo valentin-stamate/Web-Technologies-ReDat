@@ -1,6 +1,7 @@
 import os
 
-from services.server.controllers import user_data, register_user, check_user, user_topics, all_topics, delete_user_topic
+from services.server.controllers import user_data, register_user, check_user, user_topics, all_topics, \
+    delete_user_topic, add_user_topic
 from services.server.controllers import get_file
 from services.server.database.models.user_model import UserModel
 from util.pages import pages
@@ -58,6 +59,8 @@ def app(environ, start_response):
         response = all_topics(environ)
     elif path == "/delete_user_topic":
         response = delete_user_topic(environ)
+    elif path == "/add_user_topic":
+        response = add_user_topic(environ)
     else:
         response.payload = "Not found"
         response.headers = [ContentType.HTML]

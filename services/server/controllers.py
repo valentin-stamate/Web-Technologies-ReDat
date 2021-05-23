@@ -28,6 +28,28 @@ def delete_user_topic(environ):
     return response
 
 
+def add_user_topic(environ):
+    response = ResponseData()
+    response.headers = [ContentType.JSON]
+    response.status = HttpStatus.OK
+
+    body = json_to_dict(read_body(environ))
+
+    user_model = UserModel.get_by_id(body['user_id'])['object']
+    topic_model = TopicModel.get_by_id(body['topic_id'])['object']
+
+    user_topic_model = UserTopicModel(user_model, topic_model)
+
+    if not user_topic_model.save():
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({'message': 'Failure'})
+        return response
+
+    response.payload = dict_to_json({'message': 'Success'})
+
+    return response
+
+
 def get_file(path):
     response = ResponseData()
 

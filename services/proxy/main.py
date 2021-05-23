@@ -1,6 +1,7 @@
 import requests
 
-from services.proxy.controllers import get_page, get_static_resource, auth_user, register_user, user_delete_topic
+from services.proxy.controllers import get_page, get_static_resource, auth_user, register_user, user_delete_topic, \
+    all_topics, user_topics, user_add_topic
 from util.pages import paths
 from util.request.response_data import HttpStatus, ContentType
 from util.response_data import ResponseData
@@ -36,6 +37,12 @@ def app(environ, start_response):
             response.payload = res.text
     elif path == '/user_delete_topic':
         response = user_delete_topic(environ)
+    elif path == '/user_add_topic':
+        response = user_add_topic(environ)
+    elif path == "/user_topics":
+        response = user_topics(environ)
+    elif path == "/all_topics":
+        response = all_topics(environ)
     else:
         response.status = HttpStatus.NOT_FOUND
         response.payload = "Page not found."
