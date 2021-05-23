@@ -4,6 +4,7 @@ from io import BytesIO
 import numpy as np
 from matplotlib import pyplot as plt
 
+from services.external.reddit_api.reddit_data import get_hot_posts
 from services.external.topics import topics
 
 time_ax = np.arange(10, 70, 10)
@@ -141,4 +142,20 @@ def get_csv_data(path):
         data = data[:len(data) - 1:]
         data += "\n"
     print(data)
+    return data
+
+
+def get_com_nr(topic):
+    posts = get_hot_posts(topic, limit=1000)
+    com_nr = 0
+    for post in posts:
+        com_nr += post['data']['num_comments']
+    return com_nr
+
+
+def get_topics():
+    data = ''
+    for topic in topics:
+        data += topic + ','
+    data = data[:len(data) - 1:]
     return data

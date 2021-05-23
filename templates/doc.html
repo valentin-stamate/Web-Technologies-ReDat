@@ -166,6 +166,77 @@
             Formatul de primire/transmitere al requesturilor va fi JSON.
         </p>
     </section>
+    <section id="statistics API">
+        <h3>Interfata pentru statistici</h3>
+        <p>
+            Aplicatia ReDat monitorizeaza activitatea celor mai populare subreddit-uri asociate unui subiect de interes;
+            astfel realizand statistici disponibile atat in format csv cat si svg. Statisticile monitorizeaza
+            numarul de like-uri, dislike-uri, commentarii si ratia voturilor.
+        </p>
+        <h4> Statistici tip CSV</h4>
+        <p>
+            Acestea monitorizeaza (din 10 in 10 minute) activitatea din ultima ora, din toate subiectele de interes
+            disponibile in aplicatie.
+        <h5>Upvotes</h5>
+        <p>
+            Acestea pot fi accesate prin endpoint-ul <b>/statistic/csv/ups</b> folosind un request de tip GET. Interfata
+            ofera informatiile de tip csv, sub forma de text. Coloanele oferite sunt Topic (subiectul de interes
+            monitorizat), 60 min, 50 min,..., 10 min care reprezinta situatia voturilor pozitive pentru ultimele 1000 de
+            postari in urma cu 10 min, 20 min, ș.a.m.d. .
+        </p>
+        <h5>Downvotes</h5>
+        <p>
+            Acestea pot fi accesate prin endpoint-ul <b>/statistic/csv/downs</b> folosind un request de tip GET.
+            Interfata ofera informatiile de tip csv, sub forma de text. Coloanele oferite sunt Topic (subiectul de
+            interes monitorizat), 60 min, 50 min,..., 10 min care reprezinta situatia voturilor negative pentru ultimele
+            1000 de postari in urma cu 10 min, 20 min, ș.a.m.d. .
+        </p>
+        <h5>Upvote ratio</h5>
+        <p>
+            Acesta poate fi accesata prin endpoint-ul <b>/statistic/csv/upvote_ratio</b> folosind un request de tip GET.
+            Interfata ofera informatiile de tip csv, sub forma de text. Coloanele oferite sunt Topic (subiectul de
+            interes monitorizat), 60 min, 50 min,..., 10 min care reprezinta situatia ratiei dintre voturi pentru
+            ultimele 1000 de postari in urma cu 10 min, 20 min, ș.a.m.d. .
+        </p>
+        <h5>Comments</h5>
+        <p>
+            Acestea pot fi accesate prin endpoint-ul <b>/statistic/csv/comments</b> folosind un request de tip GET.
+            Interfata ofera informatiile de tip csv, sub forma de text. Coloanele oferite sunt Topic (subiectul de
+            interes monitorizat), 60 min, 50 min,..., 10 min care reprezinta situatia comentariilor pentru ultimele 1000
+            de postari, in urma cu 10 min, 20 min, ș.a.m.d. .
+        </p>
+        </p>
+        <h4> Statistici tip SVG</h4>
+        <p>
+            Aceste statistici ofera datele din fisierele csv mentionate anterior sub forma unor grafice in foramt svg.
+            Ele pot fi accesate printr-un request de tip get cu urmatorul obiect JSON {"topic":"Desired Topic" } in
+            corpul (body) request-ului. Toate subiectele de interes pentru care pot fi preluate statistici pot fi vazute
+            fie in statisticile csv fie printr-un request de tip get la endpoint-ul <b></b> Statisticile pot fi accesate
+            prin urmatoarele endpoint-uri:
+        <ul>
+            <li>
+                <b>/statistic/ups_downs</b> pentru un grafic despre situatia din ultima ora a like-urilor si
+                dislike-urilor
+                pentru ultimele 1000 de postari asociate topicului mentionat.
+            </li>
+            <li>
+                <b>/statistic/comments</b> pentru un grafic despre situatia din ultima ora a comentariilor
+                pentru ultimele 1000 de postari asociate topicului mentionat.
+            </li>
+            <li>
+                <b>/statistic/upvote_ratio</b> pentru un grafic despre situatia din ultima ora a ratiei dintre voturi
+                pentru ultimele 1000 de postari asociate topicului mentionat.
+            </li>
+            <li>
+                <b>/statistic/general</b> pentru un grafic despre situatia generala a subiectelor de interes ( Cele mai
+                populare 10 , in functie de numarul de voturi din utlima ora). Request-ul la acest endpoint nu necesita
+                un
+                corp (body)
+            </li>
+
+        </ul>
+        </p>
+    </section>
 
 </section>
 <!--4.System Features-->
@@ -221,21 +292,28 @@
     <h2>Interfata si Motivatie</h2>
     <p>
         Interfata aplicatitei este simpla si in acelasi timp moderna deoarece contine concepte curente cum ar fi:
-        colturi rotunjite, folosirea fontului Roboto, comutarea intre temele light si dark, etc, elemente menite sa atraga utilizatorul.
+        colturi rotunjite, folosirea fontului Roboto, comutarea intre temele light si dark, etc, elemente menite sa
+        atraga utilizatorul.
     </p>
     <p>
-        Pentru create layout-ului fiecare pagina s-a structurat folosind grid si flex deoarece se poate construi foarte usor interfete dar
-        si alinierea elementelor interne. Pentru tema light s-au folosit diferite nuante progresive de gri, iar pentru tema dark in mod
+        Pentru create layout-ului fiecare pagina s-a structurat folosind grid si flex deoarece se poate construi foarte
+        usor interfete dar
+        si alinierea elementelor interne. Pentru tema light s-au folosit diferite nuante progresive de gri, iar pentru
+        tema dark in mod
         similar pentru a standardiza culorile si o mai buna mentenanta.
     </p>
     <p>
-        Foile de still css au fost modularizate pentru scalabilitate, fiecare fisier css reprezinta un singur obiect/layout, astfel
-        o modificare(de exemplu la un buton) se face intr-un fisier iar modificarile se propaga oriunde este folosit acel fisier.
+        Foile de still css au fost modularizate pentru scalabilitate, fiecare fisier css reprezinta un singur
+        obiect/layout, astfel
+        o modificare(de exemplu la un buton) se face intr-un fisier iar modificarile se propaga oriunde este folosit
+        acel fisier.
         De asemenea, pentru a avea un singur loc in care sunt puse dimensiuni/culori au fost create variabile css.
     </p>
     <p>
-        Aplicatia este responsive astfel ea poate fi disponibila si pe telefoanele mobile. Pentru a face acest lucru, atunci
-        cand layout-ul ajunge la o latime minima, el se restructureaza pastrand astfel latimea paginii cu cea a ecranului.
+        Aplicatia este responsive astfel ea poate fi disponibila si pe telefoanele mobile. Pentru a face acest lucru,
+        atunci
+        cand layout-ul ajunge la o latime minima, el se restructureaza pastrand astfel latimea paginii cu cea a
+        ecranului.
     </p>
 </section>
 </body>
