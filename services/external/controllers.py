@@ -142,3 +142,11 @@ def get_csv_data(path):
         data += "\n"
     print(data)
     return data
+
+
+def get_topics():
+    data = ''
+    for topic in topics:
+        data += topic + ','
+    data = data[:len(data) - 1:]
+    return data

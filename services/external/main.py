@@ -57,6 +57,10 @@ def app(environ, start_response):
         response.status = HttpStatus.OK
         response.payload = get_csv_data('static/stats/csv/upvote_ratio.csv')
         response.headers = [ContentType.PLAIN]
+    elif path == '/statistic/topics':
+        response.status = HttpStatus.OK
+        response.payload = get_topics()
+        response.headers = [ContentType.PLAIN]
     else:
         response.status = HttpStatus.NOT_FOUND
         response.payload = "Page not found."
