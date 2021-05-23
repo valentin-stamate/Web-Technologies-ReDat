@@ -7,19 +7,61 @@ from util.request.response_data import HttpStatus, ContentType
 from util.service_url import ServiceUrl
 from util.util import read_body, json_to_dict, dict_to_json
 
-# TODO put these in files
-topic_item_list_template = '<div class="topic-list-item" data-id="{topic_id}">' \
-                               '    <div><b>{topic_name}</b></div>' \
-                               '    <div class="flex-right"></div>' \
-                               '    <button class="button primary">Add</button>' \
-                               '</div>'
-topic_item_template = "<div class='button-chip'><button data-id={id} " \
-                      "class='chip-delete-button' data-id='{id}'>x</button><b>{topic_name}</b></div>"
+
+def all_topics(environ):
+    response = ResponseData()
+    response.headers = [ContentType.HTML]
+    response.status = HttpStatus.OK
+
+    res = requests.get(ServiceUrl.SERVER + "/all_topics")
+
+    response.payload = res.text
+
+    return response
+
+
+def user_topics(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.HTML]
+    response.status = HttpStatus.OK
+
+    body = json_to_dict(read_body(environ))
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': body['token']})
+    user_data = json_to_dict(res.text)
+    res = requests.get(ServiceUrl.SERVER + "/user_topics", json={'id': user_data['user_id']})
+
+    response.payload = res.text
+
+    return response
+
+
+def user_add_topic(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.JSON]
+    response.status = HttpStatus.OK
+
+    body = json_to_dict(read_body(environ))
+    token = body['token']
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    user_data = json_to_dict(res.text)
+
+    user_id = user_data['user_id']
+    topic_id = body['topic_id']
+
+    res = requests.post(ServiceUrl.SERVER + "/add_user_topic", json={'user_id': user_id, 'topic_id': topic_id})
+
+    response.payload = res.text
+    response.status = str(res.status_code)
+
+    return response
 
 
 def user_delete_topic(environ) -> ResponseData:
     response = ResponseData()
-    response.headers = [ContentType.HTML]
+    response.headers = [ContentType.JSON]
     response.status = HttpStatus.OK
 
     body = json_to_dict(read_body(environ))
@@ -86,29 +128,9 @@ def render_topics(environ) -> ResponseData:
 
     user_data = json_to_dict(res.text)
 
-    topics_html = requests.get(ServiceUrl.SERVER + "/topics.html").text
+    topics_page = requests.get(ServiceUrl.SERVER + "/topics.html").text
 
-    res = requests.get(ServiceUrl.SERVER + "/user_topics", json={'id': user_data['user_id']})
-
-    user_topics = json_to_dict(res.text)
-
-    user_topics_html = ''
-    all_topics_html = ''
-
-    for topic in user_topics:
-        user_topics_html += render_template(topic_item_template,
-                                            {'id': topic['topic_id'], 'topic_name': topic['name']})
-
-    res = requests.get(ServiceUrl.SERVER + "/all_topics")
-
-    all_topics = json_to_dict(res.text)
-
-    for topic in all_topics:
-        all_topics_html += render_template(topic_item_list_template,
-                                           {'topic_id': topic['topic_id'], 'topic_name': topic['name']})
-
-    response.payload = render_template(topics_html, {'username': user_data['username'],
-                                                     'user_topics': user_topics_html, 'all_topics': all_topics_html})
+    response.payload = render_template(topics_page, {'username': user_data['username']})
 
     return response
 
@@ -197,11 +219,11 @@ def render_user_profile(environ) -> ResponseData:
 
     all_topics_html = ''
 
-    for topic in all_topics:
-        all_topics_html += render_template(topic_item_list_template, {'topic_id': all_topics[topic], 'topic_name': topic})
-
-    for topic in user_data['topics']:
-        topics_text += render_template(topic_item_template, {'id': user_data['topics'][topic], 'topic_name': topic})
+    # for topic in all_topics:
+    #     all_topics_html += render_template(topic_item_list_template, {'topic_id': all_topics[topic], 'topic_name': topic})
+    #
+    # for topic in user_data['topics']:
+    #     topics_text += render_template(topic_item_template, {'id': user_data['topics'][topic], 'topic_name': topic})
 
     context = {'top_bar': top_bar_html, 'footer': footer_html, 'rendered_topics': topics_text, 'all_topics': all_topics_html}
     context.update(user_data)
