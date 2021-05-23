@@ -5,6 +5,7 @@
 @import "../style/theme.css";
 @import "../style/footer.css";
 @import "../style/topics.css";
+@import "../style/chip.css";
 
 .logo {
     padding: 2rem;
@@ -60,35 +61,6 @@ h1 {
     height: 40px;
     font-size: 18px;
     padding-left: 8px;
-}
-
-.user-preferences > div {
-    background: #FF4A00;
-    border: black;
-    flex: 1 1 auto;
-    margin: 8px;
-    text-align: center;
-    max-width: fit-content;
-    padding: 8px;
-    border-radius: 25px;
-    font-size: 18px;
-    font-size: 12px;
-}
-
-.user-preferences > div > button {
-    background: #e04201;
-    border: none;
-    color: white;
-    text-align: center;
-    display: inline-block;
-    border-radius: 55px;
-    margin-bottom: 2px;
-    justify-self: center;
-    outline: none;
-}
-
-.user-preferences > div > button:active {
-    background: #00000040;
 }
 
 @media (max-width: 600px) {

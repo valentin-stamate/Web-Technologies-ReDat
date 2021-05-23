@@ -16,3 +16,32 @@
 .chip:focus {
     outline: none;
 }
+
+/* BUTTON CHIP */
+.button-chip {
+    background: #FF4A00;
+    border: black;
+    flex: 1 1 auto;
+    margin: 8px;
+    text-align: center;
+    max-width: fit-content;
+    padding: 8px 12px 8px 8px;
+    border-radius: 25px;
+    font-size: 12px;
+}
+
+.button-chip > button {
+    background: #e04201;
+    border: none;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    border-radius: 55px;
+    margin-bottom: 2px;
+    justify-self: center;
+    outline: none;
+}
+
+.button-chip > button:active {
+    background: #00000040;
+}

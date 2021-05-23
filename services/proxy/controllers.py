@@ -5,7 +5,7 @@ from util.request.content_type import content_type
 from util.response_data import ResponseData
 from util.request.response_data import HttpStatus, ContentType
 from util.service_url import ServiceUrl
-from util.util import read_body, json_to_dict
+from util.util import read_body, json_to_dict, dict_to_json
 
 # TODO put these in files
 topic_item_list_template = '<div class="topic-list-item" data-id="{topic_id}">' \
@@ -13,7 +13,31 @@ topic_item_list_template = '<div class="topic-list-item" data-id="{topic_id}">' 
                                '    <div class="flex-right"></div>' \
                                '    <button class="button primary">Add</button>' \
                                '</div>'
-topic_item_template = "<div data-id={id}><button>x</button><b>{topic_name}</b></div>"
+topic_item_template = "<div class='button-chip'><button data-id={id} " \
+                      "class='chip-delete-button' data-id='{id}'>x</button><b>{topic_name}</b></div>"
+
+
+def user_delete_topic(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.HTML]
+    response.status = HttpStatus.OK
+
+    body = json_to_dict(read_body(environ))
+    token = body['token']
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    user_data = json_to_dict(res.text)
+
+    user_id = user_data['user_id']
+    topic_id = body['topic_id']
+
+    res = requests.post(ServiceUrl.SERVER + "/delete_user_topic", json={'user_id': user_id, 'topic_id': topic_id})
+
+    response.payload = res.text
+    response.status = str(res.status_code)
+
+    return response
 
 
 def get_page(environ) -> ResponseData:

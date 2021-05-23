@@ -2,12 +2,11 @@
 import requests
 
 from services.auth.controllers import auth_user, check_user_auth, register_user
-from services.auth.jwt_util import jwt_check, jwt_decode
 from services.server.database.models import user_model
-from util.request.response_data import HttpStatus, ContentType
+from util.request.response_data import ContentType
 from util.response_data import ResponseData
 from util.service_url import ServiceUrl
-from util.util import json_to_dict, read_body, dict_to_json
+from util.util import json_to_dict, read_body
 
 
 def app(environ, start_response):

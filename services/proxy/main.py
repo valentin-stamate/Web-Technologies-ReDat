@@ -1,6 +1,6 @@
 import requests
 
-from services.proxy.controllers import get_page, get_static_resource, auth_user, register_user
+from services.proxy.controllers import get_page, get_static_resource, auth_user, register_user, user_delete_topic
 from util.pages import paths
 from util.request.response_data import HttpStatus, ContentType
 from util.response_data import ResponseData
@@ -34,6 +34,8 @@ def app(environ, start_response):
         if str(res.status_code) == HttpStatus.OK:
             res = requests.post(ServiceUrl.SERVER + "/update_user", json=body)
             response.payload = res.text
+    elif path == '/user_delete_topic':
+        response = user_delete_topic(environ)
     else:
         response.status = HttpStatus.NOT_FOUND
         response.payload = "Page not found."
