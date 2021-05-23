@@ -19,6 +19,7 @@ def matrix_shift(matrix, length):
 def write_to_csv(path, rows):
     file = open(path, 'w')
     writer = csv.writer(file)
+    writer.writerow(['60 min', '50 min', '40 min', '30 min', '20 min', '10 min'])
     writer.writerows(rows)
     file.close()
 
@@ -34,7 +35,7 @@ def get_upvote_ratio_statistic(topic):
     line_nr = 0
     ratio_string = []
     for line in csv_reader:
-        if line_nr == topics.index(topic):
+        if line_nr == topics.index(topic) + 1:
             ratio_string = line
         line_nr += 1
     ratio = []
@@ -59,7 +60,7 @@ def get_comments_statistic(topic):
     csv_reader = csv.reader(f)
     values_string = []
     for line in csv_reader:
-        if line_nr == topics.index(topic):
+        if line_nr == topics.index(topic) + 1:
             values_string = line
         line_nr += 1
     values = []
@@ -83,7 +84,7 @@ def get_ups_downs_statistic(topic):
     line_nr = 0
     ups_string = []
     for line in csv_reader:
-        if line_nr == topics.index(topic):
+        if line_nr == topics.index(topic) + 1:
             ups_string = line
         line_nr += 1
 
@@ -92,7 +93,7 @@ def get_ups_downs_statistic(topic):
     line_nr = 0
     downs_string = []
     for line in csv_reader:
-        if line_nr == topics.index(topic):
+        if line_nr == topics.index(topic) + 1:
             downs_string = line
         line_nr += 1
     ups = []
@@ -120,3 +121,24 @@ def clean_svg(svg: str):
     svg = svg[2:len(svg) - 1:]
     svg = svg.replace("\\n", "")
     return svg
+
+
+def get_csv_data(path):
+    f = open(path, encoding='UTF8')
+    csv_reader = csv.reader(f)
+    data = "Topic,"
+    index = 0
+    top = next(csv_reader)
+    for time in top:
+        data += time + ','
+    data = data[:len(data) - 1:]
+    data += "\n"
+    for line in csv_reader:
+        data += topics[index] + ','
+        index += 1
+        for value in line:
+            data += value + ','
+        data = data[:len(data) - 1:]
+        data += "\n"
+    print(data)
+    return data
