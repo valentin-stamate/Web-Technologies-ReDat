@@ -51,7 +51,14 @@
     display: flex;
     flex-direction: column;
     border-radius: 8px;
-    background-color: var(--color-02-dp);
+    overflow: hidden;
+}
+
+.top-post-title {
+    padding: 1rem;
+    font-size: 16px;
+    border-radius: 8px 8px 0 0;
+    background-color: var(--color-01-dp);
 }
 
 .top-post-container {
@@ -67,10 +74,6 @@
     text-justify: inter-word;
     padding: 12px 32px;
     background-color: var(--color-04-dp);
-}
-
-.top-post-item:hover {
-    background-color: var(--color-01-dp);
 }
 
 .subreddits-container-statistics-item {

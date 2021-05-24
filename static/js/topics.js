@@ -116,12 +116,14 @@ function onAddTopic(e) {
 
 refreshTopics();
 
-function refreshTopics() {
+export function refreshTopics() {
     fetchUserTopics();
     fetchAllTopics();
 }
 
-const startButton = document.getElementById('start-exploring-button');
-startButton.addEventListener('click', function (e) {
-    document.location = '/home';
-});
+try {
+    const startButton = document.getElementById('start-exploring-button');
+    startButton.addEventListener('click', function (e) {
+        document.location = '/home';
+    });
+} catch (e) { }

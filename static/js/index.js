@@ -128,7 +128,7 @@ async function fetchPosts(topics) {
                                 </div>
                                 
                                 <div class="subreddit-component-top-posts">
-                                       <h4 style="margin:1rem"><b>Top Posts</b></h4>
+                                       <div class="top-post-title"><b>Top Posts</b></div>
                                        <div class="top-posts-container">
                                            ${topPostsHTML}
                                        </div>

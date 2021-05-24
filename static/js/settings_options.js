@@ -1,3 +1,5 @@
+import {refreshTopics} from "./topics.js";
+
 function setCurrentMenu(menuName) {
     localStorage.setItem('menu', menuName);
 }
@@ -28,6 +30,7 @@ function appearance() {
 function topics() {
     setCurrentMenu("topics-option");
     currentSettingMenu.innerHTML = document.getElementById("topics-option").innerHTML;
+    refreshTopics();
 }
 
 function empty() {
