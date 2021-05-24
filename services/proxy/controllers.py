@@ -8,6 +8,19 @@ from util.service_url import ServiceUrl
 from util.util import read_body, json_to_dict, dict_to_json
 
 
+def check_comments(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.SVG]
+
+    body = json_to_dict(read_body(environ))
+
+    res = requests.get(ServiceUrl.EXTERNAL + "/check_new", json=body)
+
+    response.status = str(res.status_code)
+    response.payload = res.text
+    return response
+
+
 def csv_upvote_ratio(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.SVG]

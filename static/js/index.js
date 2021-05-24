@@ -1,6 +1,7 @@
-import {parseHTML} from "./util/util.js";
+import {parseHTML, sleep} from "./util/util.js";
 import {sendFetchRequest} from "./request/request_handler.js";
 import {
+    CHECK_COMMENTS_ENDPOINT,
     STATISTIC_COMMENTS_ENDPOINT, STATISTIC_DOWNS,
     STATISTIC_GENERAL_ENDPOINT, STATISTIC_UPS_DOWNS_ENDPOINT,
     UPVOTE_RATIO_ENDPOINT,
@@ -8,18 +9,23 @@ import {
 } from "./endpoints.js";
 import {getCookie, USER_AUTH_COOKIE} from "./util/cookie.js";
 
-let userRawTopics = [];
+let firstFetching = true;
 
-function fetchUserTopics() {
-    sendFetchRequest(USER_TOPICS_ENDPOINT, 'POST', {'token': getCookie(USER_AUTH_COOKIE)})
+let userRawTopics = [];
+const comments = new Map();
+const notificationActivated = new Map();
+
+async function fetchUserTopics() {
+    await sendFetchRequest(USER_TOPICS_ENDPOINT, 'POST', {'token': getCookie(USER_AUTH_COOKIE)})
         .then(response => response.json())
         .then(data => {
             userRawTopics = [];
             userRawTopics.push(...data);
-
-            fetchPosts(userRawTopics);
         });
+    await fetchPosts(userRawTopics);
 }
+
+
 
 async function fetchPosts(topics) {
     const generalStatisticWrapper = document.getElementsByClassName('subreddits-container-statistics')[0];
@@ -37,15 +43,31 @@ async function fetchPosts(topics) {
     generalStatisticWrapper.innerHTML = generalStatisticTemplate;
 
     const postsWrapper = document.getElementsByClassName('subreddits-wrapper-list')[1];
-    postsWrapper.innerHTML = '';
+    let topicListElement = [];
 
     for (let i = 0; i < topics.length; i++) {
         const topic = topics[i];
 
-        const notificationActive = true;
+        if (comments.get(topic.name) === undefined) {
+            comments.set(topic.name, 0);
+            notificationActivated.set(topic.name, false);
+        }
+
+        const currentComments = comments.get(topic.name);
+        const commentsObj = await getComments(topic.name, currentComments);
+
+        const newComments = commentsObj.comments_number;
+
+        comments.set(topic.name, newComments);
+
+        if (currentComments !== newComments && currentComments !== 0) {
+            notificationActivated.set(topic.name, true);
+        }
+
+        const notificationActive = notificationActivated.get(topic.name);
         const notificationHtml = notificationActive ?
-            `<span class="material-icons flex-right">notifications_active</span>` :
-            `<span class="material-icons flex-right">notifications</span>`;
+            `<span class="material-icons flex-right topic-notification" data-id="${topic.name}">notifications_active</span>` :
+            `<span class="material-icons flex-right topic-notification" data-id="${topic.name}">notifications</span>`;
 
         let arrayStatistics = ``;
 
@@ -57,9 +79,6 @@ async function fetchPosts(topics) {
                                         <button class="button primary" id="statistic-upvote" onclick="downloadCSVUpVoteRatio('${topic.name}')">CSV</button>
                                     </div>
                                 </div>`;
-
-        // const downVoteSVG = await getDownVoteStatistics(topic.name);
-        // const downVoteTemplate = `<img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${downVoteSVG}" alt="">`;
 
         const commentsSVG = await getCommentsStatistic(topic.name);
         const commentsTemplate = `<div>
@@ -80,7 +99,6 @@ async function fetchPosts(topics) {
                                 </div>`;
 
         arrayStatistics += upVoteTemplate;
-        // arrayStatistics += downVoteTemplate;
         arrayStatistics += commentsTemplate;
         arrayStatistics += upDownTemplate;
 
@@ -90,7 +108,7 @@ async function fetchPosts(topics) {
                                 
                                     <div class="subreddits-container-notification">
                                         ${notificationHtml}
-                                        <div>Comments: 432</div>
+                                        <div>Comments: ${comments.get(topic.name)}</div>
                                     </div>
                                 </div>
                                 
@@ -99,17 +117,47 @@ async function fetchPosts(topics) {
                                 </div>
                                 
                                 <div class="subreddits-container-bottom" data-id="${topic.topic_id}">
-                                    <a class="button primary" href="${topic.url}" target="_blank">Open</a>
+                                    <a class="button primary open-topic-button" href="${topic.url}" target="_blank" data-id="${topic.name}">Open</a>
                                     <div class="flex-right"/>
                                 </div>
                             </div>`
 
-        const postElement = parseHTML(postHTML);
+        const itemElement = parseHTML(postHTML);
+        if (firstFetching) {
+            postsWrapper.append(itemElement);
+            continue;
+        }
 
-        postsWrapper.append(postElement);
-
+        topicListElement.push(itemElement);
     }
 
+    if (!firstFetching) {
+        postsWrapper.innerHTML = '';
+        for (let i = 0; i < topicListElement.length; i++) {
+            postsWrapper.append(topicListElement[i]);
+        }
+    }
+
+    firstFetching = false;
+
+    await initializeOpenTopicButtonListener();
+}
+
+async function initializeOpenTopicButtonListener() {
+    const openButtons = document.getElementsByClassName("open-topic-button");
+
+    for (let i = 0; i < openButtons.length; i++) {
+        const openButton = openButtons[i];
+        const topicName = openButton.getAttribute('data-id');
+
+        /* DEACTIVATE NOTIFICATION */
+        openButton.addEventListener('click', function () {
+            const notification = document.querySelector(`.topic-notification[data-id='${topicName}']`);
+
+            notification.innerHTML = 'notifications';
+            notificationActivated.set(topicName, false);
+        });
+    }
 }
 
 async function getGeneralStatistic() {
@@ -130,15 +178,6 @@ async function getUpVoteRationSVG(topicName) {
     return window.btoa(statisticSVG);
 }
 
-// async function getDownVoteStatistics(topicName) {
-//     let statisticSVG = '';
-//     await sendFetchRequest(STATISTIC_DOWNS, 'POST', {'topic': topicName})
-//         .then(result => result.text())
-//         .then(data => statisticSVG = data);
-//
-//     return window.btoa(statisticSVG);
-// }
-
 async function getCommentsStatistic(topicName) {
     let statisticSVG = '';
     await sendFetchRequest(STATISTIC_COMMENTS_ENDPOINT, 'POST', {'topic': topicName})
@@ -157,5 +196,21 @@ async function getUpsDownsStatistics(topicName) {
     return window.btoa(statisticSVG);
 }
 
+async function getComments(topicName, currentComments = 0) {
+    let body = '';
+    await sendFetchRequest(CHECK_COMMENTS_ENDPOINT, 'POST', {'topic': topicName, 'comments_number': currentComments})
+        .then(result => result.json())
+        .then(data => body = data);
 
-fetchUserTopics();
+    return body;
+}
+
+async function startFetching() {
+
+    while (true) {
+        await fetchUserTopics();
+        await sleep(2000);
+    }
+}
+
+startFetching();

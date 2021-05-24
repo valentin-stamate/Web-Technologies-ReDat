@@ -2,7 +2,7 @@ import requests
 
 from services.proxy.controllers import get_page, get_static_resource, auth_user, register_user, user_delete_topic, \
     all_topics, user_topics, user_add_topic, up_vote_ratio, statistic_general, statistic_comments, statistic_ups_downs, \
-    statistic_downs, csv_upvote_ratio, csv_comments, csv_ups, csv_downs
+    statistic_downs, csv_upvote_ratio, csv_comments, csv_ups, csv_downs, check_comments
 from util.pages import paths
 from util.request.response_data import HttpStatus, ContentType
 from util.response_data import ResponseData
@@ -62,6 +62,8 @@ def app(environ, start_response):
         response = csv_ups(environ)
     elif path == "/statistic/csv/downs":
         response = csv_downs(environ)
+    elif path == "/check_comments":
+        response = check_comments(environ)
     else:
         response.status = HttpStatus.NOT_FOUND
         response.payload = "Page not found."

@@ -12,4 +12,8 @@ function openLink(link, target='_blank') {
     window.open(link, target);
 }
 
-export {getFormData, parseHTML, openLink}
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export {getFormData, parseHTML, openLink, sleep}

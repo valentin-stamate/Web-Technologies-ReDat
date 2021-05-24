@@ -11,3 +11,4 @@ export const UPVOTE_RATIO_ENDPOINT = DEPLOY + "/statistic/upvote_ratio";
 export const STATISTIC_COMMENTS_ENDPOINT = DEPLOY + "/statistic_comments";
 export const STATISTIC_UPS_DOWNS_ENDPOINT = DEPLOY + "/statistic_ups_downs";
 export const STATISTIC_DOWNS = DEPLOY + "/statistic/downs";
+export const CHECK_COMMENTS_ENDPOINT = DEPLOY + "/check_comments";
