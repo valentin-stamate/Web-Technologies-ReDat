@@ -12,10 +12,6 @@ x.start()
 y.start()
 z.start()
 t.start()
-os.system(""
-          "gunicorn services.proxy.main:app -b :8000 --reload | "  # PROXY
-          "gunicorn services.auth.main:app -b :8001 --reload |"  # AUTHENTICATION
-          "gunicorn services.external.main:app -b :8002 --reload"  # EXTERNAL
-          "gunicorn services.server.main:app -b :8003 --reload"  # SERVER
-          )
+
+os.system("python run_server.py | python run_external.py | python run_auth.py | python run_proxy.py")
 
