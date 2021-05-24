@@ -24,6 +24,7 @@ print("Table users created successfully")
 execute_sql('''CREATE TABLE topics (
     id SERIAL,
     name VARCHAR (255) UNIQUE NOT NULL,
+    url VARCHAR (255) UNIQUE NOT NULL,
     PRIMARY KEY (id)
 )''')
 print("Table topics created successfully")

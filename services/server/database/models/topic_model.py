@@ -7,6 +7,7 @@ class TopicModel:
     def __init__(self, name, topic_id=0):
         self.topic_id = topic_id
         self.name = name
+        self.url = f'https://www.reddit.com/r/{name}'
 
     def fetch_topic(self):
         db_topic = TopicModel.get_by_name(self.name)['object']
@@ -18,7 +19,7 @@ class TopicModel:
     def save(self):
 
         try:
-            execute_sql(f"""INSERT INTO topics(name) VALUES ('{self.name}')""")
+            execute_sql(f"""INSERT INTO topics(name, url) VALUES ('{self.name}', '{self.url}')""")
 
             print(f"Topic {self.name} saved")
         except Exception as e:

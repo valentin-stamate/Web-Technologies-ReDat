@@ -1,7 +1,7 @@
 import {sendFetchRequest} from "./request/request_handler.js";
 import {ADD_TOPIC_ENDPOINT, ALL_TOPICS_ENDPOINT, DELETE_TOPIC_ENDPOINT, USER_TOPICS_ENDPOINT} from "./endpoints.js";
 import {getCookie, USER_AUTH_COOKIE} from "./util/cookie.js";
-import {parseHTML} from "./util/util.js";
+import {parseHTML, openLink} from "./util/util.js";
 
 let allRawTopics = [];
 let userRawTopics = [];
@@ -17,8 +17,8 @@ function fetchUserTopics() {
             userTopicsContainer.innerHTML = '';
 
             for (let i = 0; i < userRawTopics.length; i++) {
-                const rawItem = userRawTopics[i];
-                const item = parseHTML(`<div class='button-chip'><button data-id='${rawItem.topic_id}' class='chip-delete-button'>x</button><b>${rawItem.name}</b></div>`)
+                const topic = userRawTopics[i];
+                const item = parseHTML(`<a class='button-chip' href="${topic.url}" target="_blank"><button data-id='${topic.topic_id}' class='chip-delete-button'>x</button><b style="color: white">${topic.name}</b></div>`)
                 userTopicsContainer.append(item);
             }
 

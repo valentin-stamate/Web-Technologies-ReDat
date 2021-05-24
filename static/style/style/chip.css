@@ -25,9 +25,10 @@
     margin: 8px;
     text-align: center;
     max-width: fit-content;
-    padding: 8px 12px 8px 8px;
+    padding: 9px 14px 8px 8px;
     border-radius: 25px;
     font-size: 12px;
+    cursor: pointer;
 }
 
 .button-chip > button {
@@ -38,6 +39,7 @@
     display: inline-block;
     border-radius: 55px;
     margin-bottom: 2px;
+    margin-right: 6px;
     justify-self: center;
     outline: none;
 }

@@ -8,4 +8,8 @@ function parseHTML(html) {
     return t.content;
 }
 
-export {getFormData, parseHTML}
+function openLink(link, target='_blank') {
+    window.open(link, target);
+}
+
+export {getFormData, parseHTML, openLink}
