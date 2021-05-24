@@ -86,7 +86,7 @@ async function fetchPosts(topics) {
 
         const postHTML = `<div class="subreddits-container">
                                 <div class="subreddits-container-top">
-                                    <div class="subreddits-container-name"><b>${topic.name}</b></div>
+                                    <div class="subreddits-container-name"><b>/r/${topic.name}</b></div>
                                 
                                     <div class="subreddits-container-notification">
                                         ${notificationHtml}
