@@ -56,9 +56,16 @@
     background-color: var(--statistics-background-color);
 }
 
+.statistics-item-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .subreddits-container-bottom {
     grid-row: 3;
     grid-column: 1;
+    display: flex;
 }
 
 @media (max-width: 1500px) {

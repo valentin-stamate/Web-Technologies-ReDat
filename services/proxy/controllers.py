@@ -8,6 +8,58 @@ from util.service_url import ServiceUrl
 from util.util import read_body, json_to_dict, dict_to_json
 
 
+def csv_upvote_ratio(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.SVG]
+
+    body = json_to_dict(read_body(environ))
+
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/csv/upvote_ratio", json=body)
+
+    response.status = str(res.status_code)
+    response.payload = res.text
+    return response
+
+
+def csv_comments(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.SVG]
+
+    body = json_to_dict(read_body(environ))
+
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/csv/comments", json=body)
+
+    response.status = str(res.status_code)
+    response.payload = res.text
+    return response
+
+
+def csv_ups(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.SVG]
+
+    body = json_to_dict(read_body(environ))
+
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/csv/ups", json=body)
+
+    response.status = str(res.status_code)
+    response.payload = res.text
+    return response
+
+
+def csv_downs(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.SVG]
+
+    body = json_to_dict(read_body(environ))
+
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/csv/downs", json=body)
+
+    response.status = str(res.status_code)
+    response.payload = res.text
+    return response
+
+
 def statistic_downs(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.SVG]

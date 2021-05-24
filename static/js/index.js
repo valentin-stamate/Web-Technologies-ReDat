@@ -25,7 +25,14 @@ async function fetchPosts(topics) {
     const generalStatisticWrapper = document.getElementsByClassName('subreddits-container-statistics')[0];
 
     const generalStatisticSVG = await getGeneralStatistic();
-    const generalStatisticTemplate = `<div></div><img style="width: 800px; height: auto;" class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${generalStatisticSVG}" alt=""><div></div>`;
+    const generalStatisticTemplate = `<div></div>
+                                      <div>
+                                          <img style="width: 800px; height: auto;" class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${generalStatisticSVG}" alt="">
+                                          <div class="statistics-item-buttons">
+                                              <button class="button primary" id="statistic-upvote" onclick="downloadSVG('general.svg', '${generalStatisticSVG}')">SVG</button>
+                                          </div>
+                                      </div>
+                                      <div></div>`;
 
     generalStatisticWrapper.innerHTML = generalStatisticTemplate;
 
@@ -43,16 +50,34 @@ async function fetchPosts(topics) {
         let arrayStatistics = ``;
 
         const upVoteRationSVG = await getUpVoteRationSVG(topic.name);
-        const upVoteTemplate = `<img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${upVoteRationSVG}" alt="">`;
+        const upVoteTemplate = `<div>
+                                    <img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${upVoteRationSVG}" alt="">
+                                    <div class="statistics-item-buttons">
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadSVG('${topic.name}_upvote_ratio.svg', '${upVoteRationSVG}')">SVG</button>
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadCSVUpVoteRatio('${topic.name}')">CSV</button>
+                                    </div>
+                                </div>`;
 
         // const downVoteSVG = await getDownVoteStatistics(topic.name);
         // const downVoteTemplate = `<img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${downVoteSVG}" alt="">`;
 
         const commentsSVG = await getCommentsStatistic(topic.name);
-        const commentsTemplate = `<img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${commentsSVG}" alt="">`;
+        const commentsTemplate = `<div>
+                                      <img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${commentsSVG}" alt="">
+                                      <div class="statistics-item-buttons">
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadSVG('${topic.name}_comments.svg', '${commentsSVG}')">SVG</button>
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadCSVComments('${topic.name}')">CSV</button>
+                                      </div>
+                                  </div>`;
 
         const upDownSVG = await getUpsDownsStatistics(topic.name);
-        const upDownTemplate = `<img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${upDownSVG}" alt="">`;
+        const upDownTemplate = `<div>
+                                    <img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${upDownSVG}" alt="">
+                                    <div class="statistics-item-buttons">
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadSVG('${topic.name}_ups_downs.svg', '${upDownSVG}')">SVG</button>
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadCSVUpsDowns('${topic.name}')">CSV</button>
+                                    </div>
+                                </div>`;
 
         arrayStatistics += upVoteTemplate;
         // arrayStatistics += downVoteTemplate;
@@ -73,8 +98,9 @@ async function fetchPosts(topics) {
                                     ${arrayStatistics}
                                 </div>
                                 
-                                <div class="subreddits-container-bottom">
-                                    <button class="chip">Topic A</button>
+                                <div class="subreddits-container-bottom" data-id="${topic.topic_id}">
+                                    <a class="button primary" href="${topic.url}" target="_blank">Open</a>
+                                    <div class="flex-right"/>
                                 </div>
                             </div>`
 
