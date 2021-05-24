@@ -47,9 +47,16 @@ def app(environ, start_response):
         body = json_to_dict(read_body(environ))
         response.status = HttpStatus.OK
         posts = get_hot_posts(body['topic'], limit=10)
+
+        payload = '['
         for post in posts:
-            response.payload += post['data']['title'] + '\n'
-        response.headers = [ContentType.PLAIN]
+            topic_json = dict_to_json({'title': post['data']['title'], 'url': post['data']['url']})
+            payload += topic_json + ','
+        payload += ']'
+        payload = payload.replace(",]", "]")
+
+        response.payload = payload
+        response.headers = [ContentType.JSON]
     elif path == '/statistic/csv/comments':
         response.status = HttpStatus.OK
         response.payload = get_csv_data('static/stats/csv/comments.csv')
