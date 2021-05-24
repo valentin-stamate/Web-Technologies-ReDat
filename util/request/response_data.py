@@ -15,3 +15,4 @@ class ContentType:
     JS = ("Content-Type", "text/javascript")
     JSON = ("Content-Type", "text/json")
     PLAIN = ("Content-Type", "text/plain")
+    CSV = ("Content-Type", "text/csv")

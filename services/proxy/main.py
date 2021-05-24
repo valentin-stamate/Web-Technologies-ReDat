@@ -1,7 +1,8 @@
 import requests
 
 from services.proxy.controllers import get_page, get_static_resource, auth_user, register_user, user_delete_topic, \
-    all_topics, user_topics, user_add_topic
+    all_topics, user_topics, user_add_topic, up_vote_ratio, statistic_general, statistic_comments, statistic_ups_downs, \
+    statistic_downs
 from util.pages import paths
 from util.request.response_data import HttpStatus, ContentType
 from util.response_data import ResponseData
@@ -43,6 +44,16 @@ def app(environ, start_response):
         response = user_topics(environ)
     elif path == "/all_topics":
         response = all_topics(environ)
+    elif path == "/statistic/upvote_ratio":
+        response = up_vote_ratio(environ)
+    elif path == "/statistic/general":
+        response = statistic_general(environ)
+    elif path == "/statistic_comments":
+        response = statistic_comments(environ)
+    elif path == "/statistic_ups_downs":
+        response = statistic_ups_downs(environ)
+    elif path == "/statistic/downs":
+        response = statistic_downs(environ)
     else:
         response.status = HttpStatus.NOT_FOUND
         response.payload = "Page not found."

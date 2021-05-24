@@ -54,8 +54,9 @@
 }
 
 .subreddits-wrapper-list {
-    display: grid;
+    display: flex;
     flex-direction: column;
+    gap: 1.5rem;
 }
 
 @media (max-width: 960px) {

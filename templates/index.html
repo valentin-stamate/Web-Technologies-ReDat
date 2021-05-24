@@ -16,49 +16,35 @@
     {top_bar}
 
     <div class="information-component">
-        <div class="information-component-content">Lorem ipsum dolor sit amet</div>
+        <div class="information-component-content">
+
+            Here you can see many subreddit stats based on you preferences. You have up to three types of statistics
+            and you can also download them locally. In order to add more topics go to user profile.
+
+        </div>
     </div>
 
     <div class="subreddits-component">
         <div class="subreddits-wrapper">
             <div class="subreddits-wrapper-top">
-                <div class="title-1"><b>Top Subreddits</b></div>
-                <div>
-                    <button class="icon-button primary"><span class="material-icons">add</span></button>
-                </div>
+                <div class="title-1"><b>General Statistic</b></div>
             </div>
-
             <div class="subreddits-wrapper-list">
-                <!-- Subreddit Template -->
                 <div class="subreddits-container">
                     <div class="subreddits-container-top">
-                        <div class="subreddits-container-name"><b>/Subreddit Name</b></div>
-
-                        <div class="subreddits-container-categories">
-                            <button class="chip">Category A</button>
-
-                            <button class="chip">Category B</button>
-
-                            <button class="chip">Category C</button>
-                        </div>
-
-                        <div class="subreddits-container-notification">
-                            <span class="material-icons flex-right">notifications_active</span>
-                            <div>Users: 432</div>
-                        </div>
+                        <div class="subreddits-container-name"><b>General</b></div>
                     </div>
-
 
                     <div class="subreddits-container-statistics">
 
                     </div>
-                    <div class="subreddits-container-bottom">
-                        <button class="chip">Topic A</button>
-                        <button class="chip">Topic B</button>
-                        <button class="chip">Topic C</button>
-                    </div>
                 </div>
+            </div>
 
+            <div class="subreddits-wrapper-top">
+                <div class="title-1"><b>Top Subreddits</b></div>
+            </div>
+            <div class="subreddits-wrapper-list">
 
             </div>
 
@@ -68,8 +54,9 @@
 
 {footer}
 
-<script src="/static/js/util/toggle_theme.js"></script>
-<script src="/static/js/top_bar_collapse.js"></script>
+<script type="module" src="/static/js/util/toggle_theme.js"></script>
+<script type="module" src="/static/js/top_bar_collapse.js"></script>
+<script type="module" src="/static/js/index.js"></script>
 <script src="https://kit.fontawesome.com/921ba4621c.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -3,8 +3,8 @@ import {ADD_TOPIC_ENDPOINT, ALL_TOPICS_ENDPOINT, DELETE_TOPIC_ENDPOINT, USER_TOP
 import {getCookie, USER_AUTH_COOKIE} from "./util/cookie.js";
 import {parseHTML} from "./util/util.js";
 
-let allRawTopics = []
-let userRawTopics = []
+let allRawTopics = [];
+let userRawTopics = [];
 
 function fetchUserTopics() {
     sendFetchRequest(USER_TOPICS_ENDPOINT, 'POST', {'token': getCookie(USER_AUTH_COOKIE)})

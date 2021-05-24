@@ -8,15 +8,77 @@ from util.service_url import ServiceUrl
 from util.util import read_body, json_to_dict, dict_to_json
 
 
-def all_topics(environ):
+def statistic_downs(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.SVG]
+
+    body = json_to_dict(read_body(environ))
+
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/downs", json=body)
+
+    response.status = str(res.status_code)
+    response.payload = res.text
+    return response
+
+
+def statistic_ups_downs(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.SVG]
+
+    body = json_to_dict(read_body(environ))
+
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/ups_downs", json=body)
+
+    response.status = str(res.status_code)
+    response.payload = res.text
+    return response
+
+
+def statistic_comments(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.SVG]
+
+    body = json_to_dict(read_body(environ))
+
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/comments", json=body)
+
+    response.status = str(res.status_code)
+    response.payload = res.text
+    return response
+
+
+def statistic_general(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.SVG]
+
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/general")
+
+    response.status = str(res.status_code)
+    response.payload = res.text
+    return response
+
+
+def up_vote_ratio(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.SVG]
+
+    body = json_to_dict(read_body(environ))
+
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/upvote_ratio", json=body)
+
+    response.status = str(res.status_code)
+    response.payload = res.text
+    return response
+
+
+def all_topics(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.HTML]
-    response.status = HttpStatus.OK
 
     res = requests.get(ServiceUrl.SERVER + "/all_topics")
 
+    response.status = str(res.status_code)
     response.payload = res.text
-
     return response
 
 
