@@ -3,7 +3,7 @@ import {sendFetchRequest} from "./request/request_handler.js";
 import {
     CHECK_COMMENTS_ENDPOINT,
     STATISTIC_COMMENTS_ENDPOINT, STATISTIC_DOWNS,
-    STATISTIC_GENERAL_ENDPOINT, STATISTIC_UPS_DOWNS_ENDPOINT,
+    STATISTIC_GENERAL_ENDPOINT, STATISTIC_UPS_DOWNS_ENDPOINT, TOP_POSTS_ENDPOINT,
     UPVOTE_RATIO_ENDPOINT,
     USER_TOPICS_ENDPOINT
 } from "./endpoints.js";
@@ -47,60 +47,71 @@ async function fetchPosts(topics) {
 
     for (let i = 0; i < topics.length; i++) {
         const topic = topics[i];
+        const topicName = topic.name;
 
-        if (comments.get(topic.name) === undefined) {
-            comments.set(topic.name, 0);
-            notificationActivated.set(topic.name, false);
+        if (comments.get(topicName) === undefined) {
+            comments.set(topicName, 0);
+            notificationActivated.set(topicName, false);
         }
 
-        const currentComments = comments.get(topic.name);
-        const commentsObj = await getComments(topic.name, currentComments);
+        const currentComments = comments.get(topicName);
+        const commentsObj = await getComments(topicName, currentComments);
 
         const newComments = commentsObj.comments_number;
 
-        comments.set(topic.name, newComments);
+        comments.set(topicName, newComments);
 
         if (currentComments !== newComments && currentComments !== 0) {
-            notificationActivated.set(topic.name, true);
+            notificationActivated.set(topicName, true);
         }
 
-        const notificationActive = notificationActivated.get(topic.name);
+        const notificationActive = notificationActivated.get(topicName);
         const notificationHtml = notificationActive ?
-            `<span class="material-icons flex-right topic-notification" data-id="${topic.name}">notifications_active</span>` :
-            `<span class="material-icons flex-right topic-notification" data-id="${topic.name}">notifications</span>`;
+            `<span class="material-icons flex-right topic-notification" data-id="${topicName}">notifications_active</span>` :
+            `<span class="material-icons flex-right topic-notification" data-id="${topicName}">notifications</span>`;
 
         let arrayStatistics = ``;
 
-        const upVoteRationSVG = await getUpVoteRationSVG(topic.name);
+        const upVoteRationSVG = await getUpVoteRationSVG(topicName);
         const upVoteTemplate = `<div>
                                     <img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${upVoteRationSVG}" alt="">
                                     <div class="statistics-item-buttons">
-                                        <button class="button primary" id="statistic-upvote" onclick="downloadSVG('${topic.name}_upvote_ratio.svg', '${upVoteRationSVG}')">SVG</button>
-                                        <button class="button primary" id="statistic-upvote" onclick="downloadCSVUpVoteRatio('${topic.name}')">CSV</button>
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadSVG('${topicName}_upvote_ratio.svg', '${upVoteRationSVG}')">SVG</button>
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadCSVUpVoteRatio('${topicName}')">CSV</button>
                                     </div>
                                 </div>`;
 
-        const commentsSVG = await getCommentsStatistic(topic.name);
+        const commentsSVG = await getCommentsStatistic(topicName);
         const commentsTemplate = `<div>
                                       <img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${commentsSVG}" alt="">
                                       <div class="statistics-item-buttons">
-                                        <button class="button primary" id="statistic-upvote" onclick="downloadSVG('${topic.name}_comments.svg', '${commentsSVG}')">SVG</button>
-                                        <button class="button primary" id="statistic-upvote" onclick="downloadCSVComments('${topic.name}')">CSV</button>
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadSVG('${topicName}_comments.svg', '${commentsSVG}')">SVG</button>
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadCSVComments('${topicName}')">CSV</button>
                                       </div>
                                   </div>`;
 
-        const upDownSVG = await getUpsDownsStatistics(topic.name);
+        const upDownSVG = await getUpsDownsStatistics(topicName);
         const upDownTemplate = `<div>
                                     <img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${upDownSVG}" alt="">
                                     <div class="statistics-item-buttons">
-                                        <button class="button primary" id="statistic-upvote" onclick="downloadSVG('${topic.name}_ups_downs.svg', '${upDownSVG}')">SVG</button>
-                                        <button class="button primary" id="statistic-upvote" onclick="downloadCSVUpsDowns('${topic.name}')">CSV</button>
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadSVG('${topicName}_ups_downs.svg', '${upDownSVG}')">SVG</button>
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadCSVUpsDowns('${topicName}')">CSV</button>
                                     </div>
                                 </div>`;
 
         arrayStatistics += upVoteTemplate;
         arrayStatistics += commentsTemplate;
         arrayStatistics += upDownTemplate;
+
+        const topPosts = await getTopPosts(topicName);
+
+        let topPostsHTML = '';
+
+        for (let j = 0; j < topPosts.length; j++) {
+            const topPost = topPosts[j];
+            const topPostHTML = `<a href="${topPost.url}" target="_blank"><div class="top-post-item">${topPost.title}</div></a>`;
+            topPostsHTML += topPostHTML;
+        }
 
         const postHTML = `<div class="subreddits-container">
                                 <div class="subreddits-container-top">
@@ -114,6 +125,13 @@ async function fetchPosts(topics) {
                                 
                                 <div class="subreddits-container-statistics">
                                     ${arrayStatistics}
+                                </div>
+                                
+                                <div class="subreddit-component-top-posts">
+                                       <h4 style="margin:1rem"><b>Top Posts</b></h4>
+                                       <div class="top-posts-container">
+                                           ${topPostsHTML}
+                                       </div>
                                 </div>
                                 
                                 <div class="subreddits-container-bottom" data-id="${topic.topic_id}">
@@ -203,6 +221,14 @@ async function getComments(topicName, currentComments = 0) {
         .then(data => body = data);
 
     return body;
+}
+
+async function getTopPosts(topicName) {
+    let payload = '';
+    await sendFetchRequest(TOP_POSTS_ENDPOINT, 'POST', {'topic': topicName})
+        .then(result => result.json())
+        .then(data => payload = data);
+    return payload;
 }
 
 async function startFetching() {

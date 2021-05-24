@@ -8,6 +8,19 @@ from util.service_url import ServiceUrl
 from util.util import read_body, json_to_dict, dict_to_json
 
 
+def last_posts(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.SVG]
+
+    body = json_to_dict(read_body(environ))
+
+    res = requests.get(ServiceUrl.EXTERNAL + "/last_posts", json=body)
+
+    response.status = str(res.status_code)
+    response.payload = res.text
+    return response
+
+
 def check_comments(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.SVG]

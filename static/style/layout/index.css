@@ -30,6 +30,8 @@
 .information-component-content {
     position: sticky;
     top: 1rem;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .subreddits-component {

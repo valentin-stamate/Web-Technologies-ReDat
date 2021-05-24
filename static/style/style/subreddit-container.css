@@ -1,18 +1,15 @@
 @import "chip.css";
 
 .subreddits-container {
-    display: grid;
-    grid-template-rows: repeat(3, auto);
-    grid-template-columns: 1fr;
-    row-gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     padding: 1rem;
     border-radius: var(--post-border-radius);
     background-color: var(--layout-background);
 }
 
 .subreddits-container-top {
-    grid-row: 1;
-    grid-column: 1;
     display: grid;
     grid-template-rows: auto auto;
     grid-template-columns: auto auto auto;
@@ -45,11 +42,35 @@
     display: flex;
     gap: 1rem;
     justify-content: space-between;
-    grid-row: 2;
-    grid-column: 1;
     background-color: var(--color-02-dp);
     border-radius: 8px;
-    padding: 8px 8px 2px 8px    ;
+    padding: 8px 8px 2px 8px;
+}
+
+.subreddit-component-top-posts {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    background-color: var(--color-02-dp);
+}
+
+.top-post-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.top-post-item {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    text-align: justify;
+    text-justify: inter-word;
+    padding: 12px 32px;
+    background-color: var(--color-04-dp);
+}
+
+.top-post-item:hover {
+    background-color: var(--color-01-dp);
 }
 
 .subreddits-container-statistics-item {
@@ -66,8 +87,6 @@
 }
 
 .subreddits-container-bottom {
-    grid-row: 3;
-    grid-column: 1;
     display: flex;
     background-color: var(--color-02-dp);
     border-radius: 8px;
