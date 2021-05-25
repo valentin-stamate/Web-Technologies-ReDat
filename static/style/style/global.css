@@ -32,8 +32,9 @@ img {
     overflow: hidden;
 }
 
-#error-text {
+.error-text {
     color: #f23a3a;
     font-weight: bold;
     font-size: 14px;
+    margin: 16px 16px 16px 0;
 }
