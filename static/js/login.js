@@ -20,10 +20,14 @@ function onLogin(e) {
     request.onreadystatechange = (e) => {
         if (request.readyState === XMLHttpRequest.DONE) {
             const status = request.status;
+            const errorTextElement = document.getElementById('error-text');
+            errorTextElement.innerHTML = '';
 
             if (status === 200) {
                 setCookie(USER_AUTH_COOKIE, JSON.parse(request.responseText).token);
                 window.location = "/home"
+            } else {
+                errorTextElement.innerHTML = request.responseText;
             }
             /* TODO else, display the errors */
         }
