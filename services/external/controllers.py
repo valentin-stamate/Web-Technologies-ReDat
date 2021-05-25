@@ -139,7 +139,6 @@ def get_csv_data(path):
             data += value + ','
         data = data[:len(data) - 1:]
         data += "\n"
-    print(data)
     return data
 
 
