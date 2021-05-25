@@ -1,10 +1,11 @@
 import os
 
 from services.server.controllers import user_data, register_user, check_user, user_topics, all_topics, \
-    delete_user_topic, add_user_topic
+    delete_user_topic, add_user_topic, update_user
 from services.server.controllers import get_file
 from services.server.database.models.user_model import UserModel
 from util.pages import pages
+from util.password_encryption import PasswordEncryption
 from util.request.content_type import content_type
 from util.request.response_data import ContentType, HttpStatus
 from util.response_data import ResponseData
@@ -36,21 +37,7 @@ def app(environ, start_response):
     elif path == '/register_user':
         response = register_user(environ)
     elif path == '/update_user':
-        body = json_to_dict(read_body(environ))
-        updated_user = UserModel.get_by_id(body['id'])['object']
-        if body['username'] != updated_user.username:
-            if UserModel.get_by_username(body['username'])['object'] is None:
-                updated_user.username = body['username']
-                updated_user.lastname = body['lastname']
-                updated_user.firstname = body['firstname']
-                updated_user.email = body['email']
-                updated_user.password = body['password']
-                if updated_user.is_valid():
-                    updated_user.update()
-                else:
-                    response.status = HttpStatus.BAD_REQUEST
-            else:
-                response.status = HttpStatus.BAD_REQUEST
+        response = update_user(environ)
     elif path == '/user_data':
         response = user_data(environ)
     elif path == '/user_topics':

@@ -13,3 +13,4 @@ export const STATISTIC_UPS_DOWNS_ENDPOINT = DEPLOY + "/statistic_ups_downs";
 export const STATISTIC_DOWNS = DEPLOY + "/statistic/downs";
 export const CHECK_COMMENTS_ENDPOINT = DEPLOY + "/check_comments";
 export const TOP_POSTS_ENDPOINT = DEPLOY + "/last_posts";
+export const UPDATE_USER_ENDPOINT = DEPLOY + "/update_user";

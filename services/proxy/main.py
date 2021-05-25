@@ -28,14 +28,17 @@ def app(environ, start_response):
         response = register_user(environ)
     elif path == '/update_user':
         body = json_to_dict(read_body(environ))
+        token = body['token']
         res = requests.post(ServiceUrl.AUTH + "/check_user_auth",
-                            headers={'Authorization': environ.get("HTTP_AUTHORIZATION")},
+                            headers={'Authorization': token},
                             json=body)
         user_data = json_to_dict(res.text)
         body['id'] = user_data['user_id']
-        if str(res.status_code) == HttpStatus.OK:
-            res = requests.post(ServiceUrl.SERVER + "/update_user", json=body)
-            response.payload = res.text
+
+        res = requests.post(ServiceUrl.SERVER + "/update_user", json=body)
+        response.payload = res.text
+        response.status = str(res.status_code)
+        response.headers = [ContentType.JSON]
     elif path == '/user_delete_topic':
         response = user_delete_topic(environ)
     elif path == '/user_add_topic':

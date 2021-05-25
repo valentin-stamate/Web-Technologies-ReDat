@@ -43,7 +43,7 @@ class UserModel:
             return {'status': False, 'message': 'User should be logged first'}
 
         execute_sql(
-            f"UPDATE users SET username = '{self.username}', firstname = '{self.firstname}', image_url = '{self.image_url}' lastname = '{self.lastname}', password = '{self.password}', email = '{self.email}' WHERE id = {self.user_id}")
+            f"UPDATE users SET username = '{self.username}', firstname = '{self.firstname}', image_url = '{self.image_url}', lastname = '{self.lastname}', password = '{self.password}', email = '{self.email}' WHERE id = {self.user_id}")
 
         return {'status': True, 'message': 'User updated successfully'}
 

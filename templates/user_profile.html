@@ -32,51 +32,52 @@
 
                     <img id="user-picture" src="{image_url}" alt="default user">
 
-                    <div class="input-component">
-                        <label for="username" class="input-label">Username</label>
-                        <input type="text" name="username" id="username" class="input-field input-field-small" value="{username}" minlength="8">
-                    </div>
-
-                    <div style="display: flex; gap:1rem">
+                    <form id="user-data-form">
                         <div class="input-component">
-                            <label for="firstname" class="input-label">Firstname</label>
-                            <input type="text" name="username" id="firstname" class="input-field input-field-small" value="{firstname}">
+                            <label for="username" class="input-label">Username</label>
+                            <input type="text" name="username" id="username" class="input-field input-field-small" value="{username}" minlength="8">
+                        </div>
+
+                        <div style="display: flex; gap:1rem">
+                            <div class="input-component">
+                                <label for="firstname" class="input-label">Firstname</label>
+                                <input type="text" name="firstname" id="firstname" class="input-field input-field-small" value="{firstname}">
+                            </div>
+
+                            <div class="input-component">
+                                <label for="lastname" class="input-label">Lastname</label>
+                                <input type="text" name="lastname" id="lastname" class="input-field input-field-small" value="{lastname}">
+                            </div>
                         </div>
 
                         <div class="input-component">
-                            <label for="lastname" class="input-label">Lastname</label>
-                            <input type="text" name="username" id="lastname" class="input-field input-field-small" value="{lastname}">
+                            <label for="email" class="input-label">Email</label>
+                            <input type="email" name="email" id="email" class="input-field input-field-small" value="{email}">
                         </div>
-                    </div>
 
-                    <div class="input-component">
-                        <label for="email" class="input-label">Email</label>
-                        <input type="email" name="username" id="email" class="input-field input-field-small" value="{email}">
-                    </div>
+                        <div style="display: flex; gap:1rem">
+                            <div class="input-component">
+                                <label for="old_password" class="input-label">Old Password</label>
+                                <input type="password" name="oldPassword" id="old_password" class="input-field input-field-small">
+                            </div>
 
-                    <div style="display: flex; gap:1rem">
+                            <div class="input-component">
+                                <label for="new_password" class="input-label">New Password</label>
+                                <input type="password" name="password" id="new_password" class="input-field input-field-small">
+                            </div>
+                        </div>
+
                         <div class="input-component">
-                            <label for="old_password" class="input-label">Old Password</label>
-                            <input type="password" name="username" id="old_password" class="input-field input-field-small">
+                            <label for="profile_photo" class="input-label">Profile Photo</label>
+                            <input type="url" name="image_url" id="profile_photo" class="input-field input-field-small" value="{image_url}">
                         </div>
 
-                        <div class="input-component">
-                            <label for="new_password" class="input-label">New Password</label>
-                            <input type="password" name="username" id="new_password" class="input-field input-field-small">
+                        <div>
+                            <button class="button primary" id="save-button">Save</button>
                         </div>
-                    </div>
 
-                    <div class="input-component">
-                        <label for="profile_photo" class="input-label">Profile Photo</label>
-                        <input type="email" name="username" id="profile_photo" class="input-field input-field-small" value="{image_url}">
-                    </div>
-
-                    <div>
-                        <button type="submit" class="button primary">Save</button>
-                    </div>
-
-                    <small>Created at: <b>{date_created}</b></small>
-
+                        <small>Created at: <b>{date_created}</b></small>
+                    </form>
                 </div>
 
                 <div id="appearance-option">
@@ -106,6 +107,7 @@
 <script src="/static/js/util/toggle_theme.js"></script>
 <script type="module" src="/static/js/settings_options.js"></script>
 <script type="module" src="/static/js/top_bar_collapse.js"></script>
+<script type="module" src="/static/js/user_profile.js"></script>
 <script src="https://kit.fontawesome.com/921ba4621c.js" crossorigin="anonymous"></script>
 </body>
 </html>

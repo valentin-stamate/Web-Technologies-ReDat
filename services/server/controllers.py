@@ -2,9 +2,48 @@ from services.server.database.models.topic_model import TopicModel
 from services.server.database.models.user_model import UserModel
 from services.server.database.models.user_topics_model import UserTopicModel
 from services.server.renderer import render_file
+from util.password_encryption import PasswordEncryption
 from util.response_data import ResponseData
 from util.request.response_data import HttpStatus, ContentType
 from util.util import read_body, json_to_dict, dict_to_json, timestamp_to_str
+
+
+def update_user(environ) -> ResponseData:
+    response = ResponseData()
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.JSON]
+
+    body = json_to_dict(read_body(environ))
+    response.headers = [ContentType.JSON]
+    db_user = UserModel.get_by_id(body['id'])['object']
+
+    if db_user.password != PasswordEncryption.encrypt_password(body['oldPassword'], db_user.date_created):
+        response.payload = dict_to_json({'message': 'Wrong password'})
+        response.status = HttpStatus.BAD_REQUEST
+        return response
+
+    if body['username'] != db_user.username:
+        if not UserModel.get_by_username(body['username'])['object'] is None:
+            response.payload = dict_to_json({'message': 'Username already taken'})
+            response.status = HttpStatus.BAD_REQUEST
+            return response
+
+    db_user.username = body['username']
+    db_user.lastname = body['lastname']
+    db_user.firstname = body['firstname']
+    db_user.email = body['email']
+
+    if body['password'] != '':
+        db_user.password = PasswordEncryption.encrypt_password(body['password'], db_user.date_created)
+
+    if db_user.is_valid():
+        db_user.update()
+        response.payload = dict_to_json({'message': 'Success'})
+        return response
+
+    response.status = HttpStatus.BAD_REQUEST
+    response.payload = dict_to_json({'message': 'Invalid fields'})
+    return response
 
 
 def delete_user_topic(environ):
