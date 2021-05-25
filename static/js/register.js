@@ -13,12 +13,11 @@ function onRegister(e) {
     const currentTarget = e.currentTarget;
 
     const payload = getFormData(currentTarget);
-
-    console.log(payload);
+    const errorTextElement = document.getElementById('error-text');
+    errorTextElement.innerHTML = '';
 
     if (payload.password !== payload.passconfirmation) {
-        /* TODO error */
-        console.log("Password don't match");
+        errorTextElement.innerHTML = "Passwords dont match";
         return;
     }
 
@@ -27,14 +26,14 @@ function onRegister(e) {
     request.onreadystatechange = (e) => {
         if (request.readyState === XMLHttpRequest.DONE) {
             const status = request.status;
-
-            console.log(request);
+            const response = JSON.parse(request.response);
 
             if (status === 200) {
                 setCookie(USER_AUTH_COOKIE, JSON.parse(request.responseText).token);
                 window.location = "/topics"
+            } else {
+                errorTextElement.innerHTML = response.message;
             }
-            /* TODO else, display the errors */
         }
     }
 }
