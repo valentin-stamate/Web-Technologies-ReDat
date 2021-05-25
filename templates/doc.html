@@ -61,7 +61,8 @@
         <p>
             Aplicatia doreste sa usureze efortul depus de utilizator pentru a accesa subreddit-urile favorite,
             prin gruparea acestora dupa preferintele stabilite de utilizator si prin usoara genstionare a
-            acestor preferinte.
+            acestor preferinte. De asemenea sunt puse la dispozitie statistici pentru a avea o perspectiva
+            mai buna asupra lor.
         </p>
     </section>
 </section>
@@ -89,6 +90,7 @@
             <li>Notificari in timp real asupra modificarilor unui subreddit</li>
             <li>Vizualizarea celor mai populare subreddituri si statistici asociate lor</li>
             <li>Oferirea de statistici in format csv si svg printr-un API</li>
+            <li>Actualizarea in timp real a statisticilor.</li>
         </ul>
         </p>
     </section>
@@ -103,11 +105,13 @@
         <h3>Constrangeri</h3>
         <p>
             Deoarece aplicatia depinde in mod direct de API-ul oferit de Reddit, orice modificare se va propaga
-            inclusiv in aplicatie, putand-o face nefunctionala.
+            inclusiv in aplicatie, putand-o face nefunctionala. Aplicatia nu va integra functionalitatile pe care
+            aplicatia Reddit deja le are, ci mai degraba functioneaza ca o extensie asupra ei avand linkuri care
+            redirectioneaza catre topicele preferate.
         </p>
         <p>
-            Un alt lucru il reprezinta datele oferite. Acestea pot oferi informatii insuficiente pentru atragerea
-            utilizatorilor.
+            Un alt lucru, il reprezinta datele oferite. Acestea pot oferi informatii insuficiente pentru atragerea
+            utilizatorilor. /////  TODODODOODODODODO (despre limitarile api-ului)
         </p>
     </section>
 </section>
@@ -135,36 +139,80 @@
         <p>
             Aplicatia este in stansa legatura cu API-ul public oferit de Reddit. La fiecare request
             vor fi atasate topicele si se va face o selectie bazata pe cele mai populare subreddituri dupa
-            anumite criterii(nr comentatii, reactii, nr utilizatori etc).
+            anumite criterii(nr utilizatori, comentarii, upvotes, etc).
         </p>
         <p>
-            Baza de date folosita va fi PostgreSQL deoarece se poate integra usor cu limbajul de programare pentru
-            partea de backend. Un alt motiv fiind suportul gratuit pe platforma Heroku, locul unde va fi hostat
-            backend-ul aplicatiei.
+            Baza de date folosita este PostgreSQL deoarece se poate integra usor cu limbajul de programare pentru
+            partea de backend. Un alt motiv fiind suportul gratuit pe platforma Heroku, locul unde este hostata aplicatia.
         </p>
         <p>
-            Pentru hostarea partii de frontend se va folosi platforma oferita de Google si anume Firebase.
-            Aceasta este foarte usor de folsoit si este gratuita oferind posibiliatea adaugarii unui domeniu custom.
+            Design-ul arhitectural al aplicatiei este MVC(Model - View - Controller) pentru a modulariza aplicatia si a usura
+            scrierea de cod. Partea de Model este asociata parii de <b>server</b> a aplicatiei care face interogari si preia date din
+            baza de date. Partea de View este asociata tot a celei de <b>server</b> unde o parte din endpoint-uri ofera template-ul html
+            cerut dar si alte fisiere statice cum ar fi: fisiere javascript, css, imagini, etc. In final partea de Controller este
+            asociata partii <b>proxy</b> care face un request catre template-ul aplicatiei apeland un enpoint de la partea de <b>server</b>
+            , preia datele necesare pentru a le atasa template-ului(oferite de microserviciul <b>auth</b>), le imbina folosing o functie
+            specializata in python si returneaza pagina utilizatorului. Ca un mic exemplu, templetizand footer-url si topbar-ul separandu-le
+            de paginile care le folosesc, modificare lor se propaga peste tot pe site deoarece la randare sunt preluate componentele si imbinate
+            pentru a face o pagina intraga.
         </p>
         <p>
-            Frontend-ul va fi scris in HTML5, CSS3 si Javascript fara a folosi alte librarii. Pentru o experianta mai
+            Frontend-ul este scris in HTML5, CSS3 si Javascript fara a folosi alte librarii. Pentru o experianta mai
             buna aplicatia va folosi fontul Roboto oferit de Google Fonts impreuna cu packetul de iconite.
         </p>
         <p>
-            Pentru backend se va folosi Python impreuna cu libraria Gunicorn pentru a usura prelarea informatiilor
-            dintr-un request http. Arhitectura folosita va fi MVC.
+            Pentru backend se va folosi Python impreuna cu libratia Gunicorn pentru a usura prelarea informatiilor
+            dintr-un request http. Arhitectura folosita este MVC.
         </p>
     </section>
 
     <section id="communication interfaces">
         <h3>Interfete de comunicare</h3>
         <p>
-            Pentru functionalitatea activarii contului prin mail, aplicatia va folosi protocolul SMTP cu un mail deja
-            existent(gmail).
+            Aplicatia este impartita in 4 microservitii dupa cum este ilustrat in diagrama de mai jos:
+            <br>
+            <img class="rounded" src="/static/diagrams/microservice-diagram.svg" alt="">
+            <br>
+
+            <ul>
+                <li>
+                    Proxy: Se detine toate tipurile de requesturi: request catre o pagina, sau un endpoint de tip rest.
+                    Acesta, in functie de tipul de requets, face apel la celelalte microservicii si se foloseste de datele
+                    returnate pentru a le trimite mai departe catre client. Clientul are acces doar la aces microserviciu si serveste
+                    ca un Proxy pentru celelalte componente.
+                </li>
+                <li>
+                    Auth: Aceast microserviciu se ocupa cu verificarea veridicitatii utilizatorului pentru tokenul oferit. Daca tokenul
+                    este valid face un request catre microserviciul server pentru a prelua toate datele acelui utilizator in caz de nevoie,
+                    altfel un status de eroare va fi trimis. Acesta faciliteaza insa si partea de login si register a aplicatiei: in momentul
+                    cand un utilizator de logheza este facut un request catre acest serviciu care face la randul lui un request catre partea de
+                    server iar in caz de succes, este returnat tokenul pentru autentificarile viitoare. Similar pentru register.
+                </li>
+                <li>
+                    Server: Se ocupa cu manipularea de date din baza de date. Acest microserviciu are increderea ca datele primite sunt valide
+                    deoarece validarea se face in celelalte componente(exceptie: compararea parolelor, etc). Acesta detine tot continutul static
+                    al aplicatiei: template-uri html, imagini, etc care este trimis catre partea de proxy a aplicatiei.
+                </li>
+                <li>
+                    External: Preia statistici de la API-ul public Reddit si ofera date si statisti interpretate fie prin formatul csv sau
+                    ca si imagini svg. Cele 3 /////////////////////////////// TOOTOOOTOOTOOTOTOOTOTOOT
+                </li>
+            </ul>
         </p>
         <p>
-            Partea de backend va functiona ca si un REST API, iar partea de frontend va face requesturi catre acesta.
-            Formatul de primire/transmitere al requesturilor va fi JSON.
+            Aplicatia detine enpointuri de tip Rest pe care aplicatia le foloseste folosing AJAX.
+            Formatul de trimitere/primire este JSON.
+            Acestea au urmatoarele caracteristici:
+            login, register, preluarea statisticilor, descarcarea statisticilor, preluarea comentariilor, etc. Pentru a identifica
+            ce continut este necesar se ataseaza la body-ul requestului payload-ul necesar. Raspunsul este preluat de catre javascript si
+            aplica modificarile necesare.
+        </p>
+        <p>
+            La incarcarea fiecarei pagini se preia cookie-ul care retine tokenul din header, se verifica, si in cazul in care verificarea esueaza, o pagina
+            de tip redirect este incarcata care trimite utilizatorul pe pagina de login unde sunt sterse toate cookie-urile.
+            Autentificarea este de tip JWT unde se ataseaza cateva informatii despre utilizator. Tokenul este creat de catre microserviciul <b>auth</b>
+            care pe baza unei chei secrete pe care o detine, creaza semnatura care este atasata la cele doua componente ale tokenului (algorithm-type.payload).
+            Acest token este tinut intr-un cookie si folosit la randarea paginilor in mod direct, sau atunci cand se face un request de tip rest.
         </p>
     </section>
     <section id="statistics API">
