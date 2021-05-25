@@ -239,7 +239,8 @@ def get_page(environ) -> ResponseData:
         response = render_topics(environ)
     # Other pages that requires no other template or processing
     if path == "/register" or path == "/login" or path == "/doc"\
-            or path == "/confirm_account" or path == "/api_documentation":
+            or path == "/confirm_account" or path == "/api_documentation"\
+            or path == "/how_to_use":
         response.payload = requests.get(ServiceUrl.SERVER + path + ".html").text
 
     response.status = HttpStatus.OK
