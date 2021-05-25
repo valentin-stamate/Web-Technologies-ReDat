@@ -1,12 +1,6 @@
-# CONTROLLER HANDLER
-import requests
-
 from services.auth.controllers import auth_user, check_user_auth, register_user
-from services.server.database.models import user_model
 from util.request.response_data import ContentType
 from util.response_data import ResponseData
-from util.service_url import ServiceUrl
-from util.util import json_to_dict, read_body
 
 
 def app(environ, start_response):
@@ -38,20 +32,3 @@ def app(environ, start_response):
 
     return iter([response.payload])
 
-
-# REGISTER NEW USER
-def register(environ) -> dict:
-    body_dict = json_to_dict(read_body(environ))
-
-    db_user = user_model.UserModel.get_by_username(body_dict['username'])['object']
-
-    if db_user is not None:
-        return {'status': False, 'message': "Username already exists"}
-
-    new_user = user_model.UserModel(body_dict['username'], body_dict['firstname'], body_dict['lastname'],
-                                    body_dict['email'],
-                                    body_dict['password'])
-    if not new_user.is_valid()['status']:
-        return {'status': False, 'message': new_user.is_valid()['message']}
-    res = requests.post(ServiceUrl.SERVER + "/register_user", json=body_dict)
-    return {'status': True, 'message': "User created"}

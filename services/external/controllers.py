@@ -5,7 +5,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from services.external.reddit_api.reddit_data import get_hot_posts
-from services.external.topics import topics
+from util.external.topics import topics
 
 time_ax = np.arange(10, 70, 10)
 

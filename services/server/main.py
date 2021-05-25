@@ -1,18 +1,14 @@
 import os
 
+from services.server.controllers import get_file
 from services.server.controllers import user_data, register_user, check_user, user_topics, all_topics, \
     delete_user_topic, add_user_topic, update_user
-from services.server.controllers import get_file
-from services.server.database.models.user_model import UserModel
 from util.pages import pages
-from util.password_encryption import PasswordEncryption
 from util.request.content_type import content_type
-from util.request.response_data import ContentType, HttpStatus
+from util.request.response_data import ContentType
 from util.response_data import ResponseData
-from util.util import read_body, json_to_dict
 
 
-# CONTROLLER HANDLER
 def app(environ, start_response):
     path = environ.get("PATH_INFO")
     filename, file_extension = os.path.splitext(path)

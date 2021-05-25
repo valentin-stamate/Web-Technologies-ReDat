@@ -2,7 +2,7 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 
-from services.external.topics import topics
+from util.external.topics import topics
 from services.external.controllers import write_to_csv, matrix_shift
 from services.external.reddit_api.reddit_data import *
 from util.util import current_timestamp
