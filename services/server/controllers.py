@@ -190,6 +190,13 @@ def register_user(environ) -> ResponseData:
 
     res_json = {}
 
+    status = new_user.is_valid()
+
+    if not status['status']:
+        response.payload = dict_to_json({'status': False, 'message': status['message']})
+        response.status = HttpStatus.BAD_REQUEST
+        return response
+
     status = new_user.save()
 
     res_json['message'] = status['message']

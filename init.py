@@ -1,7 +1,7 @@
 from services.server.database.connection.connection import execute_sql
 from services.server.database.models.topic_model import TopicModel
 from services.server.database.models.user_model import UserModel
-from services.external.topics import topics
+from util.external.topics import topics
 from services.server.database.models.user_topics_model import UserTopicModel
 
 execute_sql('''DROP TABLE IF EXISTS user_topics''')
