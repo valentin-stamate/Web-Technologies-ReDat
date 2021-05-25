@@ -110,8 +110,11 @@
             redirectioneaza catre topicele preferate.
         </p>
         <p>
-            Un alt lucru, il reprezinta datele oferite. Acestea pot oferi informatii insuficiente pentru atragerea
-            utilizatorilor. /////  TODODODOODODODODO (despre limitarile api-ului)
+            Un alt lucru, il reprezinta datele oferite. Acestea pot oferi informatii insuficiente
+            pentru atragerea
+            utilizatorilor. API-ul public oferit de Reddit ofera informatii despre cel mult ultimele
+            1000 de postari dintr-un subreddit. Acest lucru limiteaza crearea statiscile si
+            informatiile care pot fi oferite utilizatorului.
         </p>
     </section>
 </section>
@@ -194,8 +197,12 @@
                     al aplicatiei: template-uri html, imagini, etc care este trimis catre partea de proxy a aplicatiei.
                 </li>
                 <li>
-                    External: Preia statistici de la API-ul public Reddit si ofera date si statisti interpretate fie prin formatul csv sau
-                    ca si imagini svg. Cele 3 /////////////////////////////// TOOTOOOTOOTOOTOTOOTOTOOT
+                    External: Preia date de la API-ul public Reddit si ofera date si statisti
+                    interpretate fie prin formatul csv sau
+                    ca si imagini svg. Cele 3 statitisci oferite pentru fiecare subreddit monitorizat de
+                    catre aplicatie se refera la comentariile, voturile pozitive, voturile negative si
+                    ratia dintre voturi. Aplicatia ReDat preia datele despre postarile dintr-un
+                    subreddit din 10 in 10 minute si salveaza informatiile din ultima ora.
                 </li>
             </ul>
         </p>

@@ -235,8 +235,6 @@ def get_page(environ) -> ResponseData:
         response = render_home(environ)
     elif path == "/profile":
         response = render_user_profile(environ)
-    elif path == "/documentation":
-        response = render_documentation(environ)
     elif path == "/topics":
         response = render_topics(environ)
     # Other pages that requires no other template or processing
@@ -349,45 +347,6 @@ def render_user_profile(environ) -> ResponseData:
 
     user_data = requests.get(ServiceUrl.SERVER + "/user_data", json={'id': user_data['user_id']}).text
     user_data = json_to_dict(user_data)
-
-    context = {'top_bar': top_bar_html, 'footer': footer_html}
-    context.update(user_data)
-
-    response.payload = render_template(res.text, context)
-    return response
-
-
-def render_documentation(environ) -> ResponseData:
-    response = ResponseData()
-    response.headers = [ContentType.HTML]
-    response.status = HttpStatus.OK
-
-    token = get_auth_token(environ)
-
-    if token is None:
-        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
-
-        response.payload = res.text
-        response.status = str(res.status_code)
-        return response
-
-    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
-
-    if str(res.status_code) == HttpStatus.UNAUTHORIZED:
-        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
-
-        response.payload = res.text
-        response.status = str(res.status_code)
-        return response
-
-    user_data = json_to_dict(res.text)
-
-    top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
-    top_bar_html = render_template(top_bar_html, {'username': user_data['username']})
-
-    footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
-
-    res = requests.get(ServiceUrl.SERVER + "/documentation.html")
 
     context = {'top_bar': top_bar_html, 'footer': footer_html}
     context.update(user_data)
