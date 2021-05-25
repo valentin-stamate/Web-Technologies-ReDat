@@ -14,6 +14,11 @@ function fetchUserTopics() {
             userRawTopics.push(...data);
 
             const userTopicsContainer = document.getElementsByClassName("user-preferences")[0];
+            if (userTopicsContainer === undefined) {
+                console.log("userTopicContainer is undefined");
+                return;
+            }
+
             userTopicsContainer.innerHTML = '';
 
             for (let i = 0; i < userRawTopics.length; i++) {
@@ -34,7 +39,14 @@ function fetchAllTopics() {
             allRawTopics.push(...data);
 
             const allTopicsContainer = document.getElementsByClassName("all-topics-container")[0];
+
+            if (allTopicsContainer === undefined) {
+                console.log("allTopicsContainer is undefined");
+                return;
+            }
+
             allTopicsContainer.innerHTML = '';
+
 
             for (let i = 0; i < allRawTopics.length; i++) {
                 const rawItem = allRawTopics[i];
@@ -85,13 +97,16 @@ function onDeleteTopic(e) {
 
     const target = e.target;
     const topicId = target.getAttribute('data-id');
+    const errorTextUserTopics = document.getElementById('error-text-user-topics');
 
     sendFetchRequest(DELETE_TOPIC_ENDPOINT, 'DELETE', {'token': getCookie(USER_AUTH_COOKIE), 'topic_id': topicId})
         .then(response => {
+            errorTextUserTopics.innerHTML = '';
+
             if (response.status === 200) {
                 refreshTopics();
             } else {
-                /* TODO failure */
+                errorTextUserTopics.innerHTML = `Error deleting topic`;
             }
             return response.json();
         });
@@ -102,13 +117,16 @@ function onAddTopic(e) {
 
     const target = e.target;
     const topicId = target.getAttribute('data-id');
+    const errorTextUserTopics = document.getElementById('error-text-user-topics');
 
     sendFetchRequest(ADD_TOPIC_ENDPOINT, 'POST', {'token': getCookie(USER_AUTH_COOKIE), 'topic_id': topicId})
         .then(response => {
+            errorTextUserTopics.innerHTML = '';
+
             if (response.status === 200) {
                 refreshTopics();
             } else {
-                /* TODO error */
+                errorTextUserTopics.innerHTML = 'Error adding topic';
             }
             return response.json();
         });

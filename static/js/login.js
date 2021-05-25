@@ -29,7 +29,6 @@ function onLogin(e) {
             } else {
                 errorTextElement.innerHTML = request.responseText;
             }
-            /* TODO else, display the errors */
         }
     }
 }
