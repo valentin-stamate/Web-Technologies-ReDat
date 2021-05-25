@@ -11,9 +11,9 @@
 <body>
 <header>
     <div class="banner">
-        <img src="/static/assets/scholarly-html.svg" width="227" height="50" alt="Scholarly HTML logo">
+        <img style="width: 100%" src="/static/assets/scholarly-html.svg" width="227" height="50" alt="Scholarly HTML logo">
     </div>
-    <h1>ReDat Raport - Scholarly HTML</h1>
+    <h1><project>ReDat</project> Raport - Scholarly HTML</h1>
 </header>
 
 <div role="contentinfo">
@@ -28,10 +28,13 @@
 <section typeof="sa:Abstract" id="abstract" role="doc-abstract">
     <h2>Abstract</h2>
     <p>
-        Acest document cuprinde aspectele tehnice si interactiunea cu utilizatorul, ale proiectului ReDat,
-        realizat in coloborare de
+        Acest document cuprinde aspectele tehnice si interactiunea cu utilizatorul, ale proiectului ReDat pentru
+        <web>Tehnologii Web</web>, realizat in coloborare de
         <a href="https://github.com/LaurentiuMihai112">Mihai Cristian-Laurentiu</a> si
         <a href="https://github.com/StamateValentin">Stamate Valentin</a> pentru Tehnologii Web (2021).
+        <br>
+        <br>
+        <infoiasi><i>Universitatea Alexandru Ioan Cuza din Iasi, Facultatea de Informatica</i></infoiasi>
     </p>
 </section>
 <!--1.Introduction-->
@@ -122,7 +125,7 @@
 <!--3.External Interface Requirements-->
 <section id="interfaces">
     <h2>Interfete externe</h2>
-    <section id="user interfaces">
+    <section id="user-interfaces">
         <h3>Interfata pentru utlizator</h3>
         <p>
             Aplicatia ofera o interfata moderna, placuta din punct de vedere vizual pentru a imbunatati
@@ -137,7 +140,7 @@
         </p>
     </section>
 
-    <section id="software interfaces">
+    <section id="software-interfaces">
         <h3>Interfete software</h3>
         <p>
             Aplicatia este in stansa legatura cu API-ul public oferit de Reddit. La fiecare request
@@ -169,12 +172,12 @@
         </p>
     </section>
 
-    <section id="communication interfaces">
+    <section id="communication-interfaces">
         <h3>Interfete de comunicare</h3>
         <p>
             Aplicatia este impartita in 4 microservitii dupa cum este ilustrat in diagrama de mai jos:
             <br>
-            <img class="rounded" src="/static/diagrams/microservice-diagram.svg" alt="">
+            <img src="/static/diagrams/microservice-diagram.svg" alt="">
             <br>
 
             <ul>
@@ -222,7 +225,7 @@
             Acest token este tinut intr-un cookie si folosit la randarea paginilor in mod direct, sau atunci cand se face un request de tip rest.
         </p>
     </section>
-    <section id="statistics API">
+    <section id="statistics-api">
         <h3>Interfata pentru statistici</h3>
         <p>
             Aplicatia ReDat monitorizeaza activitatea celor mai populare subreddit-uri asociate unui subiect de interes;
@@ -293,10 +296,23 @@
         </ul>
         </p>
     </section>
-
 </section>
+
+<section id="source-code">
+    <h2>Gestionarea Codului</h2>
+    <p>
+        Pentru genstionarea codului sursa a proiectului s-a folosit <a href="https://github.com" target="_blank">GitHub</a>.
+        Commiturile sunt realizate de ambii membrii ai echipei. Pentru ca fiecare membru a lucrat la feature-uri diferite,
+        nu a fost necesara folosirea de branch-uri multiple.
+    </p>
+    <p>
+        Codul sursa al proiectului va fi disponibil <a href="https://github.com/StamateValentin/ReDat" target="_blank">aici</a>
+        atunci cand va fi facut public.
+    </p>
+</section>
+
 <!--4.System Features-->
-<section id="System Features">
+<section id="system-features">
     <!-- review? -->
     <h2>Functionalitati</h2>
     <section id="login">
@@ -380,5 +396,35 @@
             ecranului.
         </p>
     </section>
+</section>
+
+<section id="performance">
+    <h2>Performance</h2>
+    <p>
+        Deoarece performanta este importanta, aplicatia a fost testata folosind <a href="https://web.dev/measure" target="_blank">Measure</a>
+        si a obtinut un scor mediu de peste 90. Un screenshot este atasat mai jos.
+
+        <img style="width: 100%" src="https://i.postimg.cc/j2stCtFK/performance.png" alt="">
+
+        Daca aplicatia este testata din nou, ea va trebui deschisa macar odata deoarece serverele sunt oprite din cauza
+        inactivitatii.
+    </p>
+</section>
+
+<section id="other-resources">
+    <h2>Resurse Principale</h2>
+    <ul>
+        <li>https://youtu.be/fe9t9DGPBuE - Creating A Backend Server Using Python</li>
+        <li>https://youtu.be/soGRyl9ztjI - JWT Authentication</li>
+        <li>https://youtu.be/mbsmsi7l3r4 - JWT Implementation</li>
+        <li>https://www.toptal.com/python/pythons-wsgi-server-application-interface</li>
+        <li>https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch</li>
+        <li>https://www.delftstack.com/howto/javascript/javascript-download</li>
+        <li>https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep</li>
+        <li>https://www.reddit.com/dev/api</li>
+        <li>https://dribbble.com/</li>
+    </ul>
+</section>
+
 </body>
 </html>
