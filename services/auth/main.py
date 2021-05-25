@@ -16,8 +16,6 @@ def app(environ, start_response):
 
     response = ResponseData()
 
-    print(path)
-
     response.headers = [ContentType.JSON]
     if path == "":
         response.payload = "Hello there. This is the auth service."

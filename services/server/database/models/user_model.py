@@ -22,6 +22,16 @@ class UserModel:
         encrypted_password = PasswordEncryption.encrypt_password(self.password, self.date_created)
         self.password = ''
 
+        db_user = UserModel.get_by_username(self.username)['object']
+
+        if db_user is not None:
+            return {'status': False, 'message': 'User already exists'}
+
+        db_user = UserModel.__get_user_by_key('email', f"'{self.email}'")['object']
+
+        if db_user is not None:
+            return {'status': False, 'message': 'Email already taken'}
+
         try:
             execute_sql(f"""INSERT INTO 
                 users(username, firstname, lastname, email, password, image_url, date_created) 
