@@ -31,6 +31,12 @@ def get_general_statistic():
 
 
 def get_upvote_ratio_statistic(topic):
+    try:
+        topics.index(topic)
+    except Exception:
+        print("ex")
+        return None
+
     f = open('static/stats/csv/upvote_ratio.csv', encoding='UTF8')
     csv_reader = csv.reader(f)
     line_nr = 0
@@ -46,7 +52,7 @@ def get_upvote_ratio_statistic(topic):
 
     plt.figure(figsize=(15, 8))
     fig, ax = plt.subplots()
-    ax.bar(time_ax, ratio, color='orange',width=5)
+    ax.bar(time_ax, ratio, color='orange', width=5)
     ax.set(xlabel='time (m)', ylabel='Upvote Ratio',
            title='Upvote ratio in the last hour in {topic}'.format(topic=topic))
     plt.savefig(file, format="svg")
@@ -55,6 +61,10 @@ def get_upvote_ratio_statistic(topic):
 
 
 def get_comments_statistic(topic):
+    try:
+        topics.index(topic)
+    except Exception:
+        return None
     f = open('static/stats/csv/comments.csv', encoding='UTF8')
     line_nr = 0
     csv_reader = csv.reader(f)
@@ -79,6 +89,10 @@ def get_comments_statistic(topic):
 
 
 def get_ups_downs_statistic(topic):
+    try:
+        topics.index(topic)
+    except Exception:
+        return None
     f = open('static/stats/csv/ups.csv', encoding='UTF8')
     csv_reader = csv.reader(f)
     line_nr = 0
@@ -117,6 +131,8 @@ def get_ups_downs_statistic(topic):
 
 
 def clean_svg(svg: str):
+    if svg is None:
+        return None
     svg = svg[2:len(svg) - 1:]
     svg = svg.replace("\\n", "")
     return svg

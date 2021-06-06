@@ -9,7 +9,6 @@ def app(environ, start_response):
     path = environ.get("PATH_INFO")
     if path.endswith("/"):
         path = path[:-1]
-    print(path)
     response = ResponseData()
 
     response.headers = [ContentType.JSON]
@@ -30,19 +29,37 @@ def app(environ, start_response):
         response.headers = [ContentType.SVG]
     elif path == '/api/statistic/upvote_ratio':
         body = json_to_dict(read_body(environ))
-        response.status = HttpStatus.OK
-        response.payload = clean_svg(str(get_upvote_ratio_statistic(body['topic'])))
-        response.headers = [ContentType.SVG]
+        image = get_upvote_ratio_statistic(body['topic'])
+        if image is None:
+            response.status = HttpStatus.BAD_REQUEST
+            response.headers = [ContentType.PLAIN]
+            response.payload = str('Topic does not exist')
+        else:
+            response.status = HttpStatus.OK
+            response.payload = clean_svg(str(image))
+            response.headers = [ContentType.SVG]
     elif path == '/api/statistic/comments':
         body = json_to_dict(read_body(environ))
-        response.status = HttpStatus.OK
-        response.payload = clean_svg(str(get_comments_statistic(body['topic'])))
-        response.headers = [ContentType.SVG]
+        image = get_comments_statistic(body['topic'])
+        if image is None:
+            response.status = HttpStatus.BAD_REQUEST
+            response.headers = [ContentType.PLAIN]
+            response.payload = str('Topic does not exist')
+        else:
+            response.status = HttpStatus.OK
+            response.payload = clean_svg(str(image))
+            response.headers = [ContentType.SVG]
     elif path == '/api/statistic/ups_downs':
         body = json_to_dict(read_body(environ))
-        response.status = HttpStatus.OK
-        response.payload = clean_svg(str(get_ups_downs_statistic(body['topic'])))
-        response.headers = [ContentType.SVG]
+        image = get_ups_downs_statistic(body['topic'])
+        if image is None:
+            response.status = HttpStatus.BAD_REQUEST
+            response.headers = [ContentType.PLAIN]
+            response.payload = str('Topic does not exist')
+        else:
+            response.status = HttpStatus.OK
+            response.payload = clean_svg(str(image))
+            response.headers = [ContentType.SVG]
     elif path == '/last_posts':
         body = json_to_dict(read_body(environ))
         response.status = HttpStatus.OK

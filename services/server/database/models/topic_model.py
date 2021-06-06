@@ -59,5 +59,16 @@ class TopicModel:
 
         return topics
 
+    @staticmethod
+    def get_all_topic_names():
+        topics = []
+
+        rows = execute_sql("SELECT name FROM topics")
+
+        for row in rows:
+            topics.append(row[0])
+
+        return topics
+
     def __str__(self):
         return f"Topic {self.topic_id, self.name}"

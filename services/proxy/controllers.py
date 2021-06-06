@@ -138,11 +138,11 @@ def statistic_general(environ) -> ResponseData:
 
 def up_vote_ratio(environ) -> ResponseData:
     response = ResponseData()
-    response.headers = [ContentType.SVG]
 
     body = json_to_dict(read_body(environ))
 
     res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/upvote_ratio", json=body)
+    response.headers = res.headers
 
     response.status = str(res.status_code)
     response.payload = res.text
@@ -238,8 +238,8 @@ def get_page(environ) -> ResponseData:
     elif path == "/topics":
         response = render_topics(environ)
     # Other pages that requires no other template or processing
-    if path == "/register" or path == "/login" or path == "/doc"\
-            or path == "/confirm_account" or path == "/api_documentation"\
+    if path == "/register" or path == "/login" or path == "/doc" \
+            or path == "/confirm_account" or path == "/api_documentation" \
             or path == "/how_to_use":
         response.payload = requests.get(ServiceUrl.SERVER + path + ".html").text
 
