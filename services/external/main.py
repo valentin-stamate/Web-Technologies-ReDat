@@ -9,7 +9,7 @@ def app(environ, start_response):
     path = environ.get("PATH_INFO")
     if path.endswith("/"):
         path = path[:-1]
-
+    print(path)
     response = ResponseData()
 
     response.headers = [ContentType.JSON]
@@ -43,7 +43,7 @@ def app(environ, start_response):
         response.status = HttpStatus.OK
         response.payload = clean_svg(str(get_ups_downs_statistic(body['topic'])))
         response.headers = [ContentType.SVG]
-    elif path == '/api/last_posts':
+    elif path == '/last_posts':
         body = json_to_dict(read_body(environ))
         response.status = HttpStatus.OK
         posts = get_hot_posts(body['topic'], limit=10)

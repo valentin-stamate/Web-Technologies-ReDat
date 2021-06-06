@@ -10,7 +10,7 @@ from util.util import read_body, json_to_dict, dict_to_json
 
 def last_posts(environ) -> ResponseData:
     response = ResponseData()
-    response.headers = [ContentType.SVG]
+    response.headers = [ContentType.JSON]
 
     body = json_to_dict(read_body(environ))
 
@@ -23,7 +23,7 @@ def last_posts(environ) -> ResponseData:
 
 def check_comments(environ) -> ResponseData:
     response = ResponseData()
-    response.headers = [ContentType.SVG]
+    response.headers = [ContentType.JSON]
 
     body = json_to_dict(read_body(environ))
 
@@ -36,7 +36,7 @@ def check_comments(environ) -> ResponseData:
 
 def csv_upvote_ratio(environ) -> ResponseData:
     response = ResponseData()
-    response.headers = [ContentType.SVG]
+    response.headers = [ContentType.PLAIN]
 
     body = json_to_dict(read_body(environ))
 
@@ -49,7 +49,7 @@ def csv_upvote_ratio(environ) -> ResponseData:
 
 def csv_comments(environ) -> ResponseData:
     response = ResponseData()
-    response.headers = [ContentType.SVG]
+    response.headers = [ContentType.PLAIN]
 
     body = json_to_dict(read_body(environ))
 
@@ -62,7 +62,7 @@ def csv_comments(environ) -> ResponseData:
 
 def csv_ups(environ) -> ResponseData:
     response = ResponseData()
-    response.headers = [ContentType.SVG]
+    response.headers = [ContentType.PLAIN]
 
     body = json_to_dict(read_body(environ))
 
@@ -75,7 +75,7 @@ def csv_ups(environ) -> ResponseData:
 
 def csv_downs(environ) -> ResponseData:
     response = ResponseData()
-    response.headers = [ContentType.SVG]
+    response.headers = [ContentType.PLAIN]
 
     body = json_to_dict(read_body(environ))
 
