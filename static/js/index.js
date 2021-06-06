@@ -35,7 +35,7 @@ async function fetchPosts(topics) {
                                       <div>
                                           <img style="width: 800px; height: auto;" class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${generalStatisticSVG}" alt="">
                                           <div class="statistics-item-buttons">
-                                              <button class="button primary" id="statistic-upvote" onclick="downloadSVG('general.svg', '${generalStatisticSVG}')">SVG</button>
+                                              <button class="button primary" id="statistic-upvote" onclick="downloadSVG('general', '${generalStatisticSVG}')">SVG</button>
                                           </div>
                                       </div>
                                       <div></div>`;
