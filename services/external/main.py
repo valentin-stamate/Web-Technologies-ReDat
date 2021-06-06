@@ -24,26 +24,26 @@ def app(environ, start_response):
             notification = 1
         response.payload = dict_to_json({'notifications': notification, 'comments_number': actual_com_nr})
         response.headers = [ContentType.JSON]
-    elif path == '/statistic/general':
+    elif path == '/api/statistic/general':
         response.status = HttpStatus.OK
         response.payload = (str(get_general_statistic()))
         response.headers = [ContentType.SVG]
-    elif path == '/statistic/upvote_ratio':
+    elif path == '/api/statistic/upvote_ratio':
         body = json_to_dict(read_body(environ))
         response.status = HttpStatus.OK
         response.payload = clean_svg(str(get_upvote_ratio_statistic(body['topic'])))
         response.headers = [ContentType.SVG]
-    elif path == '/statistic/comments':
+    elif path == '/api/statistic/comments':
         body = json_to_dict(read_body(environ))
         response.status = HttpStatus.OK
         response.payload = clean_svg(str(get_comments_statistic(body['topic'])))
         response.headers = [ContentType.SVG]
-    elif path == '/statistic/ups_downs':
+    elif path == '/api/statistic/ups_downs':
         body = json_to_dict(read_body(environ))
         response.status = HttpStatus.OK
         response.payload = clean_svg(str(get_ups_downs_statistic(body['topic'])))
         response.headers = [ContentType.SVG]
-    elif path == '/last_posts':
+    elif path == '/api/last_posts':
         body = json_to_dict(read_body(environ))
         response.status = HttpStatus.OK
         posts = get_hot_posts(body['topic'], limit=10)
@@ -57,23 +57,23 @@ def app(environ, start_response):
 
         response.payload = payload
         response.headers = [ContentType.JSON]
-    elif path == '/statistic/csv/comments':
+    elif path == '/api/statistic/csv/comments':
         response.status = HttpStatus.OK
         response.payload = get_csv_data('static/stats/csv/comments.csv')
         response.headers = [ContentType.PLAIN]
-    elif path == '/statistic/csv/ups':
+    elif path == '/api/statistic/csv/ups':
         response.status = HttpStatus.OK
         response.payload = get_csv_data('static/stats/csv/ups.csv')
         response.headers = [ContentType.PLAIN]
-    elif path == '/statistic/csv/downs':
+    elif path == '/api/statistic/csv/downs':
         response.status = HttpStatus.OK
         response.payload = get_csv_data('static/stats/csv/downs.csv')
         response.headers = [ContentType.PLAIN]
-    elif path == '/statistic/csv/upvote_ratio':
+    elif path == '/api/statistic/csv/upvote_ratio':
         response.status = HttpStatus.OK
         response.payload = get_csv_data('static/stats/csv/upvote_ratio.csv')
         response.headers = [ContentType.PLAIN]
-    elif path == '/statistic/topics':
+    elif path == '/api/statistic/topics':
         response.status = HttpStatus.OK
         response.payload = get_topics()
         response.headers = [ContentType.PLAIN]
