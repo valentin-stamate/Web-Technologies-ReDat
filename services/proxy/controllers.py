@@ -153,7 +153,7 @@ def all_topics(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.HTML]
 
-    res = requests.get(ServiceUrl.SERVER + "/api/all_topics")
+    res = requests.get(ServiceUrl.SERVER + "/all_topics")
 
     response.status = str(res.status_code)
     response.payload = res.text
