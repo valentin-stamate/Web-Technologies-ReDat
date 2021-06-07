@@ -38,3 +38,13 @@ img {
     font-size: 14px;
     margin: 16px 16px 16px 0;
 }
+
+button[disabled]{
+    background-color: var(--color-primary-disabled);
+    cursor: default;
+}
+
+button[disabled]:hover{
+    background-color: var(--color-primary-disabled);
+    cursor: default;
+}

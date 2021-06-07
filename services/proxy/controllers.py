@@ -233,6 +233,10 @@ def get_page(environ) -> ResponseData:
 
     if path == "/index":
         response = render_home(environ)
+    elif path == "/admin_users":
+        response = admin_render_users(environ)
+    elif path == "/admin_topics":
+        response = admin_render_topics(environ)
     elif path == "/profile":
         response = render_user_profile(environ)
     elif path == "/topics":
@@ -271,6 +275,62 @@ def render_topics(environ) -> ResponseData:
 
     response.payload = render_template(topics_page, {'username': user_data['username']})
 
+    return response
+
+
+def admin_render_users(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.HTML]
+
+    token = get_auth_token(environ)
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    if str(res.status_code) == HttpStatus.UNAUTHORIZED:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
+    user_data = json_to_dict(res.text)
+
+    res = requests.get(ServiceUrl.SERVER + "/admin_users.html")
+
+    top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
+    top_bar_html = render_template(top_bar_html, {'username': user_data['username']})
+
+    footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
+
+    response.payload = render_template(res.text, {'top_bar': top_bar_html, 'footer': footer_html})
+    return response
+
+
+def admin_render_topics(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.HTML]
+
+    token = get_auth_token(environ)
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    if str(res.status_code) == HttpStatus.UNAUTHORIZED:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
+    user_data = json_to_dict(res.text)
+
+    res = requests.get(ServiceUrl.SERVER + "/admin_topics.html")
+
+    top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
+    top_bar_html = render_template(top_bar_html, {'username': user_data['username']})
+
+    footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
+
+    response.payload = render_template(res.text, {'top_bar': top_bar_html, 'footer': footer_html})
     return response
 
 

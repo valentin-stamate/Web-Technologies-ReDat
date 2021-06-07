@@ -37,3 +37,9 @@
     font-size: 0.75rem;
     height: 2.5rem;
 }
+
+/* BUTTON INPUT */
+.button-input {
+    display: flex;
+    align-items: center;
+}
