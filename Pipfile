@@ -24,6 +24,6 @@ PyJWT = "==2.1.0"
 Cycler = "==0.10.0"
 
 [requires]
-python_version = "3.6"
+python_version = "3.8"
 
 [dev-packages]
