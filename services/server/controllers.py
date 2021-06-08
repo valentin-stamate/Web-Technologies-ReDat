@@ -8,6 +8,48 @@ from util.request.response_data import HttpStatus, ContentType
 from util.util import read_body, json_to_dict, dict_to_json, timestamp_to_str
 
 
+def make_user_admin(environ) -> ResponseData:
+    response = ResponseData()
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.JSON]
+
+    body = json_to_dict(read_body(environ))
+    username = body['username']
+
+    user = UserModel.get_by_username(username)['object']
+
+    if user is None:
+        response.status = HttpStatus.NOT_FOUND
+        return response
+
+    user.is_admin = True
+    user.update()
+
+    response.payload = dict_to_json({"message": "success"})
+
+    return response
+
+
+def remove_user_admin(environ) -> ResponseData:
+    response = ResponseData()
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.JSON]
+
+    body = json_to_dict(read_body(environ))
+    username = body['username']
+
+    user = UserModel.get_by_username(username)['object']
+
+    if user is None:
+        response.status = HttpStatus.NOT_FOUND
+        return response
+
+    user.is_admin = False
+    user.update()
+
+    return response
+
+
 def admin_add_topic(environ) -> ResponseData:
     response = ResponseData()
     response.status = HttpStatus.OK

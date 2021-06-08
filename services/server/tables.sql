@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR (255) NOT NULL UNIQUE ,
     password VARCHAR (255) NOT NULL,
     image_url VARCHAR(255) NOT NULL,
+    is_admin BOOLEAN DEFAULT FALSE,
     date_created TIMESTAMP NOT NULL,
     PRIMARY KEY (id)
 );
