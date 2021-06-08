@@ -35,10 +35,10 @@ class UserModel:
 
         try:
             execute_sql(f"""INSERT INTO 
-                users(username, firstname, lastname, email, password, image_url, date_created) 
+                users(username, firstname, lastname, email, password, image_url, is_admin, date_created) 
                 VALUES 
                 ('{self.username}', '{self.firstname}', '{self.lastname}', '{self.email}', 
-                '{encrypted_password}', '{self.image_url}', '{self.date_created}')""")
+                '{encrypted_password}', '{self.image_url}', {self.is_admin}, '{self.date_created}')""")
 
             print(f"User {self.username} saved")
         except Exception as e:

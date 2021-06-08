@@ -42,7 +42,7 @@ print("Table user_topics created successfully")
 
 def create_users():
     UserModel(username='ValentinSt', firstname='Valentin', lastname='Stamate', email='stamtevalentin125@gmail.com',
-              password='123456789').save()
+              password='123456789', is_admin=True).save()
 
     UserModel(username='Lorenzo', firstname='Iphone', lastname='Laurentiu', email='iphonelaurentiu@gmail.com',
               password='123456789').save()
