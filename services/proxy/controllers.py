@@ -8,6 +8,9 @@ from util.service_url import ServiceUrl
 from util.util import read_body, json_to_dict, dict_to_json
 
 
+admin_link = '<div><a href="/admin_users"><b>Admin</b></a></div>'
+
+
 def admin_get_user(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.JSON]
@@ -494,10 +497,26 @@ def admin_render_users(environ) -> ResponseData:
 
     user_data = json_to_dict(res.text)
 
+    res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
+    user_data = json_to_dict(res.text)
+
+    if not user_data['is_admin']:
+        response.status = HttpStatus.UNAUTHORIZED
+        response.payload = 'Unauthorized'
+        response.headers = [ContentType.HTML]
+        return response
+
     res = requests.get(ServiceUrl.SERVER + "/admin_users.html")
 
+    user_res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
+    user_data = json_to_dict(user_res.text)
+
+    admin = ''
+    if user_data['is_admin']:
+        admin = admin_link
+
     top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
-    top_bar_html = render_template(top_bar_html, {'username': user_data['username']})
+    top_bar_html = render_template(top_bar_html, {'username': user_data['username'], 'admin_link': admin})
 
     footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
 
@@ -522,10 +541,26 @@ def admin_render_topics(environ) -> ResponseData:
 
     user_data = json_to_dict(res.text)
 
+    res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
+    user_data = json_to_dict(res.text)
+
+    if not user_data['is_admin']:
+        response.status = HttpStatus.UNAUTHORIZED
+        response.payload = 'Unauthorized'
+        response.headers = [ContentType.HTML]
+        return response
+
     res = requests.get(ServiceUrl.SERVER + "/admin_topics.html")
 
+    user_res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
+    user_data = json_to_dict(user_res.text)
+
+    admin = ''
+    if user_data['is_admin']:
+        admin = admin_link
+
     top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
-    top_bar_html = render_template(top_bar_html, {'username': user_data['username']})
+    top_bar_html = render_template(top_bar_html, {'username': user_data['username'], 'admin_link': admin})
 
     footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
 
@@ -552,8 +587,15 @@ def render_home(environ) -> ResponseData:
 
     res = requests.get(ServiceUrl.SERVER + "/index.html")
 
+    user_res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
+    user_data = json_to_dict(user_res.text)
+
+    admin = ''
+    if user_data['is_admin']:
+        admin = admin_link
+
     top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
-    top_bar_html = render_template(top_bar_html, {'username': user_data['username']})
+    top_bar_html = render_template(top_bar_html, {'username': user_data['username'], 'admin_link': admin})
 
     footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
 
@@ -598,8 +640,15 @@ def render_user_profile(environ) -> ResponseData:
 
     user_data = json_to_dict(res.text)
 
+    user_res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
+    user_data = json_to_dict(user_res.text)
+
+    admin = ''
+    if user_data['is_admin']:
+        admin = admin_link
+
     top_bar_html = requests.get(ServiceUrl.SERVER + "/top_bar.html").text
-    top_bar_html = render_template(top_bar_html, {'username': user_data['username']})
+    top_bar_html = render_template(top_bar_html, {'username': user_data['username'], 'admin_link': admin})
 
     footer_html = requests.get(ServiceUrl.SERVER + "/footer.html").text
 
