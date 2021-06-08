@@ -89,6 +89,7 @@ def admin_get_user(environ) -> ResponseData:
 
     if user is None:
         response.status = HttpStatus.NOT_FOUND
+        response.payload = dict_to_json({"message": f"User {username} not found."})
         return response
 
     user.password = ''
@@ -114,6 +115,8 @@ def admin_remove_user(environ) -> ResponseData:
 
     UserTopicModel.delete_user_topics(user)
     user.delete()
+
+    response.payload = dict_to_json({"message": f"User {user.username} deleted."})
 
     return response
 

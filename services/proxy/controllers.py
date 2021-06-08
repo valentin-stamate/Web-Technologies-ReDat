@@ -8,6 +8,205 @@ from util.service_url import ServiceUrl
 from util.util import read_body, json_to_dict, dict_to_json
 
 
+def admin_get_user(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.JSON]
+    response.status = HttpStatus.OK
+
+    body = json_to_dict(read_body(environ))
+    token = body['token']
+    username = body['username']
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    if str(res.status_code) != HttpStatus.OK:
+        response.status = str(res.status_code)
+        response.payload = res.text
+        return response
+
+    user_data = json_to_dict(res.text)
+    res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
+    user_data = json_to_dict(res.text)
+
+    if not user_data['is_admin']:
+        response.status = HttpStatus.UNAUTHORIZED
+        response.payload = dict_to_json({"message": "Not allowed"})
+        return response
+
+    res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': username})
+
+    response.status = str(res.status_code)
+    response.payload = res.text
+
+    return response
+
+
+def admin_remove_user(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.JSON]
+    response.status = HttpStatus.OK
+
+    body = json_to_dict(read_body(environ))
+    token = body['token']
+    username = body['username']
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    if str(res.status_code) != HttpStatus.OK:
+        response.status = str(res.status_code)
+        response.payload = res.text
+        return response
+
+    user_data = json_to_dict(res.text)
+    res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
+    user_data = json_to_dict(res.text)
+
+    if not user_data['is_admin']:
+        response.status = HttpStatus.UNAUTHORIZED
+        response.payload = dict_to_json({"message": "Not allowed"})
+        return response
+
+    res = requests.post(ServiceUrl.SERVER + "/admin_remove_user", json={'username': username})
+
+    response.payload = res.text
+
+    return response
+
+
+def admin_add_topic(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.JSON]
+    response.status = HttpStatus.OK
+
+    body = json_to_dict(read_body(environ))
+    token = body['token']
+    topic = body['topic_name']
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    if str(res.status_code) != HttpStatus.OK:
+        response.status = str(res.status_code)
+        response.payload = res.text
+        return response
+
+    user_data = json_to_dict(res.text)
+    res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
+    user_data = json_to_dict(res.text)
+
+    if not user_data['is_admin']:
+        response.status = HttpStatus.UNAUTHORIZED
+        response.payload = dict_to_json({"message": "Not allowed"})
+        return response
+
+    res = requests.post(ServiceUrl.SERVER + "/admin_add_topic", json={'topic_name': topic})
+
+    response.payload = res.text
+    response.status = str(res.status_code)
+
+    return response
+
+
+def admin_remove_topic(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.JSON]
+    response.status = HttpStatus.OK
+
+    body = json_to_dict(read_body(environ))
+    token = body['token']
+    topic = body['topic_name']
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    if str(res.status_code) != HttpStatus.OK:
+        response.status = str(res.status_code)
+        response.payload = res.text
+        return response
+
+    user_data = json_to_dict(res.text)
+    res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
+    user_data = json_to_dict(res.text)
+
+    if not user_data['is_admin']:
+        response.status = HttpStatus.UNAUTHORIZED
+        response.payload = dict_to_json({"message": "Not allowed"})
+        return response
+
+    res = requests.post(ServiceUrl.SERVER + "/admin_remove_topic", json={'topic_name': topic})
+
+    response.payload = res.text
+    response.status = str(res.status_code)
+
+    return response
+
+
+def make_user_admin(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.JSON]
+    response.status = HttpStatus.OK
+
+    body = json_to_dict(read_body(environ))
+    token = body['token']
+    username = body['username']
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    if str(res.status_code) != HttpStatus.OK:
+        response.status = str(res.status_code)
+        response.payload = res.text
+        return response
+
+    user_data = json_to_dict(res.text)
+    res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
+    user_data = json_to_dict(res.text)
+
+    if not user_data['is_admin']:
+        response.status = HttpStatus.UNAUTHORIZED
+        response.payload = dict_to_json({"message": "Not allowed"})
+        return response
+
+    res = requests.post(ServiceUrl.SERVER + "/admin_add_admin", json={'username': username})
+
+    response.payload = res.text
+    response.status = str(res.status_code)
+
+    return response
+
+
+def remove_user_admin(environ) -> ResponseData:
+    response = ResponseData()
+    response.headers = [ContentType.JSON]
+    response.status = HttpStatus.OK
+
+    body = json_to_dict(read_body(environ))
+    token = body['token']
+    username = body['username']
+
+    res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
+
+    if str(res.status_code) != HttpStatus.OK:
+        response.status = str(res.status_code)
+        response.payload = res.text
+        return response
+
+    user_data = json_to_dict(res.text)
+    res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
+    user_data = json_to_dict(res.text)
+
+    if not user_data['is_admin']:
+        response.status = HttpStatus.UNAUTHORIZED
+        response.payload = dict_to_json({"message": "Not allowed"})
+        return response
+
+    res = requests.post(ServiceUrl.SERVER + "/admin_remove_admin", json={'username': username})
+
+    response.payload = res.text
+    response.status = str(res.status_code)
+
+    return response
+
+#
+
+
 def last_posts(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.JSON]
