@@ -31,8 +31,9 @@ class TopicModel:
 
     def delete(self) -> bool:
         try:
-            execute_sql(f"DELETE FROM topics WHERE name = {self.name}")
+            execute_sql(f"DELETE FROM topics WHERE name = '{self.name}'")
         except Exception as e:
+            print(e)
             return False
 
     # GETTERS

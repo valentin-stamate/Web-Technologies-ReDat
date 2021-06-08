@@ -19,3 +19,5 @@ export const ADMIN_SEARCH_USER = DEPLOY + "/admin_get_user";
 export const ADMIN_ADD_ADMIN = DEPLOY + "/admin_add_admin";
 export const ADMIN_REMOVE_ADMIN = DEPLOY + "/admin_remove_admin";
 export const ADMIN_REMOVE_USER = DEPLOY + "/admin_remove_user";
+export const ADMIN_REMOVE_TOPIC = DEPLOY + "/admin_remove_topic";
+export const ADMIN_ADD_TOPIC = DEPLOY + "/admin_add_topic";

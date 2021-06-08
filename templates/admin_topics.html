@@ -31,19 +31,15 @@
         <div class="admin-panel">
             <div class="input-component button-input">
                 <div>
-                    <input type="search" name="search" id="input-search-users" class="input-field" minlength="1" placeholder="Add Topic">
+                    <input type="text" name="topic-name" id="add-topic-input" class="input-field" minlength="1" placeholder="Add Topic">
                 </div>
                 <div>
-                    <button class="button primary">Add</button>
+                    <button class="button primary" id="topic-button">Add</button>
                 </div>
             </div>
 
             <div class="admin-user-list">
-                <div class="user-item">
-                    <div>Topic Name</div>
-                    <div class="flex-right"></div>
-                    <div><button class="button primary">Remove</button></div>
-                </div>
+
             </div>
 
         </div>
@@ -56,8 +52,8 @@
 
 <script src="/static/js/util/toggle_theme.js"></script>
 <script type="module" src="/static/js/top_bar_collapse.js"></script>
-<script type="module" src="/static/js/index.js"></script>
 <script src="/static/js/util/download_file.js"></script>
+<script type="module" src="/static/js/admin_topics.js"></script>
 <script src="https://kit.fontawesome.com/921ba4621c.js" crossorigin="anonymous"></script>
 </body>
 </html>

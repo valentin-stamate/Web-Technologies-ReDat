@@ -60,6 +60,8 @@ def admin_add_topic(environ) -> ResponseData:
     topic_model = TopicModel(body['topic_name'])
     topic_model.save()
 
+    response.payload = dict_to_json({'message': f"Topic {topic_model.name} saved."})
+
     return response
 
 
@@ -70,9 +72,11 @@ def admin_remove_topic(environ) -> ResponseData:
 
     body = json_to_dict(read_body(environ))
 
-    topic_model = TopicModel.get_by_name(body['name'])
+    topic_model = TopicModel.get_by_name(body['topic_name'])['object']
     UserTopicModel.delete_topic_from_users(topic_model)
     topic_model.delete()
+
+    response.payload = dict_to_json({'message': f"Topic {topic_model.name} deleted."})
 
     return response
 
