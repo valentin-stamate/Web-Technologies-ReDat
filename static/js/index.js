@@ -72,11 +72,11 @@ async function fetchPosts(topics) {
 
         let arrayStatistics = ``;
 
-        const upVoteRationSVG = await getUpVoteRationSVG(topicName);
+        const upVoteRatioSVG = await getUpVoteRatioSVG(topicName);
         const upVoteTemplate = `<div>
-                                    <img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${upVoteRationSVG}" alt="">
+                                    <img class="subreddits-container-statistics-item" src="data:image/svg+xml;base64,${upVoteRatioSVG}" alt="">
                                     <div class="statistics-item-buttons">
-                                        <button class="button primary" id="statistic-upvote" onclick="downloadSVG('${topicName}_upvote_ratio.svg', '${upVoteRationSVG}')">SVG</button>
+                                        <button class="button primary" id="statistic-upvote" onclick="downloadSVG('${topicName}_upvote_ratio.svg', '${upVoteRatioSVG}')">SVG</button>
                                         <button class="button primary" id="statistic-upvote" onclick="downloadCSVUpVoteRatio('${topicName}')">CSV</button>
                                     </div>
                                 </div>`;
@@ -187,7 +187,7 @@ async function getGeneralStatistic() {
     return window.btoa(statisticSVG);
 }
 
-async function getUpVoteRationSVG(topicName) {
+async function getUpVoteRatioSVG(topicName) {
     let statisticSVG = '';
     await sendFetchRequest(UPVOTE_RATIO_ENDPOINT, 'POST', {'topic': topicName})
             .then(result => result.text())

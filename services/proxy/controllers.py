@@ -7,7 +7,6 @@ from util.request.response_data import HttpStatus, ContentType
 from util.service_url import ServiceUrl
 from util.util import read_body, json_to_dict, dict_to_json
 
-
 admin_link = '<div><a href="/admin_users"><b>Admin</b></a></div>'
 
 
@@ -207,6 +206,7 @@ def remove_user_admin(environ) -> ResponseData:
 
     return response
 
+
 #
 
 
@@ -327,24 +327,24 @@ def statistic_comments(environ) -> ResponseData:
     return response
 
 
-def statistic_general(environ) -> ResponseData:
+def up_vote_ratio(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.SVG]
 
-    res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/general")
+    body = json_to_dict(read_body(environ))
+
+    res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/upvote_ratio", json=body)
 
     response.status = str(res.status_code)
     response.payload = res.text
     return response
 
 
-def up_vote_ratio(environ) -> ResponseData:
+def statistic_general(environ) -> ResponseData:
     response = ResponseData()
+    response.headers = [ContentType.SVG]
 
-    body = json_to_dict(read_body(environ))
-
-    res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/upvote_ratio", json=body)
-    response.headers = res.headers
+    res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/general")
 
     response.status = str(res.status_code)
     response.payload = res.text
