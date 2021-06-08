@@ -37,7 +37,7 @@ def general_up_votes_statistic():
 
 
 def comments_statistic():
-    comment_stats = [[0] * 6 for i in range(len(topics))]
+    comment_stats = [[0] * 6 for i in range(200)]
     while True:
         for topic in topics:
             try:
@@ -53,7 +53,7 @@ def comments_statistic():
 
 
 def upvote_ratio_statistic():
-    upvote_ratio_stats = [[0] * 6 for i in range(len(topics))]
+    upvote_ratio_stats = [[0] * 6 for i in range(200)]
     while True:
         for topic in topics:
             try:
@@ -69,8 +69,8 @@ def upvote_ratio_statistic():
 
 
 def ups_downs_statistic():
-    ups_stats = [[0] * 6 for i in range(len(topics))]
-    downs_stats = [[0] * 6 for i in range(len(topics))]
+    ups_stats = [[0] * 6 for i in range(200)]
+    downs_stats = [[0] * 6 for i in range(200)]
     while True:
         for topic in topics:
             try:

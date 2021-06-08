@@ -2,6 +2,7 @@ from services.server.database.models.topic_model import TopicModel
 from services.server.database.models.user_model import UserModel
 from services.server.database.models.user_topics_model import UserTopicModel
 from services.server.renderer import render_file
+from util.external.topics import update_topics
 from util.password_encryption import PasswordEncryption
 from util.response_data import ResponseData
 from util.request.response_data import HttpStatus, ContentType
@@ -61,7 +62,7 @@ def admin_add_topic(environ) -> ResponseData:
     topic_model.save()
 
     response.payload = dict_to_json({'message': f"Topic {topic_model.name} saved."})
-
+    update_topics()
     return response
 
 
@@ -77,7 +78,7 @@ def admin_remove_topic(environ) -> ResponseData:
     topic_model.delete()
 
     response.payload = dict_to_json({'message': f"Topic {topic_model.name} deleted."})
-
+    update_topics()
     return response
 
 
