@@ -8,6 +8,74 @@ from util.request.response_data import HttpStatus, ContentType
 from util.util import read_body, json_to_dict, dict_to_json, timestamp_to_str
 
 
+def admin_add_topic(environ) -> ResponseData:
+    response = ResponseData()
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.JSON]
+
+    body = json_to_dict(read_body(environ))
+
+    topic_model = TopicModel(body['topic_name'])
+    topic_model.save()
+
+    return response
+
+
+def admin_remove_topic(environ) -> ResponseData:
+    response = ResponseData()
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.JSON]
+
+    body = json_to_dict(read_body(environ))
+
+    topic_model = TopicModel.get_by_name(body['name'])
+    UserTopicModel.delete_topic_from_users(topic_model)
+    topic_model.delete()
+
+    return response
+
+
+def admin_get_user(environ) -> ResponseData:
+    response = ResponseData()
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.JSON]
+
+    body = json_to_dict(read_body(environ))
+    username = body['username']
+
+    user = UserModel.get_by_username(username)['object']
+
+    if user is None:
+        response.status = HttpStatus.NOT_FOUND
+        return response
+
+    user.password = ''
+    user.date_created = ''
+    response.payload = dict_to_json(user.__dict__)
+
+    return response
+
+
+def admin_remove_user(environ) -> ResponseData:
+    response = ResponseData()
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.JSON]
+
+    body = json_to_dict(read_body(environ))
+    username = body['username']
+
+    user = UserModel.get_by_username(username)['object']
+
+    if user is None:
+        response.status = HttpStatus.NOT_FOUND
+        return response
+
+    UserTopicModel.delete_user_topics(user)
+    user.delete()
+
+    return response
+
+
 def update_user(environ) -> ResponseData:
     response = ResponseData()
     response.status = HttpStatus.OK

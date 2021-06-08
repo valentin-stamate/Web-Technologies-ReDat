@@ -57,6 +57,13 @@ class UserModel:
 
         return {'status': True, 'message': 'User updated successfully'}
 
+    def delete(self) -> bool:
+        try:
+            execute_sql(f"DELETE FROM users WHERE id = {self.user_id}")
+            return True
+        except Exception as e:
+            return False
+
     # AUTHENTICATION
     def login(self) -> dict:
 

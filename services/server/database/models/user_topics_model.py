@@ -32,6 +32,14 @@ class UserTopicModel:
             print(e)
             return False
 
+    @staticmethod
+    def delete_topic_from_users(topic_model: TopicModel) -> bool:
+        try:
+            execute_sql(f"DELETE FROM user_topics WHERE topic_id = {topic_model.topic_id}")
+            return True
+        except Exception as e:
+            return False
+
     # GETTERS
 
     @staticmethod
@@ -46,5 +54,11 @@ class UserTopicModel:
 
         return topics
 
+    @staticmethod
+    def delete_user_topics(user_model: UserModel) -> bool:
+        execute_sql(f"DELETE FROM user_topics WHERE user_id = {user_model.user_id}")
+        return True
+
     def __str__(self):
         return f"User Topic {self.user_model.username} -> {self.topic_model.name}"
+

@@ -1,6 +1,6 @@
 import os
 
-from services.server.controllers import get_file
+from services.server.controllers import get_file, admin_get_user, admin_remove_user
 from services.server.controllers import user_data, register_user, check_user, user_topics, all_topics, \
     delete_user_topic, add_user_topic, update_user
 from util.pages import pages
@@ -44,6 +44,14 @@ def app(environ, start_response):
         response = delete_user_topic(environ)
     elif path == "/add_user_topic":
         response = add_user_topic(environ)
+    elif path == "/admin_get_user":
+        response = admin_get_user(environ)
+    elif path == "/admin_remove_user":
+        response = admin_remove_user(environ)
+    elif path == "/admin_add_topic":
+        response = admin_add_topic(environ)
+    elif path == "/admin_remove_topic":
+        response = admin_remove_topic(environ)
     else:
         response.payload = "Not found"
         response.headers = [ContentType.HTML]

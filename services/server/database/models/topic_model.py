@@ -17,7 +17,6 @@ class TopicModel:
 
     # CRUD OPERATIONS
     def save(self):
-
         try:
             execute_sql(f"""INSERT INTO topics(name, url) VALUES ('{self.name}', '{self.url}')""")
 
@@ -29,6 +28,12 @@ class TopicModel:
         self.fetch_topic()
 
         return {'status': True, 'message': 'Topic created successfully'}
+
+    def delete(self) -> bool:
+        try:
+            execute_sql(f"DELETE FROM topics WHERE name = {self.name}")
+        except Exception as e:
+            return False
 
     # GETTERS
     @staticmethod
