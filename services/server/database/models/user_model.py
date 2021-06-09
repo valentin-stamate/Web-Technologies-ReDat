@@ -1,6 +1,6 @@
 from services.server.database.connection.connection import execute_sql
 from util.password_encryption import PasswordEncryption
-from util.util import current_timestamp
+from util.util import current_timestamp, strip_string
 from util.validation.validation import valid_username, valid_name, valid_email, valid_password
 
 
@@ -9,12 +9,12 @@ class UserModel:
                  password='123456789', user_id=0, image_url='https://i.postimg.cc/RF11Kn7j/default.png',
                  date_created=current_timestamp(), is_admin=False):
         self.user_id = user_id
-        self.username = username
-        self.firstname = firstname
-        self.lastname = lastname
-        self.email = email
+        self.username = strip_string(username)
+        self.firstname = strip_string(firstname)
+        self.lastname = strip_string(lastname)
+        self.email = strip_string(email)
         self.password = password
-        self.image_url = image_url
+        self.image_url = strip_string(image_url)
         self.is_admin = is_admin
         self.date_created = date_created
 

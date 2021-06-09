@@ -31,3 +31,8 @@ def read_body(environ) -> str:
 
 def timestamp_to_str(timestamp) -> str:
     return timestamp.strftime("%m/%d/%Y, %H:%M:%S")
+
+
+def strip_string(string) -> str:
+    return string.replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;")
+
