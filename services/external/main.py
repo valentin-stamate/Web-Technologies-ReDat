@@ -3,6 +3,8 @@ from services.external.reddit_api.reddit_data import get_hot_posts
 from util.request.response_data import ContentType, HttpStatus
 from util.response_data import ResponseData
 from util.util import json_to_dict, read_body, dict_to_json
+import urllib.parse as urlparse
+from urllib.parse import parse_qs
 
 
 def app(environ, start_response):
@@ -27,7 +29,7 @@ def app(environ, start_response):
         response.status = HttpStatus.OK
         response.payload = (str(get_general_statistic()))
         response.headers = [ContentType.SVG]
-    elif path == '/api/statistic/upvote_ratio':
+    elif path == '/statistic/upvote_ratio':
         body = json_to_dict(read_body(environ))
         image = get_upvote_ratio_statistic(body['topic'])
         if image is None:
@@ -38,7 +40,7 @@ def app(environ, start_response):
             response.status = HttpStatus.OK
             response.payload = clean_svg(str(image))
             response.headers = [ContentType.SVG]
-    elif path == '/api/statistic/comments':
+    elif path == '/statistic/comments':
         body = json_to_dict(read_body(environ))
         image = get_comments_statistic(body['topic'])
         if image is None:
@@ -49,7 +51,7 @@ def app(environ, start_response):
             response.status = HttpStatus.OK
             response.payload = clean_svg(str(image))
             response.headers = [ContentType.SVG]
-    elif path == '/api/statistic/ups_downs':
+    elif path == '/statistic/ups_downs':
         body = json_to_dict(read_body(environ))
         image = get_ups_downs_statistic(body['topic'])
         if image is None:
@@ -94,6 +96,39 @@ def app(environ, start_response):
         response.status = HttpStatus.OK
         response.payload = get_topics()
         response.headers = [ContentType.PLAIN]
+    elif path.startswith('/api/statistic/upvote_ratio') & environ['QUERY_STRING'].startswith('topic'):
+        topic = environ['QUERY_STRING'][6:]
+        image = get_upvote_ratio_statistic(topic)
+        if image is None:
+            response.status = HttpStatus.BAD_REQUEST
+            response.headers = [ContentType.PLAIN]
+            response.payload = str('Topic does not exist')
+        else:
+            response.status = HttpStatus.OK
+            response.payload = clean_svg(str(image))
+            response.headers = [ContentType.SVG]
+    elif path.startswith('/api/statistic/comments') & environ['QUERY_STRING'].startswith('topic'):
+        topic = environ['QUERY_STRING'][6:]
+        image = get_comments_statistic(topic)
+        if image is None:
+            response.status = HttpStatus.BAD_REQUEST
+            response.headers = [ContentType.PLAIN]
+            response.payload = str('Topic does not exist')
+        else:
+            response.status = HttpStatus.OK
+            response.payload = clean_svg(str(image))
+            response.headers = [ContentType.SVG]
+    elif path.startswith('/api/statistic/ups_downs') & environ['QUERY_STRING'].startswith('topic'):
+        topic = environ['QUERY_STRING'][6:]
+        image = get_ups_downs_statistic(topic)
+        if image is None:
+            response.status = HttpStatus.BAD_REQUEST
+            response.headers = [ContentType.PLAIN]
+            response.payload = str('Topic does not exist')
+        else:
+            response.status = HttpStatus.OK
+            response.payload = clean_svg(str(image))
+            response.headers = [ContentType.SVG]
     else:
         response.status = HttpStatus.NOT_FOUND
         response.payload = "Page not found."
