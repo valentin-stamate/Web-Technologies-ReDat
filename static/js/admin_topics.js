@@ -43,7 +43,7 @@ async function refreshTopics() {
     }
 }
 
-await refreshTopics();
+refreshTopics().then();
 
 async function removeTopic(topicName) {
     await sendFetchRequest(ADMIN_REMOVE_TOPIC, 'POST', {'token': getCookie(USER_AUTH_COOKIE), 'topic_name': topicName})
