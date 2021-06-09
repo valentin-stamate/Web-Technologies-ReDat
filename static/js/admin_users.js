@@ -7,6 +7,7 @@ import {
     UPDATE_USER_ENDPOINT
 } from "./endpoints.js";
 import {getCookie, USER_AUTH_COOKIE} from "./util/cookie.js";
+import {parseHTML} from "./util/util.js";
 
 const searchUserButton = document.getElementById('search-user-button');
 const searchUserInput = document.getElementById('input-search-user');
@@ -20,29 +21,40 @@ searchUserButton.addEventListener('click', async function () {
 });
 
 async function searchUser(text) {
-    const request = await sendFetchRequest(ADMIN_SEARCH_USER, 'POST', {'token': getCookie(USER_AUTH_COOKIE), 'username': text});
+    const request = await sendFetchRequest(ADMIN_SEARCH_USER, 'POST', {'token': getCookie(USER_AUTH_COOKIE), 'pattern': text});
 
     let payload = {};
     await request.json().then(data => payload = data);
 
+    usersContainer.innerHTML = '';
+    errorTextElement.innerHTML = '';
+
     if (request.status !== 200) {
         errorTextElement.innerHTML = payload.message;
     } else {
-        const userListItem = `
-                <div class="user-item">
-                    <div>${payload.username}</div>
-                    <div class="flex-right"></div>
-                    <div><button id="make-admin-button" class="button primary">${payload.is_admin ? "Remove Admin" : "Make Admin"}</button></div>
-                    <div><button id="remove-button" class="button primary">Remove</button></div>
-                </div>`;
 
-        usersContainer.innerHTML = userListItem;
+        for (let i = 0; i < payload.length; i++) {
+            const userData = payload[i];
 
-        const adminButton = document.getElementById('make-admin-button');
-        const removeButton = document.getElementById('remove-button');
+            const userListItem = `
+                    <div class="user-item">
+                        <div>${userData.username}</div>
+                        <div class="flex-right"></div>
+                        <div><button id="make-admin-button-${i}" class="button primary">${userData.is_admin ? "Remove Admin" : "Make Admin"}</button></div>
+                        <div><button id="remove-button-${i}" class="button primary">Remove</button></div>
+                    </div>`;
 
-        adminButton.addEventListener('click', () => {makeAdmin(payload.username, payload.is_admin)});
-        removeButton.addEventListener('click', () => {removeUser(payload.username)});
+            const userItem = parseHTML(userListItem);
+
+            usersContainer.append(userItem);
+
+            const adminButton = document.getElementById('make-admin-button-' + i);
+            const removeButton = document.getElementById('remove-button-' + i);
+
+            adminButton.addEventListener('click', () => {makeAdmin(userData.username, userData.is_admin)});
+            removeButton.addEventListener('click', () => {removeUser(userData.username)});
+        }
+
     }
 }
 
@@ -53,11 +65,13 @@ async function makeAdmin(username, isAdmin) {
         await sendFetchRequest(ADMIN_REMOVE_ADMIN, 'POST', {'token': getCookie(USER_AUTH_COOKIE), 'username': username});
     }
 
-    await searchUser(username);
+    const pattern = searchUserInput.value;
+    await searchUser(pattern);
 }
 
 async function removeUser(username) {
     await sendFetchRequest(ADMIN_REMOVE_USER, 'POST', {'token': getCookie(USER_AUTH_COOKIE), 'username': username});
 
-    usersContainer.innerHTML = "";
+    const pattern = searchUserInput.value;
+    await searchUser(pattern);
 }

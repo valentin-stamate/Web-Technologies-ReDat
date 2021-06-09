@@ -10,14 +10,14 @@ from util.util import read_body, json_to_dict, dict_to_json
 admin_link = '<div><a href="/admin_users"><b>Admin</b></a></div>'
 
 
-def admin_get_user(environ) -> ResponseData:
+def admin_get_users(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.JSON]
     response.status = HttpStatus.OK
 
     body = json_to_dict(read_body(environ))
     token = body['token']
-    username = body['username']
+    pattern = body['pattern']
 
     res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
 
@@ -44,7 +44,7 @@ def admin_get_user(environ) -> ResponseData:
         response.payload = dict_to_json({"message": "Not allowed"})
         return response
 
-    res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': username})
+    res = requests.post(ServiceUrl.SERVER + "/admin_get_users", json={'pattern': pattern})
 
     response.status = str(res.status_code)
     response.payload = res.text

@@ -9,6 +9,30 @@ from util.request.response_data import HttpStatus, ContentType
 from util.util import read_body, json_to_dict, dict_to_json, timestamp_to_str
 
 
+def admin_get_users(environ) -> ResponseData:
+    response = ResponseData()
+    response.status = HttpStatus.OK
+    response.headers = [ContentType.JSON]
+
+    body = json_to_dict(read_body(environ))
+    pattern = body['pattern']
+
+    users: [UserModel] = UserModel.get_by_username_regex(pattern)
+
+    payload = '['
+
+    for user in users:
+        user.password = ''
+        user.date_created = ''
+        payload += dict_to_json(user.__dict__) + ','
+    payload += ']'
+    payload = payload.replace(",]", "]")
+
+    response.payload = payload
+
+    return response
+
+
 def make_user_admin(environ) -> ResponseData:
     response = ResponseData()
     response.status = HttpStatus.OK
@@ -88,6 +112,7 @@ def admin_get_user(environ) -> ResponseData:
     response.headers = [ContentType.JSON]
 
     body = json_to_dict(read_body(environ))
+    print(body)
     username = body['username']
 
     user = UserModel.get_by_username(username)['object']

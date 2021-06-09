@@ -113,6 +113,23 @@ class UserModel:
         return UserModel.__get_user_by_key("username", f"'{username}'")
 
     @staticmethod
+    def get_by_username_regex(pattern) -> ['UserModel']:
+        users = []
+        try:
+            rows = execute_sql(f"SELECT * FROM users WHERE LOWER(username) LIKE LOWER('%{pattern}%') ORDER BY username")
+
+            for row in rows:
+                user = UserModel(user_id=row[0], username=row[1], firstname=row[2], lastname=row[3],
+                                 email=row[4], password=row[5], image_url=row[6], is_admin=row[7], date_created=row[8])
+                users.append(user)
+
+        except IndexError as e:
+            print(e)
+
+        return users
+
+
+    @staticmethod
     def get_by_id(user_id) -> {}:
         return UserModel.__get_user_by_key("id", f"{user_id}")
 

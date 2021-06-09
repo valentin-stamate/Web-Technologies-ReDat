@@ -2,7 +2,7 @@ import requests
 
 from services.proxy.controllers import get_page, get_static_resource, auth_user, register_user, user_delete_topic, \
     all_topics, user_topics, user_add_topic, up_vote_ratio, statistic_general, statistic_comments, statistic_ups_downs, \
-    statistic_downs, csv_upvote_ratio, csv_comments, csv_ups, csv_downs, check_comments, last_posts, admin_get_user, \
+    statistic_downs, csv_upvote_ratio, csv_comments, csv_ups, csv_downs, check_comments, last_posts, admin_get_users, \
     admin_remove_user, admin_add_topic, admin_remove_topic, make_user_admin, remove_user_admin
 from util.pages import paths
 from util.request.response_data import HttpStatus, ContentType
@@ -70,8 +70,8 @@ def app(environ, start_response):
         response = check_comments(environ)
     elif path == "/last_posts":
         response = last_posts(environ)
-    elif path == "/admin_get_user":
-        response = admin_get_user(environ)
+    elif path == "/admin_get_users":
+        response = admin_get_users(environ)
     elif path == "/admin_remove_user":
         response = admin_remove_user(environ)
     elif path == "/admin_add_topic":
