@@ -4,7 +4,7 @@ from services.auth.jwt_util import jwt_check, jwt_decode, jwt_encode
 from util.instance.user_jwt_data import UserJWTData
 from util.request.response_data import ContentType, HttpStatus
 from util.response_data import ResponseData
-from util.service_url import ServiceUrl
+from secrets import ServiceUrl
 from util.util import json_to_dict, read_body, dict_to_json
 
 

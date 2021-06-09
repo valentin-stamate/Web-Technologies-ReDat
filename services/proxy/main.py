@@ -7,7 +7,7 @@ from services.proxy.controllers import get_page, get_static_resource, auth_user,
 from util.pages import paths
 from util.request.response_data import HttpStatus, ContentType
 from util.response_data import ResponseData
-from util.service_url import ServiceUrl
+from secrets import ServiceUrl
 from util.util import json_to_dict, read_body
 
 

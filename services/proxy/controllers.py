@@ -4,7 +4,7 @@ from services.proxy.template_formatter import render_template
 from util.request.content_type import content_type
 from util.response_data import ResponseData
 from util.request.response_data import HttpStatus, ContentType
-from util.service_url import ServiceUrl
+from secrets import ServiceUrl
 from util.util import read_body, json_to_dict, dict_to_json
 
 admin_link = '<div><a href="/admin_users"><b>Admin</b></a></div>'
