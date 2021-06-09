@@ -1,7 +1,7 @@
 import os
 
 from services.server.controllers import get_file, admin_get_user, admin_remove_user, admin_add_topic, \
-    admin_remove_topic, make_user_admin, remove_user_admin
+    admin_remove_topic, make_user_admin, remove_user_admin, admin_get_users
 from services.server.controllers import user_data, register_user, check_user, user_topics, all_topics, \
     delete_user_topic, add_user_topic, update_user
 from util.pages import pages
@@ -47,6 +47,8 @@ def app(environ, start_response):
         response = add_user_topic(environ)
     elif path == "/admin_get_user":
         response = admin_get_user(environ)
+    elif path == "/admin_get_users":
+        response = admin_get_users(environ)
     elif path == "/admin_remove_user":
         response = admin_remove_user(environ)
     elif path == "/admin_add_topic":
