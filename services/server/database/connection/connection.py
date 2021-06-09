@@ -1,8 +1,9 @@
 import psycopg2
+from secrets import DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT
 
 
 def execute_sql(sql: str, parameters=()):
-    connection = psycopg2.connect(database='redat', user='postgres', password='postgres', host='127.0.0.1', port='5432')
+    connection = psycopg2.connect(database=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT)
     cursor = connection.cursor()
 
     cursor.execute(sql, parameters)

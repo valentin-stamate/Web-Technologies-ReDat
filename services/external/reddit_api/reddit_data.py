@@ -1,7 +1,7 @@
 import pandas
 import requests
 
-from services.external.reddit_api.secrets import REDDIT_USERNAME, REDDIT_PASSWORD, CLIENT_ID, SECRET_KEY
+from secrets import REDDIT_USERNAME, REDDIT_PASSWORD, CLIENT_ID, SECRET_KEY
 
 
 # note that CLIENT_ID refers to 'personal use script' and SECRET_TOKEN to 'token'

@@ -2,7 +2,7 @@ import jwt
 from jwt import InvalidSignatureError
 
 from util.instance.user_jwt_data import UserJWTData
-from services.auth.secrets import *
+from secrets import JWT_SECRET_KEY, JWT_ALGORITHM
 
 
 def jwt_encode(payload: UserJWTData) -> str:
