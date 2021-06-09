@@ -19,6 +19,11 @@ def admin_get_users(environ) -> ResponseData:
 
     users: [UserModel] = UserModel.get_by_username_regex(pattern)
 
+    if len(users) == 0:
+        response.status = HttpStatus.NOT_FOUND
+        response.payload = dict_to_json({'message': 'No users found'})
+        return response
+
     payload = '['
 
     for user in users:
@@ -112,7 +117,6 @@ def admin_get_user(environ) -> ResponseData:
     response.headers = [ContentType.JSON]
 
     body = json_to_dict(read_body(environ))
-    print(body)
     username = body['username']
 
     user = UserModel.get_by_username(username)['object']

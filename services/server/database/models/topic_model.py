@@ -12,13 +12,17 @@ class TopicModel:
     def fetch_topic(self):
         db_topic = TopicModel.get_by_name(self.name)['object']
 
+        if db_topic is None:
+            print(self.name + " is null")
+            return
+
         self.topic_id = db_topic.topic_id
         self.name = db_topic.name
 
     # CRUD OPERATIONS
     def save(self):
         try:
-            execute_sql(f"""INSERT INTO topics(name, url) VALUES ('{self.name}', '{self.url}')""")
+            execute_sql("INSERT INTO topics(name, url) VALUES (%s, %s)", (self.name, self.url))
 
             print(f"Topic {self.name} saved")
         except Exception as e:
@@ -31,7 +35,7 @@ class TopicModel:
 
     def delete(self) -> bool:
         try:
-            execute_sql(f"DELETE FROM topics WHERE name = '{self.name}'")
+            execute_sql("DELETE FROM topics WHERE name = %s", (self.name,))
         except Exception as e:
             print(e)
             return False
@@ -48,7 +52,7 @@ class TopicModel:
     @staticmethod
     def __get_topic_by_key(key, value):
         try:
-            row = execute_sql(f"SELECT * FROM topics WHERE {key} = {value}")[0]
+            row = execute_sql(f"SELECT * FROM topics WHERE {key} = %s", (value,))[0]
             topic = TopicModel(topic_id=row[0], name=row[1])
             return {'object': topic, 'message': 'Success'}
         except IndexError:

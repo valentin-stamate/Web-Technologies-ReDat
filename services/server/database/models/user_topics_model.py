@@ -13,8 +13,8 @@ class UserTopicModel:
     # CRUD OPERATIONS
     def save(self):
         try:
-            execute_sql(f"""INSERT INTO user_topics(user_id, topic_id) 
-            VALUES ({self.user_model.user_id}, {self.topic_model.topic_id})""")
+            execute_sql("INSERT INTO user_topics(user_id, topic_id) "
+                        "VALUES (%s, %s)", (self.user_model.user_id, self.topic_model.topic_id))
 
             print(f"User Topic {self.user_model.username} -> {self.topic_model.name} saved")
         except Exception as e:
@@ -25,8 +25,8 @@ class UserTopicModel:
 
     def delete(self) -> bool:
         try:
-            execute_sql(f'''DELETE FROM user_topics WHERE 
-                            user_id = {self.user_model.user_id} AND topic_id = {self.topic_model.topic_id}''')
+            execute_sql("DELETE FROM user_topics WHERE user_id = %s AND topic_id = %s",
+                        (self.user_model.user_id, self.topic_model.topic_id,))
             return True
         except Exception as e:
             print(e)
@@ -35,7 +35,7 @@ class UserTopicModel:
     @staticmethod
     def delete_topic_from_users(topic_model: TopicModel) -> bool:
         try:
-            execute_sql(f"DELETE FROM user_topics WHERE topic_id = {topic_model.topic_id}")
+            execute_sql("DELETE FROM user_topics WHERE topic_id = %s", (topic_model.topic_id,))
             return True
         except Exception as e:
             return False
@@ -46,8 +46,8 @@ class UserTopicModel:
     def get_all(user_model: UserModel) -> typing.List['TopicModel']:
         topics = []
 
-        rows = execute_sql(f"SELECT t.id, t.name FROM topics t JOIN user_topics ut "
-                           f"ON t.id = ut.topic_id AND user_id = {user_model.user_id}")
+        rows = execute_sql("SELECT t.id, t.name FROM topics t JOIN user_topics ut ON t.id = ut.topic_id AND "
+                           "user_id = %s", (user_model.user_id,))
 
         for row in rows:
             topics.append(TopicModel(topic_id=row[0], name=row[1]))
@@ -56,7 +56,7 @@ class UserTopicModel:
 
     @staticmethod
     def delete_user_topics(user_model: UserModel) -> bool:
-        execute_sql(f"DELETE FROM user_topics WHERE user_id = {user_model.user_id}")
+        execute_sql(f"DELETE FROM user_topics WHERE user_id = %s", (user_model.user_id,))
         return True
 
     def __str__(self):

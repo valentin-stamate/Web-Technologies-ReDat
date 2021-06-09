@@ -15,7 +15,13 @@ def admin_get_users(environ) -> ResponseData:
     response.headers = [ContentType.JSON]
     response.status = HttpStatus.OK
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
+
     token = body['token']
     pattern = body['pattern']
 
@@ -57,7 +63,13 @@ def admin_remove_user(environ) -> ResponseData:
     response.headers = [ContentType.JSON]
     response.status = HttpStatus.OK
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
+
     token = body['token']
     username = body['username']
 
@@ -98,7 +110,13 @@ def admin_add_topic(environ) -> ResponseData:
     response.headers = [ContentType.JSON]
     response.status = HttpStatus.OK
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
+
     token = body['token']
     topic = body['topic_name']
 
@@ -140,7 +158,13 @@ def admin_remove_topic(environ) -> ResponseData:
     response.headers = [ContentType.JSON]
     response.status = HttpStatus.OK
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
+
     token = body['token']
     topic = body['topic_name']
 
@@ -182,7 +206,13 @@ def make_user_admin(environ) -> ResponseData:
     response.headers = [ContentType.JSON]
     response.status = HttpStatus.OK
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
+
     token = body['token']
     username = body['username']
 
@@ -224,7 +254,13 @@ def remove_user_admin(environ) -> ResponseData:
     response.headers = [ContentType.JSON]
     response.status = HttpStatus.OK
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
+
     token = body['token']
     username = body['username']
 
@@ -268,7 +304,12 @@ def last_posts(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.JSON]
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
 
     res = requests.get(ServiceUrl.EXTERNAL + "/last_posts", json=body)
 
@@ -281,7 +322,12 @@ def check_comments(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.JSON]
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
 
     res = requests.get(ServiceUrl.EXTERNAL + "/check_new", json=body)
 
@@ -294,7 +340,12 @@ def csv_upvote_ratio(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.PLAIN]
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
 
     res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/csv/upvote_ratio", json=body)
 
@@ -307,7 +358,12 @@ def csv_comments(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.PLAIN]
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
 
     res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/csv/comments", json=body)
 
@@ -320,7 +376,12 @@ def csv_ups(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.PLAIN]
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
 
     res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/csv/ups", json=body)
 
@@ -333,7 +394,12 @@ def csv_downs(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.PLAIN]
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
 
     res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/csv/downs", json=body)
 
@@ -346,7 +412,12 @@ def statistic_downs(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.SVG]
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
 
     res = requests.get(ServiceUrl.EXTERNAL + "/statistic/downs", json=body)
 
@@ -359,7 +430,12 @@ def statistic_ups_downs(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.SVG]
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
 
     res = requests.get(ServiceUrl.EXTERNAL + "/statistic/ups_downs", json=body)
 
@@ -372,7 +448,12 @@ def statistic_comments(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.SVG]
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
 
     res = requests.get(ServiceUrl.EXTERNAL + "/statistic/comments", json=body)
 
@@ -385,7 +466,12 @@ def up_vote_ratio(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.SVG]
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
 
     res = requests.get(ServiceUrl.EXTERNAL + "/statistic/upvote_ratio", json=body)
 
@@ -421,7 +507,12 @@ def user_topics(environ) -> ResponseData:
     response.headers = [ContentType.HTML]
     response.status = HttpStatus.OK
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
 
     res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': body['token']})
     user_data = json_to_dict(res.text)
@@ -447,7 +538,13 @@ def user_add_topic(environ) -> ResponseData:
     response.headers = [ContentType.JSON]
     response.status = HttpStatus.OK
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
+
     token = body['token']
 
     res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
@@ -479,7 +576,13 @@ def user_delete_topic(environ) -> ResponseData:
     response.headers = [ContentType.JSON]
     response.status = HttpStatus.OK
 
-    body = json_to_dict(read_body(environ))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
+
     token = body['token']
 
     res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
@@ -726,7 +829,14 @@ def register_user(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.JSON]
 
-    res = requests.post(ServiceUrl.AUTH + "/register_user", json=json_to_dict(read_body(environ)))
+    try:
+        body = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
+
+    res = requests.post(ServiceUrl.AUTH + "/register_user", json=body)
 
     response.payload = res.text
     response.status = str(res.status_code)
@@ -813,7 +923,12 @@ def auth_user(environ) -> ResponseData:
     response = ResponseData()
     response.headers = [ContentType.JSON]
 
-    body_dict = json_to_dict(read_body(environ))
+    try:
+        body_dict = json_to_dict(read_body(environ))
+    except Exception as e:
+        response.status = HttpStatus.BAD_REQUEST
+        response.payload = dict_to_json({"message": "Ha, don't try to hack me ;)"})
+        return response
 
     res = requests.post(ServiceUrl.AUTH + "/auth_user", json=body_dict)
 

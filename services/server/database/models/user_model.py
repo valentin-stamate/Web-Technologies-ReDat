@@ -34,11 +34,11 @@ class UserModel:
             return {'status': False, 'message': 'Email already taken'}
 
         try:
-            execute_sql(f"""INSERT INTO 
-                users(username, firstname, lastname, email, password, image_url, is_admin, date_created) 
-                VALUES 
-                ('{self.username}', '{self.firstname}', '{self.lastname}', '{self.email}', 
-                '{encrypted_password}', '{self.image_url}', {self.is_admin}, '{self.date_created}')""")
+            execute_sql("INSERT INTO "
+                        "users(username, firstname, lastname, email, password, image_url, is_admin, date_created) "
+                        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                        (self.username, self.firstname, self.lastname, self.email, encrypted_password, self.image_url,
+                         self.is_admin, self.date_created,))
 
             print(f"User {self.username} saved")
         except Exception as e:
@@ -54,16 +54,16 @@ class UserModel:
             return {'status': False, 'message': 'User should be logged first'}
 
         execute_sql(
-            f"UPDATE users SET username = '{self.username}', firstname = '{self.firstname}', image_url = "
-            f"'{self.image_url}', lastname = '{self.lastname}', password = '{self.password}', email = '{self.email}', "
-            f"is_admin = {self.is_admin} "
-            f"WHERE id = {self.user_id}")
+            "UPDATE users SET username = %s, firstname = %s, image_url = %s, lastname = %s, "
+            "password = %s, email = %s, is_admin = %s "
+            "WHERE id = %s", (self.username, self.firstname, self.image_url,
+                              self.lastname, self.password, self.email, self.is_admin, self.user_id))
 
         return {'status': True, 'message': 'User updated successfully'}
 
     def delete(self) -> bool:
         try:
-            execute_sql(f"DELETE FROM users WHERE id = {self.user_id}")
+            execute_sql(f"DELETE FROM users WHERE id = %s", (self.user_id,))
             return True
         except Exception as e:
             return False
@@ -115,8 +115,10 @@ class UserModel:
     @staticmethod
     def get_by_username_regex(pattern) -> ['UserModel']:
         users = []
+        pattern = "%" + pattern + "%"
         try:
-            rows = execute_sql(f"SELECT * FROM users WHERE LOWER(username) LIKE LOWER('%{pattern}%') ORDER BY username")
+            rows = execute_sql("SELECT * FROM users WHERE LOWER(username) LIKE LOWER(%s) ORDER BY username",
+                               (pattern,))
 
             for row in rows:
                 user = UserModel(user_id=row[0], username=row[1], firstname=row[2], lastname=row[3],
