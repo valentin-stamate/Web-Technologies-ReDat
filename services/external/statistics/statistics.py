@@ -61,6 +61,7 @@ def upvote_ratio_statistic():
                 for post in res:
                     upvote_ratio_stats[topics.index(topic)][5] += post['data']['upvote_ratio']
                 upvote_ratio_stats[topics.index(topic)][5] /= len(res)
+                upvote_ratio_stats[topics.index(topic)][5] = round(upvote_ratio_stats[topics.index(topic)][5], 2)
             except Exception:
                 print(topic)
         write_to_csv('static/stats/csv/upvote_ratio.csv', upvote_ratio_stats)

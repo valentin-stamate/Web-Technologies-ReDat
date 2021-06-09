@@ -3,8 +3,6 @@ from services.external.reddit_api.reddit_data import get_hot_posts
 from util.request.response_data import ContentType, HttpStatus
 from util.response_data import ResponseData
 from util.util import json_to_dict, read_body, dict_to_json
-import urllib.parse as urlparse
-from urllib.parse import parse_qs
 
 
 def app(environ, start_response):

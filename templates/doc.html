@@ -238,59 +238,57 @@
             disponibile in aplicatie.
         <h5>Upvotes</h5>
         <p>
-            Acestea pot fi accesate prin endpoint-ul <b>/statistic/csv/ups</b> folosind un request de tip GET. Interfata
+            Acestea pot fi accesate prin endpoint-ul <b>/api/statistic/csv/ups</b> folosind un request de tip GET. Interfata
             ofera informatiile de tip csv, sub forma de text. Coloanele oferite sunt Topic (subiectul de interes
             monitorizat), 60 min, 50 min,..., 10 min care reprezinta situatia voturilor pozitive pentru ultimele 1000 de
-            postari in urma cu 10 min, 20 min, ș.a.m.d. .
+            postari in urma cu 10 min, 20 min, etc.
         </p>
         <h5>Downvotes</h5>
         <p>
-            Acestea pot fi accesate prin endpoint-ul <b>/statistic/csv/downs</b> folosind un request de tip GET.
+            Acestea pot fi accesate prin endpoint-ul <b>/api/statistic/csv/downs</b> folosind un request de tip GET.
             Interfata ofera informatiile de tip csv, sub forma de text. Coloanele oferite sunt Topic (subiectul de
             interes monitorizat), 60 min, 50 min,..., 10 min care reprezinta situatia voturilor negative pentru ultimele
-            1000 de postari in urma cu 10 min, 20 min, ș.a.m.d. .
+            1000 de postari in urma cu 10 min, 20 min, etc.
         </p>
         <h5>Upvote ratio</h5>
         <p>
-            Acesta poate fi accesata prin endpoint-ul <b>/statistic/csv/upvote_ratio</b> folosind un request de tip GET.
+            Acesta poate fi accesata prin endpoint-ul <b>/api/statistic/csv/upvote_ratio</b> folosind un request de tip GET.
             Interfata ofera informatiile de tip csv, sub forma de text. Coloanele oferite sunt Topic (subiectul de
             interes monitorizat), 60 min, 50 min,..., 10 min care reprezinta situatia ratiei dintre voturi pentru
-            ultimele 1000 de postari in urma cu 10 min, 20 min, ș.a.m.d. .
+            ultimele 1000 de postari in urma cu 10 min, 20 min, etc.
         </p>
         <h5>Comments</h5>
         <p>
-            Acestea pot fi accesate prin endpoint-ul <b>/statistic/csv/comments</b> folosind un request de tip GET.
+            Acestea pot fi accesate prin endpoint-ul <b>/api/statistic/csv/comments</b> folosind un request de tip GET.
             Interfata ofera informatiile de tip csv, sub forma de text. Coloanele oferite sunt Topic (subiectul de
             interes monitorizat), 60 min, 50 min,..., 10 min care reprezinta situatia comentariilor pentru ultimele 1000
-            de postari, in urma cu 10 min, 20 min, ș.a.m.d. .
+            de postari, in urma cu 10 min, 20 min, etc.
         </p>
         </p>
         <h4> Statistici tip SVG</h4>
         <p>
             Aceste statistici ofera datele din fisierele csv mentionate anterior sub forma unor grafice in foramt svg.
-            Ele pot fi accesate printr-un request de tip get cu urmatorul obiect JSON {"topic":"Desired Topic" } in
-            corpul (body) request-ului. Toate subiectele de interes pentru care pot fi preluate statistici pot fi vazute
-            fie in statisticile csv fie printr-un request de tip get la endpoint-ul <b></b> Statisticile pot fi accesate
+            Ele pot fi accesate printr-un request de tip get cu parametrul "topic" avand valoarea dorita. Toate subiectele 
+            de interes pentru care pot fi preluate statistici pot fi vazute
+            fie in statisticile csv fie printr-un request de tip get la endpoint-ul <b>/api/statistic/topics</b> Statisticile pot fi accesate
             prin urmatoarele endpoint-uri:
         <ul>
             <li>
-                <b>/statistic/ups_downs</b> pentru un grafic despre situatia din ultima ora a like-urilor si
+                <b>/api/statistic/ups_downs</b> pentru un grafic despre situatia din ultima ora a like-urilor si
                 dislike-urilor
                 pentru ultimele 1000 de postari asociate topicului mentionat.
             </li>
             <li>
-                <b>/statistic/comments</b> pentru un grafic despre situatia din ultima ora a comentariilor
+                <b>/api/statistic/comments</b> pentru un grafic despre situatia din ultima ora a comentariilor
                 pentru ultimele 1000 de postari asociate topicului mentionat.
             </li>
             <li>
-                <b>/statistic/upvote_ratio</b> pentru un grafic despre situatia din ultima ora a ratiei dintre voturi
+                <b>/api/statistic/upvote_ratio</b> pentru un grafic despre situatia din ultima ora a ratiei dintre voturi
                 pentru ultimele 1000 de postari asociate topicului mentionat.
             </li>
             <li>
-                <b>/statistic/general</b> pentru un grafic despre situatia generala a subiectelor de interes ( Cele mai
-                populare 10 , in functie de numarul de voturi din utlima ora). Request-ul la acest endpoint nu necesita
-                un
-                corp (body)
+                <b>/api/statistic/general</b> pentru un grafic despre situatia generala a subiectelor de interes ( Cele mai
+                populare 10 , in functie de numarul de voturi din utlima ora). Acest request nu necesita parametru
             </li>
 
         </ul>

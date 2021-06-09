@@ -6,4 +6,10 @@ __pycache__
 .vscode/
 /secret_var/
 *secrets.py
-/static/stats/
+/static/stats/comments/
+/static/stats/ups_downs/
+/static/stats/upvote_ratio/
+/static/stats/csv/comments.csv
+/static/stats/csv/downs.csv
+/static/stats/csv/ups.csv
+/static/stats/csv/upvote_ratio.csv
