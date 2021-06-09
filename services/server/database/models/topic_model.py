@@ -58,7 +58,7 @@ class TopicModel:
     def get_all() -> typing.List['TopicModel']:
         topics = []
 
-        rows = execute_sql("SELECT * FROM topics")
+        rows = execute_sql("SELECT * FROM topics ORDER BY name")
 
         for row in rows:
             topics.append(TopicModel(topic_id=row[0], name=row[1]))

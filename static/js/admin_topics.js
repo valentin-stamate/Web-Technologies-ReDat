@@ -32,6 +32,7 @@ async function refreshTopics() {
                 <div class="user-item">
                     <div>${topic.name}</div>
                     <div class="flex-right"></div>
+                    <a href="${topic.url}" target="_blank"><button class="button primary">Link</button></a>
                     <div><button class="button primary" id="remove-topic-button-${i}">Remove</button></div>
                 </div>`
 
@@ -51,11 +52,7 @@ async function removeTopic(topicName) {
 }
 
 async function addTopic(topicName) {
-    const response = await sendFetchRequest(ADMIN_ADD_TOPIC, 'POST', {'token': getCookie(USER_AUTH_COOKIE), 'topic_name': topicName})
-
-    response.json().then(data => {
-        console.log(data);
-    })
+    await sendFetchRequest(ADMIN_ADD_TOPIC, 'POST', {'token': getCookie(USER_AUTH_COOKIE), 'topic_name': topicName})
 
     await refreshTopics();
 }
