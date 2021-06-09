@@ -74,7 +74,7 @@ class UserModel:
         db_user = UserModel.get_by_username(self.username)['object']
 
         if db_user is None:
-            return {'status': False, 'message': "User doesn't exist"}
+            return {'status': False, 'message': "Invalid credentials"}
 
         if db_user.password == PasswordEncryption.encrypt_password(self.password, db_user.date_created):
             self.user_id = db_user.user_id
@@ -86,7 +86,7 @@ class UserModel:
             self.date_created = db_user.date_created
             return {'status': True, 'message': 'Login success'}
 
-        return {'status': False, 'message': 'Incorrect password'}
+        return {'status': False, 'message': 'Invalid credentials'}
 
     # VALIDATION
     def is_valid(self):

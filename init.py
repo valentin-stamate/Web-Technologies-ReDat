@@ -44,7 +44,7 @@ def create_users():
     UserModel(username='ValentinSt', firstname='Valentin', lastname='Stamate', email='stamtevalentin125@gmail.com',
               password='123456789', is_admin=True).save()
 
-    UserModel(username='Lorenzo', firstname='Iphone', lastname='Laurentiu', email='iphonelaurentiu@gmail.com',
+    UserModel(username='Lorenzo112', firstname='Iphone', lastname='Laurentiu', email='iphonelaurentiu@gmail.com',
               password='123456789').save()
 
 
