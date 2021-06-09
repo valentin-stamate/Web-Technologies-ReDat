@@ -348,7 +348,7 @@ def statistic_downs(environ) -> ResponseData:
 
     body = json_to_dict(read_body(environ))
 
-    res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/downs", json=body)
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/downs", json=body)
 
     response.status = str(res.status_code)
     response.payload = res.text
@@ -361,7 +361,7 @@ def statistic_ups_downs(environ) -> ResponseData:
 
     body = json_to_dict(read_body(environ))
 
-    res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/ups_downs", json=body)
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/ups_downs", json=body)
 
     response.status = str(res.status_code)
     response.payload = res.text
@@ -374,7 +374,7 @@ def statistic_comments(environ) -> ResponseData:
 
     body = json_to_dict(read_body(environ))
 
-    res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/comments", json=body)
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/comments", json=body)
 
     response.status = str(res.status_code)
     response.payload = res.text
@@ -387,7 +387,7 @@ def up_vote_ratio(environ) -> ResponseData:
 
     body = json_to_dict(read_body(environ))
 
-    res = requests.get(ServiceUrl.EXTERNAL + "/api/statistic/upvote_ratio", json=body)
+    res = requests.get(ServiceUrl.EXTERNAL + "/statistic/upvote_ratio", json=body)
 
     response.status = str(res.status_code)
     response.payload = res.text

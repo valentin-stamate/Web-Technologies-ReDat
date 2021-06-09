@@ -149,7 +149,10 @@ def get_csv_data(path):
     data = data[:len(data) - 1:]
     data += "\n"
     for line in csv_reader:
-        data += topics[index] + ','
+        try:
+            data += topics[index] + ','
+        except Exception:
+            break
         index += 1
         for value in line:
             data += value + ','
