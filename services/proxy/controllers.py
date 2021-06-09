@@ -30,6 +30,15 @@ def admin_get_user(environ) -> ResponseData:
     res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
     user_data = json_to_dict(res.text)
 
+    try:
+        user_data['is_admin']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
     if not user_data['is_admin']:
         response.status = HttpStatus.UNAUTHORIZED
         response.payload = dict_to_json({"message": "Not allowed"})
@@ -63,6 +72,15 @@ def admin_remove_user(environ) -> ResponseData:
     res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
     user_data = json_to_dict(res.text)
 
+    try:
+        user_data['is_admin']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
     if not user_data['is_admin']:
         response.status = HttpStatus.UNAUTHORIZED
         response.payload = dict_to_json({"message": "Not allowed"})
@@ -94,6 +112,15 @@ def admin_add_topic(environ) -> ResponseData:
     user_data = json_to_dict(res.text)
     res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
     user_data = json_to_dict(res.text)
+
+    try:
+        user_data['is_admin']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
 
     if not user_data['is_admin']:
         response.status = HttpStatus.UNAUTHORIZED
@@ -128,6 +155,15 @@ def admin_remove_topic(environ) -> ResponseData:
     res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
     user_data = json_to_dict(res.text)
 
+    try:
+        user_data['is_admin']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
     if not user_data['is_admin']:
         response.status = HttpStatus.UNAUTHORIZED
         response.payload = dict_to_json({"message": "Not allowed"})
@@ -161,6 +197,15 @@ def make_user_admin(environ) -> ResponseData:
     res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
     user_data = json_to_dict(res.text)
 
+    try:
+        user_data['is_admin']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
     if not user_data['is_admin']:
         response.status = HttpStatus.UNAUTHORIZED
         response.payload = dict_to_json({"message": "Not allowed"})
@@ -193,6 +238,15 @@ def remove_user_admin(environ) -> ResponseData:
     user_data = json_to_dict(res.text)
     res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
     user_data = json_to_dict(res.text)
+
+    try:
+        user_data['is_admin']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
 
     if not user_data['is_admin']:
         response.status = HttpStatus.UNAUTHORIZED
@@ -371,6 +425,16 @@ def user_topics(environ) -> ResponseData:
 
     res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': body['token']})
     user_data = json_to_dict(res.text)
+
+    try:
+        user_data['user_id']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
     res = requests.get(ServiceUrl.SERVER + "/user_topics", json={'id': user_data['user_id']})
 
     response.payload = res.text
@@ -389,6 +453,15 @@ def user_add_topic(environ) -> ResponseData:
     res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
 
     user_data = json_to_dict(res.text)
+
+    try:
+        user_data['user_id']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
 
     user_id = user_data['user_id']
     topic_id = body['topic_id']
@@ -412,6 +485,15 @@ def user_delete_topic(environ) -> ResponseData:
     res = requests.post(ServiceUrl.AUTH + "/check_user_auth", headers={'Authorization': token})
 
     user_data = json_to_dict(res.text)
+
+    try:
+        user_data['user_id']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
 
     user_id = user_data['user_id']
     topic_id = body['topic_id']
@@ -473,6 +555,15 @@ def render_topics(environ) -> ResponseData:
 
     user_data = json_to_dict(res.text)
 
+    try:
+        user_data['username']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
     topics_page = requests.get(ServiceUrl.SERVER + "/topics.html").text
 
     response.payload = render_template(topics_page, {'username': user_data['username']})
@@ -500,6 +591,15 @@ def admin_render_users(environ) -> ResponseData:
     res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
     user_data = json_to_dict(res.text)
 
+    try:
+        user_data['is_admin']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
     if not user_data['is_admin']:
         response.status = HttpStatus.UNAUTHORIZED
         response.payload = 'Unauthorized'
@@ -512,6 +612,16 @@ def admin_render_users(environ) -> ResponseData:
     user_data = json_to_dict(user_res.text)
 
     admin = ''
+
+    try:
+        user_data['is_admin']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
     if user_data['is_admin']:
         admin = admin_link
 
@@ -590,6 +700,15 @@ def render_home(environ) -> ResponseData:
     user_res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
     user_data = json_to_dict(user_res.text)
 
+    try:
+        user_data['is_admin']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
+
     admin = ''
     if user_data['is_admin']:
         admin = admin_link
@@ -642,6 +761,15 @@ def render_user_profile(environ) -> ResponseData:
 
     user_res = requests.post(ServiceUrl.SERVER + "/admin_get_user", json={'username': user_data['username']})
     user_data = json_to_dict(user_res.text)
+
+    try:
+        user_data['is_admin']
+    except Exception as e:
+        res = requests.post(ServiceUrl.SERVER + "/redirect.html")
+
+        response.payload = res.text
+        response.status = str(res.status_code)
+        return response
 
     admin = ''
     if user_data['is_admin']:
