@@ -52,10 +52,11 @@ class TopicModel:
     @staticmethod
     def __get_topic_by_key(key, value):
         try:
-            row = execute_sql(f"SELECT * FROM topics WHERE {key} = %s", (value,))[0]
+            row = execute_sql(f"SELECT * FROM topics WHERE {key} = {value}")[0]
             topic = TopicModel(topic_id=row[0], name=row[1])
             return {'object': topic, 'message': 'Success'}
-        except IndexError:
+        except IndexError as e:
+            print(e)
             return {'object': None, 'message': f"Topic with key:{key} and value:{value} not found"}
 
     @staticmethod

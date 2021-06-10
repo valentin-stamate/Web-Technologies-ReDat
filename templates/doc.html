@@ -309,6 +309,25 @@
     </p>
 </section>
 
+<section>
+    <h2>Securitate</h2>
+    <section>
+        <h2>SQL Injection</h2>
+        <p>
+            Site-ul previne atacurile de tipul SQL-Injection. Utilizatorul nu este lasat sa introduca la caractere speciale precum '
+            verificarea facandu-se la nivel de server. Astfel nu se va putea rula cod SQL in baza de date atunci cand un utilizator
+            este este creat sau orice alta interactiune in care o noua inregistrarea este adaugata/modificata in baza de date.
+        </p>
+    </section>
+    <section>
+        <h2>Cross Site Scripting</h2>
+        <p>
+            De asemenea, un alt nivel de securitate este adaugat si anume Cross Site Scripting. Preventia acestuia se face parsand caracterele
+            speciale html: <, >, " dezactivand astfel orice script javascript.
+        </p>
+    </section>
+</section>
+
 <!--4.System Features-->
 <section id="system-features">
     <!-- review? -->
@@ -393,6 +412,17 @@
             cand layout-ul ajunge la o latime minima, el se restructureaza pastrand astfel latimea paginii cu cea a
             ecranului.
         </p>
+    </section>
+
+    <section>
+        <h2>Pagina Administratorului</h2>
+        <section>
+            <p>
+                Pagina administratorului are menirea de a putea modifica parti importante ale site-ului cum ar fi:
+                utilizatorii si topicele. Un administrator este un utilizator obisnui decorat cu acest rol. El are
+                capacitatea de a crea/sterge alti utilizatori administratori dar si adaugarea/stergerea de topice.
+            </p>
+        </section>
     </section>
 </section>
 
