@@ -95,7 +95,7 @@
 			"response": []
 		},
 		{
-			"name": "[Proxy] Update user",
+			"name": "[Proxy] Update User",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
