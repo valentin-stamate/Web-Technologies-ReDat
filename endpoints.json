@@ -1,0 +1,577 @@
+{
+	"info": {
+		"_postman_id": "de44bf22-81c5-4cb4-a829-e9a45073fb95",
+		"name": "ReDat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"ValentinSt\",\n    \"password\": \"123456789\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{deploy}}/get_user_auth",
+					"host": [
+						"{{deploy}}"
+					],
+					"path": [
+						"get_user_auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Proxy] Add User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Server URL}}/index.html",
+					"host": [
+						"{{Server URL}}"
+					],
+					"path": [
+						"index.html"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Proxy] Home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Proxy URL}}/register",
+					"host": [
+						"{{Proxy URL}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Proxy] Login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"Lorenzo\",\n    \"password\": \"123456789\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Proxy URL}}/auth_user",
+					"host": [
+						"{{Proxy URL}}"
+					],
+					"path": [
+						"auth_user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Proxy] Update user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlZhbGVudGluU3QiLCJlbWFpbCI6InN0YW10ZXZhbGVudGluMTI1QGdtYWlsLmNvbSJ9.XREys2cLDnqIjePsS04PQMJxt0n2JwN6Ubcv_YhkB5E",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"new\"\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/update_user",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"update_user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[External] Statistics SVG General",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://redat-external.herokuapp.com/api/statistic/general",
+					"protocol": "https",
+					"host": [
+						"redat-external",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"statistic",
+						"general"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[External] Statistics CSV UpVote Ratio",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"topic\":\"AddictionSupport\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8002/api/statistic/csv/upvote_ratio",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"statistic",
+						"csv",
+						"upvote_ratio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[external] Statistic CSV Comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:8002/api/statistic/csv/comments",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"statistic",
+						"csv",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[External] Statistics CSV Ups",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"topic\":\"AddictionSupport\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8002/api/statistic/csv/ups",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"statistic",
+						"csv",
+						"ups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[External] Statistics CSV Downs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"topic\":\"AddictionSupport\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8002/api/statistic/csv/downs",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"statistic",
+						"csv",
+						"downs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[External] Statistics SVG UpVote Ratio Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://redat-external.herokuapp.com/api/statistic/upvote_ratio?topic=WorldNews",
+					"protocol": "https",
+					"host": [
+						"redat-external",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"statistic",
+						"upvote_ratio"
+					],
+					"query": [
+						{
+							"key": "topic",
+							"value": "WorldNews"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[External] Statistics SVG Comments",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://redat-external.herokuapp.com/api/statistic/comments?topic=AskReddit",
+					"protocol": "https",
+					"host": [
+						"redat-external",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"statistic",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "topic",
+							"value": "AskReddit"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[External] Statistics SVG Ups - Downs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://redat-external.herokuapp.com/api/statistic/ups_downs?topic=Anime",
+					"protocol": "https",
+					"host": [
+						"redat-external",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"statistic",
+						"ups_downs"
+					],
+					"query": [
+						{
+							"key": "topic",
+							"value": "Anime"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[external] Statistic topics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://redat-external.herokuapp.com/api/statistic/topics",
+					"protocol": "https",
+					"host": [
+						"redat-external",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"statistic",
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SERVER ADMIN] Get User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"Lorenzo\",\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlZhbGVudGluU3QiLCJlbWFpbCI6InN0YW10ZXZhbGVudGluMTI1QGdtYWlsLmNvbSJ9.XREys2cLDnqIjePsS04PQMJxt0n2JwN6Ubcv_YhkB5E\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8003/admin_get_user",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8003",
+					"path": [
+						"admin_get_user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SERVER] Delete User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlZhbGVudGluU3QiLCJlbWFpbCI6InN0YW10ZXZhbGVudGluMTI1QGdtYWlsLmNvbSJ9.XREys2cLDnqIjePsS04PQMJxt0n2JwN6Ubcv_YhkB5E\",\n    \"username\": \"Lorenzo\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/admin_remove_user",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"admin_remove_user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SERVER] Make Admin Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"ValentinSt\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8003/make_user_admin",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8003",
+					"path": [
+						"make_user_admin"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Server URL",
+			"value": ""
+		},
+		{
+			"key": "Auth URL",
+			"value": ""
+		},
+		{
+			"key": "Proxy URL",
+			"value": "0.0.0.0:8000"
+		}
+	]
+}
