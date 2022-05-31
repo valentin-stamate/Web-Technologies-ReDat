@@ -20,7 +20,7 @@ requests = "==2.25.1"
 six = "==1.16.0"
 urllib3 = "==1.26.4"
 Pillow = "==8.2.0"
-PyJWT = "==2.1.0"
+PyJWT = "==2.4.0"
 Cycler = "==0.10.0"
 
 [requires]
